@@ -31,3 +31,7 @@ lint = "pycodestyle folder1 folder2 ..."
 ```
 pipenv run lint
 ```
+
+Usar pyside.
+pyside-uic convierte un archivo ui a .py
+C:\Python311\Scripts\pyside6-uic.exe .\pyside_test.ui -o "pyside.py" -x
