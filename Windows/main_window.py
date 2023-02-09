@@ -39,20 +39,20 @@ class MainWindow(QMainWindow):
         
         ## Menu bar
         menu_bar = self.menuBar()
-#
-        #file_menu = menu_bar.addMenu("File")
-        #quit_action = menu_bar.addAction("Salir")
-        #quit_action.triggered.connect(self.button_close)
-#
+
+        file_menu = menu_bar.addMenu("File")
+        quit_action = menu_bar.addAction("Salir")
+        quit_action.triggered.connect(self.button_close)
+
         #budget = menu_bar.addAction("Presupuestos") 
         #budget.triggered.connect(self.button_budget)   
-#
+
         #invoice = menu_bar.addAction("Facturas")   
         #invoice.triggered.connect(self.button_invoice)
-#
+
         #clients = menu_bar.addAction("Clientes")
         #clients.triggered.connect(self.button_clients)
-#
+
         #help = menu_bar.addAction("Ayuda")
         #help.triggered.connect(self.button_help)
 
@@ -60,21 +60,21 @@ class MainWindow(QMainWindow):
         #toolbar = QToolBar("My main toolbar")  
         #toolbar.setIconSize(QSize(16, 16))
         #self.addToolBar(toolbar)
-#
+
         ##Add the quit action to the toolbar
         ##toolbar.addAction(quit_action)
-#
+
         #action1 = QAction("Some Action", self)
         #action1.setStatusTip("Status message for some action")
         #action1.triggered.connect(self.toolbar_button_click)
         #toolbar.addAction(action1)
-#
+
         #action2 = QAction("Some other action", self)
         #action2.setStatusTip("Status message for some other action")
         #action2.triggered.connect(self.toolbar_button_click)
         ##action2.setCheckable(True)
         #toolbar.addAction(action2)
-#
+
         ## separator
         #toolbar.addSeparator()
         #toolbar.addWidget(QPushButton("Click here"))
@@ -89,14 +89,14 @@ class MainWindow(QMainWindow):
 
         #self.setCentralWidget(button1)
 
-        img_label = QLabel()
-        img_label.setPixmap(QPixmap("/images/logo.png"))
+        #img_label = QLabel()
+        #img_label.setPixmap(QPixmap("/images/logo.png"))
 
-        layout = QVBoxLayout()
+        #layout = QVBoxLayout()
         #layout.addWidget(button1)
-        layout.addWidget(img_label)
+        #layout.addWidget(img_label)
 
-        self.setLayout(layout)
+        #self.setLayout(layout)
 
 
     def quit_app(self):

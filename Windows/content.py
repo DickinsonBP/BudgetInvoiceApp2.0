@@ -11,28 +11,31 @@ class WidgetContent(QWidget):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(0)
         self.setLayout(self.layout)
-
-        self.menu_btn = QPushButton("Menu")
-        self.menu_btn.clicked.connect(self.show_menu)
-        self.layout.addWidget(self.menu_btn)
-
-    def show_menu(self):
-        self.animation = QPropertyAnimation(self.mdi.menu, b"size")
-        self.animation.setDuration(150)
-        self.animation.setStartValue(QSize(0, self.mdi.height()))
-        self.animation.setEndValue(QSize(270, self.mdi.height()))
-        self.animation.start()
-
-        self.mdi.overlay.show()
-        self.mdi.menu.show()
-        self.mdi.setActiveSubWindow(self.mdi.overlay)
-        self.mdi.setActiveSubWindow(self.mdi.menu)
         
-    def paintEvent(self, event):
-        opt = QStyleOption()
-        opt.initFrom(self)
-        p = QPainter(self)
-        self.style().drawPrimitive(QStyle.PE_Widget, opt, p, self)
+        self.mdi.menu.show()
+        self.mdi.setActiveSubWindow(self.mdi.menu)
+        #self.menu_btn = QPushButton("Menu")
+        #self.menu_btn.clicked.connect(self.show_menu)
+    
+        #self.layout.addWidget(self.menu_btn)
+
+    #def show_menu(self):
+        #self.animation = QPropertyAnimation(self.mdi.menu, b"size")
+        #self.animation.setDuration(150)
+        #self.animation.setStartValue(QSize(0, self.mdi.height()))
+        #self.animation.setEndValue(QSize(270, self.mdi.height()))
+        #self.animation.start()
+
+        #self.mdi.overlay.show()
+        #self.mdi.menu.show()
+        #self.mdi.setActiveSubWindow(self.mdi.overlay)
+        #self.mdi.setActiveSubWindow(self.mdi.menu)
+        
+    #def paintEvent(self, event):
+        #opt = QStyleOption()
+        #opt.initFrom(self)
+        #p = QPainter(self)
+        #self.style().drawPrimitive(QStyle.PE_Widget, opt, p, self)
 
 class Content(QMdiSubWindow):
     def __init__(self, parent):

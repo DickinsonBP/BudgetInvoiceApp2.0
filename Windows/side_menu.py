@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt, QAbstractListModel, QSize, QRect
 from PySide6.QtGui import QPainter, QPixmap, QFont, QColor
-from PySide6.QtWidgets import (QMdiSubWindow, QWidget, QGraphicsDropShadowEffect, QStyleOption, QStyle, QVBoxLayout, QListView, QFrame,
-                                QStyledItemDelegate, QLabel)
+from PySide6.QtWidgets import (QMdiSubWindow, QWidget, QGraphicsDropShadowEffect, QStyleOption, QStyle, QVBoxLayout,QHBoxLayout, QListView, QFrame,
+                                QStyledItemDelegate, QLabel, QPushButton)
 
 
 class Delegate(QStyledItemDelegate):
@@ -16,14 +16,14 @@ class Delegate(QStyledItemDelegate):
         super(Delegate, self).paint(painter, option, index)
 
         # HOVER
-        if option.state & QStyle.State_MouseOver:
-            painter.fillRect(option.rect, QColor("#F1F1F1"))
-        else:
-            painter.fillRect(option.rect, Qt.transparent)
+        #if option.state & QStyle.State_MouseOver:
+        #    painter.fillRect(option.rect, QColor("#F1F1F1"))
+        #else:
+        #    painter.fillRect(option.rect, Qt.transparent)
 
         # SELECTED
-        if option.state & QStyle.State_Selected:
-            painter.fillRect(option.rect, QColor("#F1F1F1"))
+        #if option.state & QStyle.State_Selected:
+        #    painter.fillRect(option.rect, QColor("#F1F1F1"))
 
         # DRAW ICON
         icon = QPixmap()
@@ -37,11 +37,15 @@ class Delegate(QStyledItemDelegate):
         painter.drawPixmap(icon_pos, icon)
 
         # DRAW TEXT
-        font = QFont("Roboto Black", 12)
-        text_pos = QRect((left * 2) + icon.width(), option.rect.y(), option.rect.width(), option.rect.height())
-        painter.setFont(font)
-        painter.setPen(Qt.black)
-        painter.drawText(text_pos, Qt.AlignVCenter, index.data()[0])
+        #font = QFont("Roboto Black", 12)
+        #text_pos = QRect((left * 2) + icon.width(), option.rect.y(), option.rect.width(), option.rect.height())
+        #painter.setFont(font)
+        #painter.setPen(Qt.black)
+        #painter.drawText(text_pos, Qt.AlignVCenter, index.data()[0])
+    
+    def print_hello(self):
+        print("Hello")
+
 
     def sizeHint(self, option, index):
         return QSize(0, self._height)
@@ -171,7 +175,7 @@ class SideMenuWidget(QWidget):
         _margins = 16 # left margin
 
         self.app_name = LinkLabel(self.labels, "color: rgba(0, 0, 0, 80%)", "color: rgba(0, 0, 0, 60%)")
-        self.app_name.setText("sidemenu app")
+        self.app_name.setText("Servicios Bedoya")
         self.app_name.setFont(QFont("Roboto Light", 12))
         self.app_name.move(self.labels.x() + _margins, self.labels.y())
 
