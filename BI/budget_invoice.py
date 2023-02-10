@@ -4,6 +4,7 @@ from PySide6.QtGui import QFontDatabase
 import sys
 import os
 
+
 app = ''
 
 class BudgetInvoice():
@@ -13,7 +14,7 @@ class BudgetInvoice():
 
 def setupMainWindow():
     app = QApplication(sys.argv)
-
+    
     font_db = QFontDatabase()
     font_db.addApplicationFont("res/fonts/Roboto-Black.ttf")
     font_db.addApplicationFont("res/fonts/Roboto-Light.ttf")

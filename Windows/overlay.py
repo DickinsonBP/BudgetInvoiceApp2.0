@@ -12,13 +12,13 @@ class Overlay(QMdiSubWindow):
 
 
     #def mousePressEvent(self, event):
-        #self.animation = QPropertyAnimation(self.parent.menu, b"size")
-        #self.animation.setDuration(150)
-        #self.animation.setStartValue(QSize(270, self.parent.height()))
-        #self.animation.setEndValue(QSize(0, self.parent.height()))
-        #self.animation.start()
-        #self.animation.finished.connect(self.animation_end)
-        #self.hide()
-
+    #    self.animation = QPropertyAnimation(self.parent.menu, b"size")
+    #    self.animation.setDuration(150)
+    #    self.animation.setStartValue(QSize(270, self.parent.height()))
+    #    self.animation.setEndValue(QSize(0, self.parent.height()))
+    #    self.animation.start()
+    #    self.animation.finished.connect(self.animation_end)
+    #    self.hide()
+    #
     #def animation_end(self):
-        #self.parent.menu.hide()
+    #    self.parent.menu.hide()

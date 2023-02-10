@@ -37,15 +37,11 @@ class Delegate(QStyledItemDelegate):
         painter.drawPixmap(icon_pos, icon)
 
         # DRAW TEXT
-        #font = QFont("Roboto Black", 12)
-        #text_pos = QRect((left * 2) + icon.width(), option.rect.y(), option.rect.width(), option.rect.height())
-        #painter.setFont(font)
-        #painter.setPen(Qt.black)
-        #painter.drawText(text_pos, Qt.AlignVCenter, index.data()[0])
-    
-    def print_hello(self):
-        print("Hello")
-
+        font = QFont("Roboto Black", 12)
+        text_pos = QRect((left * 2) + icon.width(), option.rect.y(), option.rect.width(), option.rect.height())
+        painter.setFont(font)
+        painter.setPen(Qt.black)
+        painter.drawText(text_pos, Qt.AlignVCenter, index.data()[0])
 
     def sizeHint(self, option, index):
         return QSize(0, self._height)
@@ -73,7 +69,7 @@ class Model(QAbstractListModel):
 class ListView(QListView):
     def __init__(self):
         super(ListView, self).__init__()
-        self.setMouseTracking(True)
+        #self.setMouseTracking(True)
         
     def mouseMoveEvent(self, event):
         # CHANGE CURSOR HOVERING
@@ -110,30 +106,6 @@ class Profile(QWidget):
             self.setFixedHeight(150)
         else:
             self.setFixedHeight(height)
-        self.paintAvatar()
-
-    def paintAvatar(self):
-        # DRAW PROFILE IMAGE 
-        image = QPixmap()
-        image.load("res/img/icons/user.png")
-        image = image.scaled(54, 54, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-
-        _margin = 16
-        _margin_text = 24
-
-        self.avatar = QLabel(self)
-        self.avatar.setCursor(Qt.PointingHandCursor)
-        self.avatar.setAttribute(Qt.WA_TranslucentBackground)
-        self.avatar.setPixmap(image)
-        self.avatar.move(self.rect().x() + _margin, self.rect().y() + _margin)
-
-        self.username = QLabel(self)
-        self.username.setStyleSheet("color: white;")
-        self.username.setFont(QFont("Roboto Light", 14))
-        self.username.setCursor(Qt.PointingHandCursor)
-        self.username.setAttribute(Qt.WA_TranslucentBackground)
-        self.username.setText("")
-        self.username.move(self.rect().x() + _margin_text, self.height() - 50)
 
     def paintEvent(self, event):
         super(Profile, self).paintEvent(event)
@@ -165,6 +137,7 @@ class SideMenuWidget(QWidget):
         self.listview.setFocusPolicy(Qt.NoFocus)
         self.listview.setModel(Model())
         self.listview.setItemDelegate(Delegate())
+        self.listview.clicked.connect(self.button_budget)
         self.layout.addWidget(self.listview)
 
         # LABELS
@@ -202,6 +175,9 @@ class SideMenuWidget(QWidget):
         opt.initFrom(self)
         p = QPainter(self)
         self.style().drawPrimitive(QStyle.PE_Widget, opt, p, self)
+    
+    def button_budget(self):
+        print("Hola")
 
 class SideMenu(QMdiSubWindow):
     def __init__(self):
@@ -215,4 +191,4 @@ class SideMenu(QMdiSubWindow):
 
         self.widget = SideMenuWidget()
         self.setWidget(self.widget)
-        self.hide()
+        #self.hide()
