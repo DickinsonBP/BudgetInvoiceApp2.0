@@ -10,15 +10,6 @@ from BI.clients import Client
 from BI.invoice import Invoice
 from BI.budget import Budget
 
-        
-
-class Tab2(QWidget):
-    def __init__(self):
-        super().__init__()
-
-class Tab3(QWidget):
-    def __init__(self):
-        super().__init__()
 
 class MainWindow(QMainWindow):
     def __init__(self, app):
@@ -39,19 +30,6 @@ class MainWindow(QMainWindow):
         tabs.addTab(Invoice(),"Facturas")
         tabs.addTab(Client(),"Clientes")
 
-        tabs.setTabPosition(QTabWidget.West)
+        #tabs.setTabPosition(QTabWidget.West)
         tabs.setMovable(True)
         self.setCentralWidget(tabs)
-
-        #lo.addWidget(tabs)
-        #self.setLayout(lo)
-
-
-    def presupuesto(parent):
-        budget_tab = QWidget(parent)
-        layout = QVBoxLayout()
-        purpose = QLabel("Holaa")
-
-        layout.addWidget(purpose)
-        budget_tab.setLayout(layout)
-        budget_tab.show()
