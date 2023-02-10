@@ -6,7 +6,7 @@ from PySide6 import QtGui
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt
 
-class Invoice(QLabel):
+class UI_Invoice(QLabel):
     def __init__(self):
         super().__init__()
         #self.setText(f"Hola has entrado en: {text}")

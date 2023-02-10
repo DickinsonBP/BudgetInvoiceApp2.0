@@ -6,9 +6,9 @@ from PySide6 import QtGui
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt
 
-from BI.clients import Client
-from BI.invoice import Invoice
-from BI.budget import Budget
+from BI.clients import UI_Client
+from BI.invoice import UI_Invoice
+from BI.budget import UI_Budget
 
 
 class MainWindow(QMainWindow):
@@ -26,9 +26,9 @@ class MainWindow(QMainWindow):
         tabs = QTabWidget()
 
         #Add some tabs
-        tabs.addTab(Budget(),"Presupuestos")
-        tabs.addTab(Invoice(),"Facturas")
-        tabs.addTab(Client(),"Clientes")
+        tabs.addTab(UI_Client(),"Clientes")
+        tabs.addTab(UI_Budget(),"Presupuestos")
+        tabs.addTab(UI_Invoice(),"Facturas")
 
         #tabs.setTabPosition(QTabWidget.West)
         tabs.setMovable(True)
