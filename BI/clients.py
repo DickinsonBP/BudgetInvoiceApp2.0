@@ -1,12 +1,14 @@
 from PySide6.QtWidgets import (
-    QMainWindow, QLabel, QTabWidget, QWidget, QLineEdit, QHBoxLayout, QVBoxLayout, 
-    QGridLayout, QFormLayout, QPushButton, QDateEdit, QListWidget, QListWidgetItem
+    QMainWindow, QLabel, QTabWidget, QWidget, QLineEdit, QHBoxLayout, QVBoxLayout,
+    QGridLayout, QFormLayout, QPushButton, QDateEdit, QListWidget, QListWidgetItem,
+    QToolButton, QRadioButton, QTableView, QMessageBox, QDialog, QDialogButtonBox
 )
 
 from PySide6 import QtGui
+from PySide6 import QtCore
 from PySide6 import QtWidgets
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon, QColor
+from PySide6.QtCore import Qt, QPoint
 
 from BI.constants import CLIENTS
 
@@ -34,61 +36,133 @@ class UI_Client(QLabel):
     def __init__(self):
         super().__init__()
         #self.setText(f"Hola has entrado en: {text}")
-        self.setStyleSheet("background-color: white; background-image: url('res/img/logo.png');  background-position: center;")
+        self.setStyleSheet("background-image: url('res/img/logo.png');  background-position: center;")
 
         #Create some widgets for the page
-        client_page = QWidget(self)
+        self.client_page = QWidget(self)
 
-        new_client = QPushButton("Nuevo cliente?")
+        self.setup_frame()
+        self.client_page.show()
+
+    def setup_frame(self):
+        # add client button
+        print("Setup frame")
+        new_client = QPushButton()
+        new_client.setFixedSize(250, 64)
+        new_client.setText("Nuevo cliente")
+        new_client.setIcon(QIcon("res/img/icons/add.png"))
+        new_client.setIconSize(new_client.size())
+        new_client.setStyleSheet(" border: 0; font-size: 25px; ")
         new_client.clicked.connect(self.add_client)
-        #layout = QFormLayout()
-        #client_page.setLayout(layout)
-        #layout.addRow('Nombre y apellidos:', QLineEdit(self))
-        #layout.addRow('NIF:', QLineEdit(self))
-        #layout.addRow('Direccion:', QLineEdit(self))
 
+        # layout where the widgets will be added
+        self.main_layout = QGridLayout()
 
+        self.client_page.setLayout(self.main_layout)
+
+        self.main_layout.addWidget(new_client,0,0)
         
-        layout = QVBoxLayout()
-        layout.addStretch(1)
+        lista = self.readClients()
 
-        client_page.setLayout(layout)
+        lista.setStyleSheet("icon-size: 50px; font-size: 20px; background-image: url('res/img/bg_yellow.png');")
+        self.main_layout.addWidget(lista, 1, 0)
 
-        layout.addWidget(new_client)
-        
+
+    def readClients(self):
+        print("Read Clients")
         #read clients
         if os.stat(CLIENTS).st_size == 0: 
             print("No hay clientes")
         else:
+
             lista = QListWidget()
 
             lista.setAlternatingRowColors(True)
+            lista.setFixedHeight(800)
+            lista.setFixedWidth(1850)
 
             item = None
             index = 0
+            color_index = 0
             with open(CLIENTS, "r") as clients_file:
-                #print(clients_file.read())
+                print("File readin")
                 line = clients_file.readline()
                 while line != '':
                     client_data = line.split(';')
                     client = Client(client_data[0],client_data[1],client_data[2])
                     print("Client N°: "+str(index)+" --> "+client.getNombre()+" "+client.getNif())
-                    index += 1
-                    item = QListWidgetItem(client.getNombre()+" "+client.getNif(), lista)
+                    item = QListWidgetItem(client.getNombre()+" "+client.getNif()+" "+client.getDireccion(), lista)
+                    #item.setBackground(QColor(colors[color_index]))
                     item.setIcon(QIcon("res/img/icons/user.png"))
+                    item.setTextAlignment(Qt.AlignLeft)
                     lista.addItem(item)
-
                     line = clients_file.readline()
+                    
+                    index += 1
+                    color_index = (color_index + 1) % 2
 
-            layout.addWidget(lista)
-
-        client_page.move(QtGui.QGuiApplication.primaryScreen().availableGeometry().center() - client_page.frameGeometry().center())
-        client_page.show()
+            return lista
 
 
     def add_client(self):
-        print("Hola")
+
+        resp = QMessageBox.warning(self, "Añadir un nuevo cliente", "¿Quieres añadir un nuevo cliente?", QMessageBox.Ok | QMessageBox.Cancel)
         
+        if(resp == QMessageBox.Ok):
+            print("Añadir")
+
+            self.dialog = QDialog()
+            self.dialog.setWindowTitle("Añadir un nuevo cliente")
+            self.dialog.setWindowIcon(QIcon("res/img/logo.png"))
+            self.dialog.setMinimumSize(700,200)     
+
+            myButton = QDialogButtonBox(QDialogButtonBox.Ok)            
+            myButton.accepted.connect(self.guardar)            
+            layout = QFormLayout()
+            msg = QLabel("Añadir un nuevo cliente")
+            msg.setStyleSheet("font-size: 15px;")           
+            layout.addWidget(msg)   
+
+            self.clientName = QLineEdit()
+            self.direccion = QLineEdit()
+            self.nif = QLineEdit()
+
+            layout.addRow('Nombre del cliente:', self.clientName)
+            layout.addRow('Direccion:', self.direccion)
+            layout.addRow('NIF:', self.nif)            
+            layout.addWidget(myButton)
+            self.dialog.setLayout(layout)
+
+            self.dialog.exec()
+
+
+        else: print("Continuar")
+    
+
+    def clearlayout(self):
+        children = []
+        for i in range(self.main_layout.count()):
+            child = self.main_layout.itemAt(i).widget()
+            if child:
+                children.append(child)
+                print(child)
+
+        for child in children:
+            child.deleteLater()
+            
+
+    def guardar(self):
+        """
+        It opens a file, writes some text to it, closes the file, and then calls a function
+        """
+        print("Guardar")
+
+        with open(CLIENTS, "a") as clients_file:
+            text = "\n"+self.clientName.text()+";"+self.direccion.text()+";"+self.nif.text()
+            clients_file.write(text)
+
+        self.dialog.close()
+        self.setup_frame()
 
 
             

@@ -2,6 +2,8 @@ from PySide6.QtWidgets import (
     QMainWindow, QLabel, QTabWidget, QWidget, QLineEdit, QVBoxLayout, QGridLayout, QFormLayout, QPushButton, QDateEdit
 )
 
+import os
+
 from PySide6 import QtGui
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt
@@ -20,7 +22,6 @@ class MainWindow(QMainWindow):
 
         #window size        
         self.setGeometry(QtGui.QGuiApplication.primaryScreen().availableGeometry())
-        
     
         #create the layout for the tabs
         tabs = QTabWidget()
