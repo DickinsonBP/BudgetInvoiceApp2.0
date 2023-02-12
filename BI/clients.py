@@ -44,6 +44,75 @@ class UI_Client(QLabel):
         self.setup_frame()
         self.client_page.show()
 
+
+    def setup_frame(self):
+        # add client button
+        print("Setup frame")
+        new_client = QPushButton()
+        new_client.setFixedSize(250, 64)
+        new_client.setText("Nuevo cliente")
+        new_client.setIcon(QIcon("res/img/icons/add.png"))
+        new_client.setIconSize(new_client.size())
+        new_client.setStyleSheet(" border: 0; font-size: 25px; ")
+        new_client.clicked.connect(self.add_client)
+
+        # layout where the widgets will be added
+        self.main_layout = QVBoxLayout()
+
+        self.client_page.setLayout(self.main_layout)
+
+        self.main_layout.addWidget(new_client)
+        
+        self.client_list = self.readClients()
+
+        #self.client_list.setStyleSheet("icon-size: 50px; font-size: 20px; background-image: url('res/img/bg_yellow.png');")
+        self.main_layout.addWidget(self.client_list)
+
+
+    def readClients(self):
+        print("Read Clients")
+        #read clients
+        if os.stat(CLIENTS).st_size == 0: 
+            print("No hay clientes")
+        else:
+
+            lista = QGridLayout()
+
+            #lista.setAlternatingRowColors(True)
+            #lista.setFixedHeight(800)
+            #lista.setFixedWidth(1850)
+            index = 0
+            with open(CLIENTS, "r") as clients_file:
+                print("File readin")
+                line = clients_file.readline()
+                while line != '':
+                    client_data = line.split(';')
+                    client = Client(client_data[0],client_data[1],client_data[2])
+                    #print("Client N°: "+str(self.index)+" --> "+client.getNombre()+" "+client.getNif())
+                    text = QLabel(client.getNombre()+" "+client.getNif()+" "+client.getDireccion())
+                    lista.addWidget(text, index,0)
+                    line = clients_file.readline()
+                    
+                    index += 1
+
+            return (lista, index)
+
+    def add_client(self):
+        print("add client")
+
+
+class UI_Client_bak(QLabel):
+    def __init__(self):
+        super().__init__()
+        #self.setText(f"Hola has entrado en: {text}")
+        self.setStyleSheet("background-image: url('res/img/logo.png');  background-position: center;")
+
+        #Create some widgets for the page
+        self.client_page = QWidget(self)
+
+        self.setup_frame()
+        self.client_page.show()
+
     def setup_frame(self):
         # add client button
         print("Setup frame")
