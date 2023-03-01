@@ -1,0 +1,118 @@
+{
+    "QMainWindow": [
+        {
+            "title":"Mi Demo App"
+        }
+    ],
+    "QSettings": [
+        {
+            "ThemeSettings": [
+                {
+                    "CustomTheme": [] 
+                }
+            ],
+            "AppSettings":{
+                "OrginizationName":"Servicios Bedoya",
+                "ApplicationName":"Mi Demo App",
+                "OrginizationDormain":"My Demop App.org"
+            }
+        }
+    ],
+    "QPushButtonGroup": [
+        {
+            "Buttons": [
+                "btn_home",
+                "btn_reports",
+                "btn_account",
+                "btn_about",
+                "btn_help",
+                "btn_settings"
+            ],
+            "Style": [
+                {
+                    "Active":"background-color: #1b1b27; border-left: 3px solid #ece424; font-weight: bold;",
+                    "NotActive": "background-color: transparent; border: none;"
+                }
+            ]
+        }
+    ],
+    "QCustomSlideMenu": [
+        {
+            "name": "leftMenu",
+            "defaultSize": [
+                {
+                    "width": 0,
+                    "height": "parent"
+                }
+            ],
+            "collapsedSize": [
+                {
+                    "width": 0,
+                    "height": "parent"
+                }
+            ],
+            "expandedSize": [
+                {
+                    "width": 200,
+                    "height": "parent"
+                }
+            ],
+            "toggleButton": [
+            {
+                "buttonName": "btn_menu",
+                "icon": [
+                    {
+                        "whenMenuIsCollapsed": ":/res/Icons/align-justify.png",
+                        "whenMenuIsExpanded": ":/res/Icons/chevron-left.png"
+                    }
+                ]
+            }
+        ],
+            "menuTransitionAnimation": [
+                {
+                    "animationDuration": 300,
+                    "animationEasingCurve": "Linear"
+                }
+            ]
+        }
+    ],
+    "QStackedWidget":[
+		{
+			"name":"mainPages",
+			"transitionAnimation":[
+				{
+					"fade":[
+						{
+							"active": true,
+							"duration":1000,
+							"easingCurve": "OutBack"
+						}
+					],
+					"slide":[
+						{
+							"active":true,
+							"duration": 1000,
+							"direction": "horizontal",
+							"easingCurve": "OutBack"
+						}
+					]
+				}
+			],
+			"navigation":[
+				{
+					"navigationButtons":[
+						{
+							"btn_home": "homePage",
+							"btn_about": "aboutPage",
+							"btn_reports": "reportsPage",
+							"btn_settings": "settingsPage",
+							"btn_account": "accountPage",
+							"btn_help": "infoPage"
+						}
+					]
+				}
+			]
+	
+		}
+	]
+}
