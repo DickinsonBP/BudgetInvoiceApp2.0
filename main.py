@@ -21,6 +21,11 @@ from UI.functions import AppFunctions
 
 from Custom_Widgets.Widgets import *
 
+import ctypes
+myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
+
 settings = QSettings()
 
 class MainWindow(QMainWindow):
@@ -28,6 +33,12 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        my_icon = QIcon()
+        my_icon.addFile('res/img/logo.png')
+
+        self.setWindowIcon(my_icon)
+        self.setWindowTitle("Servicios Bedoya")
 
         ## TOGGLE/BURGUER MENU
         ########################################################################
@@ -74,6 +85,7 @@ class MainWindow(QMainWindow):
         AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
 
         self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.addUser(self,dbFolder))
+        self.ui.btn_deleteuser.clicked.connect(lambda: AppFunctions.deleteUser(self,dbFolder))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

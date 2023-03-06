@@ -54,38 +54,10 @@ class AppFunctions():
             print("ERROR! Get all users has failed")
             print(e)
     
-    def addUser(self, dbFolder):
-
-        conn = AppFunctions.create_connection(dbFolder)
-
-        nif = self.ui.nif.text()
-        userName = self.ui.userName.text()
-        email = self.ui.email.text()
-        phone = self.ui.phone.text()
-        address = self.ui.address.text()
-
-
-        add_user = f"""INSERT INTO Users (USER_NIF, USER_NAME, USER_EMAIL, USER_ADDRESS, USER_PHONE) VALUES('{nif}','{userName}','{email}','{phone}','{address}')"""
-
-        if not conn.cursor().execute(add_user):
-            print("Error! Could not insert person data")
-        else:
-            print("ADD USER OK!")
-            conn.commit()
-            #clear from input
-            self.ui.nif.setText("")
-            self.ui.userName.setText("")
-            self.ui.email.setText("")
-            self.ui.phone.setText("")
-            self.ui.address.setText("")
-
-            AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
     
     def displayUsers(self, rows):
         for row in rows:
-            print("ROW: "+str(row))
             rowPos = self.ui.tableWidget.rowCount()
-            print("RowPos: "+str(rowPos))
 
             #skip rows that have already been loaded to table
             if rowPos+1 > row[0]:
@@ -109,3 +81,51 @@ class AppFunctions():
             
             rowPos = rowPos + 1
             
+    def addUser(self, dbFolder):
+
+        conn = AppFunctions.create_connection(dbFolder)
+
+        nif = self.ui.nif.text()
+        userName = self.ui.userName.text()
+        email = self.ui.email.text()
+        phone = self.ui.phone.text()
+        address = self.ui.address.text()
+
+        if nif != '' and userName !=  '' and email !=  '' and phone !=  '' and address !=  '':
+            add_user = f"""INSERT INTO Users (USER_NIF, USER_NAME, USER_EMAIL, USER_ADDRESS, USER_PHONE) VALUES('{nif}','{userName}','{email}','{phone}','{address}')"""
+
+            if not conn.cursor().execute(add_user):
+                print("Error! Could not insert person data")
+            else:
+                print("ADD USER OK!")
+                conn.commit()
+                #clear from input
+                self.ui.nif.setText("")
+                self.ui.userName.setText("")
+                self.ui.email.setText("")
+                self.ui.phone.setText("")
+                self.ui.address.setText("")
+
+                AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
+        else:
+            print("ERROR! Empty User Input")
+
+    def deleteUser(self, dbFolder):
+        conn = AppFunctions.create_connection(dbFolder)
+
+        nif = self.ui.nif_2.text()
+
+        if nif != '':
+            delete_user = f"DELETE FROM Users WHERE USER_NIF='{nif}'"
+
+            if not conn.cursor().execute(delete_user):
+                print("ERROR! Could not delete user")
+            else:
+                print("DELETE USER OK!")
+                conn.commit()
+                #clear from input
+                self.ui.nif_2.setText("")
+
+                AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
+        else:
+            print("ERROR! Empty User Input")

@@ -28,12 +28,12 @@
 #header, #mainBody, #footer {
 	background-color: #27263c;
 }
-#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser {
+#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser, #btn_deletesuser  {
 	border: 2px solid  #ece424 ;
 	border-radius: 10px;
 	text-align: center;
 }
- #btn_adduser {
+ #btn_adduser,#btn_deleteuser  {
 	border: 2px solid  #ece424 ;
 	background-color: #9c991c ;
 	border-radius: 10px;
@@ -585,29 +585,79 @@ QLineEdit{
                  </item>
                  <item>
                   <widget class="QTableWidget" name="tableWidget">
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                    </font>
+                   </property>
                    <column>
                     <property name="text">
                      <string>Identificador</string>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>NIF</string>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Nombre</string>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
                     </property>
                    </column>
                    <column>
                     <property name="text">
                      <string>Email</string>
                     </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Nueva columna</string>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
                     </property>
                    </column>
                    <column>
                     <property name="text">
                      <string>Telefono</string>
                     </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
+                    </property>
                    </column>
                    <column>
                     <property name="text">
                      <string>Dirección</string>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>BORRAR</string>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>30</pointsize>
+                     </font>
                     </property>
                    </column>
                   </widget>
@@ -835,6 +885,51 @@ QLineEdit{
                <property name="icon">
                 <iconset>
                  <normaloff>res/Icons/thumbs-up.png</normaloff>res/Icons/thumbs-up.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+           <widget class="QWidget" name="widget_4" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QFrame" name="frame_7">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QLineEdit" name="nif_2">
+                  <property name="placeholderText">
+                   <string>NIF</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_deleteuser">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Eliminar Usuario</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../res/Icons/delete.png</normaloff>../res/Icons/delete.png</iconset>
                </property>
                <property name="iconSize">
                 <size>

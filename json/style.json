@@ -1,7 +1,7 @@
 {
     "QMainWindow": [
         {
-            "title":"Mi Demo App"
+            "title":"Servicios Bedoya"
         }
     ],
     "QSettings": [
@@ -22,8 +22,8 @@
             ],
             "AppSettings":{
                 "OrginizationName":"Servicios Bedoya",
-                "ApplicationName":"Mi Demo App",
-                "OrginizationDormain":"My Demop App.org"
+                "ApplicationName":"Servicios Bedoya",
+                "OrginizationDormain":""
             }
         }
     ],

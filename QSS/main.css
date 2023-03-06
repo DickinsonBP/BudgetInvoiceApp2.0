@@ -1654,12 +1654,12 @@ PlotWidget {
 #header, #mainBody, #footer {
   background-color: #27263c; }
 
-#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser {
+#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser, #btn_deleteuser {
   border: 2px solid  #ece424;
   border-radius: 10px;
   text-align: center; }
 
-#btn_adduser {
+#btn_adduser, #btn_deleteuser {
   border: 2px solid  #ece424;
   background-color: #9c991c;
   border-radius: 10px;

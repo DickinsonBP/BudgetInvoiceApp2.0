@@ -41,12 +41,12 @@ class Ui_MainWindow(object):
 "#header, #mainBody, #footer {\n"
 "	background-color: #27263c;\n"
 "}\n"
-"#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser {\n"
+"#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser, #btn_deletesuser  {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
 "}\n"
-" #btn_adduser {\n"
+" #btn_adduser,#btn_deleteuser  {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	background-color: #9c991c ;\n"
 "	border-radius: 10px;\n"
@@ -316,8 +316,9 @@ class Ui_MainWindow(object):
         font2 = QFont()
         font2.setBold(True)
         self.btn_showUserForm.setFont(font2)
+        self.btn_showUserForm.setCursor(QCursor(Qt.PointingHandCursor))
         icon11 = QIcon()
-        icon11.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon11.addFile(u"res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_showUserForm.setIcon(icon11)
         self.btn_showUserForm.setIconSize(QSize(24, 24))
 
@@ -327,19 +328,35 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.frame_6)
 
         self.tableWidget = QTableWidget(self.widget_3)
-        if (self.tableWidget.columnCount() < 5):
-            self.tableWidget.setColumnCount(5)
+        if (self.tableWidget.columnCount() < 7):
+            self.tableWidget.setColumnCount(7)
+        font3 = QFont()
+        font3.setPointSize(30)
         __qtablewidgetitem = QTableWidgetItem()
+        __qtablewidgetitem.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
+        __qtablewidgetitem1.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
+        __qtablewidgetitem2.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
+        __qtablewidgetitem3.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         __qtablewidgetitem4 = QTableWidgetItem()
+        __qtablewidgetitem4.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        __qtablewidgetitem5.setFont(font3);
+        self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        __qtablewidgetitem6.setFont(font3);
+        self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         self.tableWidget.setObjectName(u"tableWidget")
+        font4 = QFont()
+        font4.setPointSize(15)
+        self.tableWidget.setFont(font4)
 
         self.verticalLayout_11.addWidget(self.tableWidget)
 
@@ -443,11 +460,11 @@ class Ui_MainWindow(object):
 
         self.btn_adduser = QPushButton(self.widget_2)
         self.btn_adduser.setObjectName(u"btn_adduser")
-        font3 = QFont()
-        font3.setPointSize(10)
-        font3.setBold(True)
-        font3.setItalic(False)
-        self.btn_adduser.setFont(font3)
+        font5 = QFont()
+        font5.setPointSize(10)
+        font5.setBold(True)
+        font5.setItalic(False)
+        self.btn_adduser.setFont(font5)
         self.btn_adduser.setCursor(QCursor(Qt.PointingHandCursor))
         icon12 = QIcon()
         icon12.addFile(u"res/Icons/thumbs-up.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -458,6 +475,37 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_7.addWidget(self.widget_2, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.widget_4 = QWidget(self.rightMenu)
+        self.widget_4.setObjectName(u"widget_4")
+        self.verticalLayout_12 = QVBoxLayout(self.widget_4)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.frame_7 = QFrame(self.widget_4)
+        self.frame_7.setObjectName(u"frame_7")
+        self.frame_7.setFrameShape(QFrame.StyledPanel)
+        self.frame_7.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_13 = QVBoxLayout(self.frame_7)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.nif_2 = QLineEdit(self.frame_7)
+        self.nif_2.setObjectName(u"nif_2")
+
+        self.verticalLayout_13.addWidget(self.nif_2)
+
+
+        self.verticalLayout_12.addWidget(self.frame_7)
+
+        self.btn_deleteuser = QPushButton(self.widget_4)
+        self.btn_deleteuser.setObjectName(u"btn_deleteuser")
+        self.btn_deleteuser.setCursor(QCursor(Qt.PointingHandCursor))
+        icon13 = QIcon()
+        icon13.addFile(u"res/Icons/delete.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_deleteuser.setIcon(icon13)
+        self.btn_deleteuser.setIconSize(QSize(24, 24))
+
+        self.verticalLayout_12.addWidget(self.btn_deleteuser)
+
+
+        self.verticalLayout_7.addWidget(self.widget_4, 0, Qt.AlignHCenter|Qt.AlignTop)
 
 
         self.horizontalLayout_4.addWidget(self.rightMenu)
@@ -471,10 +519,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.label_9 = QLabel(self.footer)
         self.label_9.setObjectName(u"label_9")
-        font4 = QFont()
-        font4.setPointSize(10)
-        font4.setBold(True)
-        self.label_9.setFont(font4)
+        font6 = QFont()
+        font6.setPointSize(10)
+        font6.setBold(True)
+        self.label_9.setFont(font6)
 
         self.horizontalLayout_5.addWidget(self.label_9, 0, Qt.AlignHCenter)
 
@@ -507,13 +555,17 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Email", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"NIF", None));
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Nueva columna", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Nombre", None));
         ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Email", None));
         ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
+        ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"BORRAR", None));
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"REPORTS", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"ACCOUNT", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"SETTINGS", None))
@@ -526,6 +578,8 @@ class Ui_MainWindow(object):
         self.address.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None))
         self.phone.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Telefono", None))
         self.btn_adduser.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir Usuario", None))
+        self.nif_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NIF", None))
+        self.btn_deleteuser.setText(QCoreApplication.translate("MainWindow", u"Eliminar Usuario", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Servicios Bedoya. Copyright 2023", None))
     # retranslateUi
 
