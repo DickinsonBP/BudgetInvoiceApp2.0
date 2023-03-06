@@ -83,11 +83,12 @@ class AppFunctions():
     
     def displayUsers(self, rows):
         for row in rows:
-            print("AAAAAAAAAAAAAAAAAAA")
+            print("ROW: "+str(row))
             rowPos = self.ui.tableWidget.rowCount()
+            print("RowPos: "+str(rowPos))
 
             #skip rows that have already been loaded to table
-            if rowPos > row[0]:
+            if rowPos+1 > row[0]:
                 continue
 
             itemCount = 0
@@ -99,11 +100,11 @@ class AppFunctions():
             #add items to row
 
             for item in row:
-                print("Item: "+str(item))
+                #print("Item: "+str(item))
                 self.qtablewidgetitem = QTableWidgetItem()
+                self.qtablewidgetitem.setText(str(item))
                 self.ui.tableWidget.setItem(rowPos, itemCount, self.qtablewidgetitem)
                 self.qtablewidgetitem = self.ui.tableWidget.item(rowPos, itemCount)
-                self.qtablewidgetitem.setText(str(item))
                 itemCount = itemCount + 1
             
             rowPos = rowPos + 1
