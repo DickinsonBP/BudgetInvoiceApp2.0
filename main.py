@@ -16,10 +16,12 @@ from PySide6.QtWidgets import *
 # GUI FILE
 from UI.ui_main import Ui_MainWindow
 
-# IMPORT FUNCTIONS
-from UI.ui_functions import *
+# IMPORT APP FUNCTIONS
+from UI.functions import AppFunctions
 
 from Custom_Widgets.Widgets import *
+
+settings = QSettings()
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -39,23 +41,39 @@ class MainWindow(QMainWindow):
         loadJsonStyle(self, self.ui)
         ########################################################################
 
-        ## PAGES
-        ########################################################################
-
-        # PAGE 1
-        #self.ui.btn_page_budgets.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_1))
-
-        # PAGE 2
-        #self.ui.btn_page_invoices.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_2))
-
-        # PAGE 3
-        #self.ui.btn_page_clients.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))
-
-
         ## SHOW ==> MAIN WINDOW
         ########################################################################
         self.show()
         ## ==> END ##
+
+        ########################################################################
+        # UPDATE APP SETTINGS LOADED FROM JSON STYLESHEET 
+        # ITS IMPORTANT TO RUN THIS AFTER SHOWING THE WINDOW
+        # THIS PROCESS WILL RUN ON A SEPARATE THREAD WHEN GENERATING NEW ICONS
+        # TO PREVENT THE WINDOW FROM BEING UNRESPONSIVE
+        ########################################################################
+        # self = QMainWindow class
+        QAppSettings.updateAppSettings(self)
+
+              # CHANGE THE THEME NAME IN SETTINGS
+        # Use one of the app themes from your JSON file
+        #settings.setValue("THEME", "Default-Dark")
+            
+        # RE APPLY THE NEW SETINGS
+        # CompileStyleSheet might also work
+        # CompileStyleSheet.applyCompiledSass(self)
+        #QAppSettings.updateAppSettings(self)
+
+        # DataBase Folder
+        dbFolder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Database/DBP_DB.db'))
+        
+        #Run main function to create the database and the table
+        AppFunctions.main(dbFolder)
+
+        #Display all users
+        AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
+
+        self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.addUser(self,dbFolder))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

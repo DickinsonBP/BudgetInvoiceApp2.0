@@ -8,7 +8,16 @@
         {
             "ThemeSettings": [
                 {
-                    "CustomTheme": [] 
+                    "CustomTheme": [
+                        {
+                            "Background-color": "#1b1b27",
+                            "Text-color": "#fff",
+                            "Accent-color": "#ece424",
+                            "Theme-name": "Default-Dark",
+                            "Icons-color": "#fff",
+                            "Default-Theme": true
+                        }
+                    ]
                 }
             ],
             "AppSettings":{
@@ -62,8 +71,46 @@
                 "buttonName": "btn_menu",
                 "icon": [
                     {
-                        "whenMenuIsCollapsed": ":/res/Icons/align-justify.png",
-                        "whenMenuIsExpanded": ":/res/Icons/chevron-left.png"
+                        "whenMenuIsCollapsed": ":res/Icons/align-justify.png",
+                        "whenMenuIsExpanded": ":res/Icons/chevron-left.png"
+                    }
+                ]
+            }
+        ],
+            "menuTransitionAnimation": [
+                {
+                    "animationDuration": 300,
+                    "animationEasingCurve": "Linear"
+                }
+            ]
+        },
+        {
+            "name": "rightMenu",
+            "defaultSize": [
+                {
+                    "width": 0,
+                    "height": "parent"
+                }
+            ],
+            "collapsedSize": [
+                {
+                    "width": 0,
+                    "height": "parent"
+                }
+            ],
+            "expandedSize": [
+                {
+                    "width": 200,
+                    "height": "parent"
+                }
+            ],
+            "toggleButton": [
+            {
+                "buttonName": "btn_showUserForm",
+                "icon": [
+                    {
+                        "whenMenuIsCollapsed": ":res/Icons/plus-square.png",
+                        "whenMenuIsExpanded": ":res/Icons/window_close.png"
                     }
                 ]
             }
@@ -84,16 +131,16 @@
 					"fade":[
 						{
 							"active": true,
-							"duration":1000,
-							"easingCurve": "OutBack"
+							"duration":500,
+							"easingCurve": "Linear"
 						}
 					],
 					"slide":[
 						{
 							"active":true,
-							"duration": 1000,
+							"duration": 500,
 							"direction": "horizontal",
-							"easingCurve": "OutBack"
+							"easingCurve": "Linear"
 						}
 					]
 				}

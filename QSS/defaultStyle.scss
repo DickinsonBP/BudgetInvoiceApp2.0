@@ -1,0 +1,52 @@
+
+//===================================================//
+// FILE AUTO-GENERATED. PUT YOUR DEFAULT STYLES HERE. 
+// THESE STYLES WILL OVERIDE THE THEME STYLES
+//====================================================//
+*{
+	border: none;
+	background-color: transparent;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+	color: #fff;
+}
+#centralwidget, #mainBodyContent,  QLineEdit{
+	background-color: #1b1b27;
+}
+#header, #mainBody, #footer {
+	background-color: #27263c;
+}
+#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser {
+	border: 2px solid  #ece424 ;
+	border-radius: 10px;
+	text-align: center;
+}
+ #btn_adduser {
+	border: 2px solid  #ece424 ;
+	background-color: #9c991c ;
+	border-radius: 10px;
+	text-align: center;
+}
+#leftMenu QPushButton{
+	text-align: left;
+	padding: 5px 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+    background-color: transparent;
+}
+#btn_home  {
+	border-left: 3px solid #ece424;
+	font-weight: bold;
+    background-color: #1b1b27;
+}
+QLineEdit{
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+//===================================================//
+// END //
+//====================================================//
+
