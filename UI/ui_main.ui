@@ -650,16 +650,6 @@ QLineEdit{
                      </font>
                     </property>
                    </column>
-                   <column>
-                    <property name="text">
-                     <string>BORRAR</string>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>30</pointsize>
-                     </font>
-                    </property>
-                   </column>
                   </widget>
                  </item>
                 </layout>
@@ -710,25 +700,33 @@ QLineEdit{
              </widget>
             </widget>
             <widget class="QWidget" name="settingsPage">
-             <widget class="QLabel" name="label_4">
-              <property name="geometry">
-               <rect>
-                <x>260</x>
-                <y>200</y>
-                <width>201</width>
-                <height>91</height>
-               </rect>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>14</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>SETTINGS</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>AJUSTES</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="font">
+                 <font>
+                  <pointsize>15</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>De momento no se puede hacer nada...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="infoPage">
              <widget class="QLabel" name="label_5">

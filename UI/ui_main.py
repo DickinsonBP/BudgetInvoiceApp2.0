@@ -318,7 +318,7 @@ class Ui_MainWindow(object):
         self.btn_showUserForm.setFont(font2)
         self.btn_showUserForm.setCursor(QCursor(Qt.PointingHandCursor))
         icon11 = QIcon()
-        icon11.addFile(u"res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon11.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_showUserForm.setIcon(icon11)
         self.btn_showUserForm.setIconSize(QSize(24, 24))
 
@@ -328,8 +328,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.frame_6)
 
         self.tableWidget = QTableWidget(self.widget_3)
-        if (self.tableWidget.columnCount() < 7):
-            self.tableWidget.setColumnCount(7)
+        if (self.tableWidget.columnCount() < 6):
+            self.tableWidget.setColumnCount(6)
         font3 = QFont()
         font3.setPointSize(30)
         __qtablewidgetitem = QTableWidgetItem()
@@ -350,9 +350,6 @@ class Ui_MainWindow(object):
         __qtablewidgetitem5 = QTableWidgetItem()
         __qtablewidgetitem5.setFont(font3);
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        __qtablewidgetitem6.setFont(font3);
-        self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         self.tableWidget.setObjectName(u"tableWidget")
         font4 = QFont()
         font4.setPointSize(15)
@@ -380,10 +377,20 @@ class Ui_MainWindow(object):
         self.mainPages.addWidget(self.accountPage)
         self.settingsPage = QWidget()
         self.settingsPage.setObjectName(u"settingsPage")
+        self.verticalLayout_14 = QVBoxLayout(self.settingsPage)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.label_4 = QLabel(self.settingsPage)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(260, 200, 201, 91))
         self.label_4.setFont(font1)
+
+        self.verticalLayout_14.addWidget(self.label_4)
+
+        self.label_10 = QLabel(self.settingsPage)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setFont(font4)
+
+        self.verticalLayout_14.addWidget(self.label_10)
+
         self.mainPages.addWidget(self.settingsPage)
         self.infoPage = QWidget()
         self.infoPage.setObjectName(u"infoPage")
@@ -498,7 +505,7 @@ class Ui_MainWindow(object):
         self.btn_deleteuser.setObjectName(u"btn_deleteuser")
         self.btn_deleteuser.setCursor(QCursor(Qt.PointingHandCursor))
         icon13 = QIcon()
-        icon13.addFile(u"res/Icons/delete.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon13.addFile(u"../res/Icons/delete.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_deleteuser.setIcon(icon13)
         self.btn_deleteuser.setIconSize(QSize(24, 24))
 
@@ -564,11 +571,10 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
         ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
-        ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"BORRAR", None));
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"REPORTS", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"ACCOUNT", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"SETTINGS", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"De momento no se puede hacer nada...", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"INFO", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"ABOUT", None))
         self.label_2.setText("")
