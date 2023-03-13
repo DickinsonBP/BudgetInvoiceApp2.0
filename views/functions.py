@@ -4,6 +4,7 @@ import sqlite3
 from sqlite3 import Error
 #Pyside6 import
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox, QDialogButtonBox, QLabel,QVBoxLayout
+from PySide6.QtCore import Qt
 
 class AppFunctions():
     def __init__(self, arg):
@@ -58,10 +59,41 @@ class AppFunctions():
             print("ERROR! Get all users has failed")
             print(e)
     
+    def getAllUsers_return(dbFolder):
+        conn = AppFunctions.create_connection(dbFolder)
+
+        get_all_users = "SELECT * FROM Users;"
+
+        try:
+            c = conn.cursor()
+            c.execute(get_all_users)
+            print("GET ALL USERS OK")
+            return c.fetchall()
+        except Error as e:
+            print("ERROR! Get all users has failed")
+            print(e)
+
+    def insert_user_data(dbFolder, data):
+        conn = AppFunctions.create_connection(dbFolder)
+
+        sql = f""" INSERT INTO Users (USER_NIF, USER_NAME, USER_EMAIL, USER_ADDRESS, USER_PHONE) 
+                    VALUES(?, ?, ?, ?, ?)
+        """
+
+        try:
+            cur = conn.cursor()
+            cur.execute(sql, data)
+            conn.commit()
+            print("ADD USER OK!")
+
+            return True, cur.lastrowid
+        except Error as e:
+            print(f"ERROR! No se ha podido añadir el usurio {data[1]}")
+            print(e)   
     
     def displayUsers(self, rows):
         for row in rows:
-            rowPos = self.ui.tableWidget.rowCount()
+            rowPos = self.ui.table_users.rowCount()
 
             #skip rows that have already been loaded to table
             if rowPos+1 > row[0]:
@@ -69,9 +101,9 @@ class AppFunctions():
 
             itemCount = 0
             #new table row
-            self.ui.tableWidget.setRowCount(rowPos + 1)
+            self.ui.table_users.setRowCount(rowPos + 1)
             qtablewidgetitem = QTableWidgetItem()
-            self.ui.tableWidget.setVerticalHeaderItem(rowPos, qtablewidgetitem)
+            self.ui.table_users.setVerticalHeaderItem(rowPos, qtablewidgetitem)
 
             #add items to row
 
@@ -79,13 +111,26 @@ class AppFunctions():
                 #print("Item: "+str(item))
                 self.qtablewidgetitem = QTableWidgetItem()
                 self.qtablewidgetitem.setText(str(item))
-                self.ui.tableWidget.setItem(rowPos, itemCount, self.qtablewidgetitem)
-                self.qtablewidgetitem = self.ui.tableWidget.item(rowPos, itemCount)
+                self.ui.table_users.setItem(rowPos, itemCount, self.qtablewidgetitem)
+                self.qtablewidgetitem = self.ui.table_users.item(rowPos, itemCount)
                 itemCount = itemCount + 1
             
             rowPos = rowPos + 1
-            
-    def addUser(self, dbFolder):
+
+    def refresh_table_users(self, dbFolder):
+        data = self.getAllUsers(dbFolder)
+        self.populate_table(data)
+
+    def populate_table(self,data):
+        self.ui.table_users.setRowCount(len(data))
+
+        for (index_row, row) in enumerate(data):
+            for(index_cell, cell) in enumerate(row):
+                self.ui.table_users.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+        self.records_qty()
+
+    #deprecated     
+    def addUser_f(self, dbFolder):
 
         conn = AppFunctions.create_connection(dbFolder)
 
@@ -121,6 +166,13 @@ class AppFunctions():
 
             dlg.exec()
     
+    def open_adduser_window(self):
+        from .newUserWindow import NewUserWindow
+        
+        window = NewUserWindow(self)
+        window.show()
+
+
     def deleteUser(self, dbFolder):
         conn = AppFunctions.create_connection(dbFolder)
 
@@ -188,10 +240,22 @@ class AppFunctions():
         #Always show the users 
         AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
 
+    def open_deleteuser_window(self):
+        from .ui_edituser import Ui_EditUserWindow
+        
+        self.setWindowFlag(Qt.Window)
+
+        row = self.ui.table_users.selectedItems()
+        if row:
+            user_id = int(row[0].text())
+            window = Ui_EditUserWindow(self, user_id)
+            window.show()
+
+        self.ui.table_users.clearSelection()
+
+
     def addBudget(self,dbFolder):
         print("PRESUPUESTO")
 
     def addBudgetTemplate(self,dbFolder):
         print("PRESUPUESTO PLANTILLA")
-
-    

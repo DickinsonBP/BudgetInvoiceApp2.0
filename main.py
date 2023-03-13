@@ -14,10 +14,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFo
 from PySide6.QtWidgets import *
 
 # GUI FILE
-from UI.ui_main import Ui_MainWindow
+from views.ui_main import Ui_MainWindow
 
 # IMPORT APP FUNCTIONS
-from UI.functions import AppFunctions
+from views.functions import AppFunctions
 
 from Custom_Widgets.Widgets import *
 
@@ -84,8 +84,9 @@ class MainWindow(QMainWindow):
         #Display all users
         AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
 
-        self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.addUser(self,dbFolder))
-        self.ui.btn_deleteuser.clicked.connect(lambda: AppFunctions.deleteUser(self,dbFolder))
+        self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.open_adduser_window(self))
+        self.ui.btn_deleteuser.clicked.connect(lambda: AppFunctions.open_deleteuser_window(self))
+        self.ui.btn_updateUserTable.clicked.connect(lambda: AppFunctions.refresh_table_users(self, dbFolder))
 
         self.ui.btn_addbudget.clicked.connect(lambda: AppFunctions.addBudget(self,dbFolder))
         self.ui.btn_addbudgettemplate.clicked.connect(lambda: AppFunctions.addBudgetTemplate(self,dbFolder))

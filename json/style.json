@@ -83,44 +83,6 @@
                     "animationEasingCurve": "Linear"
                 }
             ]
-        },
-        {
-            "name": "rightMenu",
-            "defaultSize": [
-                {
-                    "width": 0,
-                    "height": "parent"
-                }
-            ],
-            "collapsedSize": [
-                {
-                    "width": 0,
-                    "height": "parent"
-                }
-            ],
-            "expandedSize": [
-                {
-                    "width": 200,
-                    "height": "parent"
-                }
-            ],
-            "toggleButton": [
-            {
-                "buttonName": "btn_showUserForm",
-                "icon": [
-                    {
-                        "whenMenuIsCollapsed": ":res/Icons/plus-square.png",
-                        "whenMenuIsExpanded": ":res/Icons/window_close.png"
-                    }
-                ]
-            }
-        ],
-            "menuTransitionAnimation": [
-                {
-                    "animationDuration": 300,
-                    "animationEasingCurve": "Linear"
-                }
-            ]
         }
     ],
     "QStackedWidget":[
