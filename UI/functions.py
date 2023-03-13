@@ -30,12 +30,16 @@ class AppFunctions():
             print(e)
 
     def main(dbFolder):
-        create_user_table= """ CREATE TABLE IF NOT EXISTS Users (USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,USER_NIF TEXT,USER_NAME TEXT,USER_EMAIL TEXT,USER_ADDRESS TEXT,USER_PHONE TEXT) """
+        tables = [
+            " CREATE TABLE IF NOT EXISTS Users (USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,USER_NIF TEXT,USER_NAME TEXT,USER_EMAIL TEXT,USER_ADDRESS TEXT,USER_PHONE TEXT) ",
+            " CREATE TABLE IF NOT EXISTS Budgets (BUDGET_ID INTEGER PRIMARY KEY AUTOINCREMENT, BUDGET_NAME TEXT, CONSTRAINT FK_USER_ID FOREING KEY (USER_ID) REFERENCES User (USER_ID)) "
+        ]
         conn = AppFunctions.create_connection(dbFolder)
 
         if conn is not None:
             print("MAIN CONNECTION")
-            AppFunctions.create_table(conn, create_user_table)
+            for table in tables:
+                AppFunctions.create_table(conn, table)
         else:
             print("Error! Cannot create the database connection.")
     
@@ -184,5 +188,10 @@ class AppFunctions():
         #Always show the users 
         AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
 
-    def updateUser(self, dbFolder):
-        print("Update")
+    def addBudget(self,dbFolder):
+        print("PRESUPUESTO")
+
+    def addBudgetTemplate(self,dbFolder):
+        print("PRESUPUESTO PLANTILLA")
+
+    

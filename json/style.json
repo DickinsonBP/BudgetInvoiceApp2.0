@@ -31,8 +31,8 @@
         {
             "Buttons": [
                 "btn_home",
-                "btn_reports",
-                "btn_account",
+                "btn_budgets",
+                "btn_invoices",
                 "btn_about",
                 "btn_help",
                 "btn_settings"
@@ -151,9 +151,9 @@
 						{
 							"btn_home": "homePage",
 							"btn_about": "aboutPage",
-							"btn_reports": "reportsPage",
+							"btn_budgets": "budgetPage",
 							"btn_settings": "settingsPage",
-							"btn_account": "accountPage",
+							"btn_invoices": "invoicePage",
 							"btn_help": "infoPage"
 						}
 					]

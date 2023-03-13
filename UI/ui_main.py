@@ -41,12 +41,12 @@ class Ui_MainWindow(object):
 "#header, #mainBody, #footer {\n"
 "	background-color: #27263c;\n"
 "}\n"
-"#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser, #btn_deletesuser  {\n"
+"#btn_clients, #btn_adduser, #btn_deletesuser, #btn_edituser  {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
 "}\n"
-" #btn_adduser,#btn_deleteuser  {\n"
+" #btn_adduser,#btn_deleteuser, #btn_edituser   {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	background-color: #9c991c ;\n"
 "	border-radius: 10px;\n"
@@ -108,63 +108,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.frame_2, 0, Qt.AlignLeft)
 
-        self.frame = QFrame(self.header)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self.frame)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.btn_search = QPushButton(self.frame)
-        self.btn_search.setObjectName(u"btn_search")
-        self.btn_search.setMinimumSize(QSize(38, 38))
-        self.btn_search.setMaximumSize(QSize(38, 38))
-        self.btn_search.setCursor(QCursor(Qt.PointingHandCursor))
-        icon1 = QIcon()
-        icon1.addFile(u"res/Icons/search.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_search.setIcon(icon1)
-        self.btn_search.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout.addWidget(self.btn_search)
-
-        self.btn_invoices = QPushButton(self.frame)
-        self.btn_invoices.setObjectName(u"btn_invoices")
-        self.btn_invoices.setMinimumSize(QSize(38, 38))
-        self.btn_invoices.setMaximumSize(QSize(38, 38))
-        self.btn_invoices.setCursor(QCursor(Qt.PointingHandCursor))
-        icon2 = QIcon()
-        icon2.addFile(u"res/Icons/dollar-sign.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_invoices.setIcon(icon2)
-        self.btn_invoices.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout.addWidget(self.btn_invoices)
-
-        self.btn_budgets = QPushButton(self.frame)
-        self.btn_budgets.setObjectName(u"btn_budgets")
-        self.btn_budgets.setMinimumSize(QSize(38, 38))
-        self.btn_budgets.setMaximumSize(QSize(38, 38))
-        self.btn_budgets.setCursor(QCursor(Qt.PointingHandCursor))
-        icon3 = QIcon()
-        icon3.addFile(u"res/Icons/file-text.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_budgets.setIcon(icon3)
-        self.btn_budgets.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout.addWidget(self.btn_budgets)
-
-        self.btn_clients = QPushButton(self.frame)
-        self.btn_clients.setObjectName(u"btn_clients")
-        self.btn_clients.setMinimumSize(QSize(38, 38))
-        self.btn_clients.setMaximumSize(QSize(38, 38))
-        self.btn_clients.setCursor(QCursor(Qt.PointingHandCursor))
-        icon4 = QIcon()
-        icon4.addFile(u"res/Icons/users.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_clients.setIcon(icon4)
-        self.btn_clients.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout.addWidget(self.btn_clients)
-
-
-        self.horizontalLayout_2.addWidget(self.frame, 0, Qt.AlignRight)
-
 
         self.verticalLayout.addWidget(self.header, 0, Qt.AlignTop)
 
@@ -207,29 +150,29 @@ class Ui_MainWindow(object):
         self.btn_home.setObjectName(u"btn_home")
         self.btn_home.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_home.setStyleSheet(u"background-color: #1b1b27;")
-        icon5 = QIcon()
-        icon5.addFile(u"res/Icons/home.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_home.setIcon(icon5)
+        icon1 = QIcon()
+        icon1.addFile(u"res/Icons/home.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_home.setIcon(icon1)
 
         self.verticalLayout_6.addWidget(self.btn_home)
 
-        self.btn_reports = QPushButton(self.frame_4)
-        self.btn_reports.setObjectName(u"btn_reports")
-        self.btn_reports.setCursor(QCursor(Qt.PointingHandCursor))
-        icon6 = QIcon()
-        icon6.addFile(u"res/Icons/printer.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_reports.setIcon(icon6)
+        self.btn_budgets = QPushButton(self.frame_4)
+        self.btn_budgets.setObjectName(u"btn_budgets")
+        self.btn_budgets.setCursor(QCursor(Qt.PointingHandCursor))
+        icon2 = QIcon()
+        icon2.addFile(u"res/Icons/file-text.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_budgets.setIcon(icon2)
 
-        self.verticalLayout_6.addWidget(self.btn_reports)
+        self.verticalLayout_6.addWidget(self.btn_budgets)
 
-        self.btn_account = QPushButton(self.frame_4)
-        self.btn_account.setObjectName(u"btn_account")
-        self.btn_account.setCursor(QCursor(Qt.PointingHandCursor))
-        icon7 = QIcon()
-        icon7.addFile(u"res/Icons/user.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_account.setIcon(icon7)
+        self.btn_invoices = QPushButton(self.frame_4)
+        self.btn_invoices.setObjectName(u"btn_invoices")
+        self.btn_invoices.setCursor(QCursor(Qt.PointingHandCursor))
+        icon3 = QIcon()
+        icon3.addFile(u"res/Icons/dollar-sign.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_invoices.setIcon(icon3)
 
-        self.verticalLayout_6.addWidget(self.btn_account)
+        self.verticalLayout_6.addWidget(self.btn_invoices)
 
 
         self.verticalLayout_4.addWidget(self.frame_4)
@@ -249,27 +192,27 @@ class Ui_MainWindow(object):
         self.btn_settings = QPushButton(self.frame_3)
         self.btn_settings.setObjectName(u"btn_settings")
         self.btn_settings.setCursor(QCursor(Qt.PointingHandCursor))
-        icon8 = QIcon()
-        icon8.addFile(u"res/Icons/settings.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_settings.setIcon(icon8)
+        icon4 = QIcon()
+        icon4.addFile(u"res/Icons/settings.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_settings.setIcon(icon4)
 
         self.verticalLayout_5.addWidget(self.btn_settings)
 
         self.btn_help = QPushButton(self.frame_3)
         self.btn_help.setObjectName(u"btn_help")
         self.btn_help.setCursor(QCursor(Qt.PointingHandCursor))
-        icon9 = QIcon()
-        icon9.addFile(u"res/Icons/help-circle.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_help.setIcon(icon9)
+        icon5 = QIcon()
+        icon5.addFile(u"res/Icons/help-circle.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_help.setIcon(icon5)
 
         self.verticalLayout_5.addWidget(self.btn_help)
 
         self.btn_about = QPushButton(self.frame_3)
         self.btn_about.setObjectName(u"btn_about")
         self.btn_about.setCursor(QCursor(Qt.PointingHandCursor))
-        icon10 = QIcon()
-        icon10.addFile(u"res/Icons/info.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_about.setIcon(icon10)
+        icon6 = QIcon()
+        icon6.addFile(u"res/Icons/info.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_about.setIcon(icon6)
 
         self.verticalLayout_5.addWidget(self.btn_about)
 
@@ -317,9 +260,9 @@ class Ui_MainWindow(object):
         font2.setBold(True)
         self.btn_showUserForm.setFont(font2)
         self.btn_showUserForm.setCursor(QCursor(Qt.PointingHandCursor))
-        icon11 = QIcon()
-        icon11.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_showUserForm.setIcon(icon11)
+        icon7 = QIcon()
+        icon7.addFile(u"res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_showUserForm.setIcon(icon7)
         self.btn_showUserForm.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_6.addWidget(self.btn_showUserForm, 0, Qt.AlignRight)
@@ -361,20 +304,75 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addWidget(self.widget_3)
 
         self.mainPages.addWidget(self.homePage)
-        self.reportsPage = QWidget()
-        self.reportsPage.setObjectName(u"reportsPage")
-        self.label_3 = QLabel(self.reportsPage)
+        self.budgetPage = QWidget()
+        self.budgetPage.setObjectName(u"budgetPage")
+        self.verticalLayout_17 = QVBoxLayout(self.budgetPage)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.widget_6 = QWidget(self.budgetPage)
+        self.widget_6.setObjectName(u"widget_6")
+        self.verticalLayout_18 = QVBoxLayout(self.widget_6)
+        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.frame = QFrame(self.widget_6)
+        self.frame.setObjectName(u"frame")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout = QHBoxLayout(self.frame)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.label_3 = QLabel(self.frame)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(260, 170, 201, 91))
         self.label_3.setFont(font1)
-        self.mainPages.addWidget(self.reportsPage)
-        self.accountPage = QWidget()
-        self.accountPage.setObjectName(u"accountPage")
-        self.label_7 = QLabel(self.accountPage)
+
+        self.horizontalLayout.addWidget(self.label_3)
+
+        self.btn_addbudgettemplate = QPushButton(self.frame)
+        self.btn_addbudgettemplate.setObjectName(u"btn_addbudgettemplate")
+        self.btn_addbudgettemplate.setFont(font2)
+        self.btn_addbudgettemplate.setCursor(QCursor(Qt.PointingHandCursor))
+        icon8 = QIcon()
+        icon8.addFile(u"res/Icons/plus-circle.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_addbudgettemplate.setIcon(icon8)
+        self.btn_addbudgettemplate.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout.addWidget(self.btn_addbudgettemplate, 0, Qt.AlignRight)
+
+        self.btn_addbudget = QPushButton(self.frame)
+        self.btn_addbudget.setObjectName(u"btn_addbudget")
+        self.btn_addbudget.setFont(font2)
+        self.btn_addbudget.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_addbudget.setIcon(icon7)
+        self.btn_addbudget.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout.addWidget(self.btn_addbudget, 0, Qt.AlignRight)
+
+
+        self.verticalLayout_18.addWidget(self.frame)
+
+
+        self.verticalLayout_17.addWidget(self.widget_6)
+
+        self.tableWidget_2 = QTableWidget(self.budgetPage)
+        if (self.tableWidget_2.columnCount() < 4):
+            self.tableWidget_2.setColumnCount(4)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(1, __qtablewidgetitem7)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(2, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(3, __qtablewidgetitem9)
+        self.tableWidget_2.setObjectName(u"tableWidget_2")
+
+        self.verticalLayout_17.addWidget(self.tableWidget_2)
+
+        self.mainPages.addWidget(self.budgetPage)
+        self.invoicePage = QWidget()
+        self.invoicePage.setObjectName(u"invoicePage")
+        self.label_7 = QLabel(self.invoicePage)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(260, 200, 201, 91))
         self.label_7.setFont(font1)
-        self.mainPages.addWidget(self.accountPage)
+        self.mainPages.addWidget(self.invoicePage)
         self.settingsPage = QWidget()
         self.settingsPage.setObjectName(u"settingsPage")
         self.verticalLayout_14 = QVBoxLayout(self.settingsPage)
@@ -473,9 +471,9 @@ class Ui_MainWindow(object):
         font5.setItalic(False)
         self.btn_adduser.setFont(font5)
         self.btn_adduser.setCursor(QCursor(Qt.PointingHandCursor))
-        icon12 = QIcon()
-        icon12.addFile(u"res/Icons/thumbs-up.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_adduser.setIcon(icon12)
+        icon9 = QIcon()
+        icon9.addFile(u"res/Icons/thumbs-up.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_adduser.setIcon(icon9)
         self.btn_adduser.setIconSize(QSize(24, 24))
 
         self.verticalLayout_8.addWidget(self.btn_adduser, 0, Qt.AlignHCenter)
@@ -504,15 +502,45 @@ class Ui_MainWindow(object):
         self.btn_deleteuser = QPushButton(self.widget_4)
         self.btn_deleteuser.setObjectName(u"btn_deleteuser")
         self.btn_deleteuser.setCursor(QCursor(Qt.PointingHandCursor))
-        icon13 = QIcon()
-        icon13.addFile(u"../res/Icons/delete.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_deleteuser.setIcon(icon13)
+        icon10 = QIcon()
+        icon10.addFile(u"res/Icons/delete.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_deleteuser.setIcon(icon10)
         self.btn_deleteuser.setIconSize(QSize(24, 24))
 
         self.verticalLayout_12.addWidget(self.btn_deleteuser)
 
 
         self.verticalLayout_7.addWidget(self.widget_4, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.widget_5 = QWidget(self.rightMenu)
+        self.widget_5.setObjectName(u"widget_5")
+        self.verticalLayout_15 = QVBoxLayout(self.widget_5)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.frame_8 = QFrame(self.widget_5)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_16 = QVBoxLayout(self.frame_8)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.nif_3 = QLineEdit(self.frame_8)
+        self.nif_3.setObjectName(u"nif_3")
+
+        self.verticalLayout_16.addWidget(self.nif_3)
+
+
+        self.verticalLayout_15.addWidget(self.frame_8)
+
+        self.btn_edituser = QPushButton(self.widget_5)
+        self.btn_edituser.setObjectName(u"btn_edituser")
+        icon11 = QIcon()
+        icon11.addFile(u"res/Icons/edit.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_edituser.setIcon(icon11)
+        self.btn_edituser.setIconSize(QSize(24, 24))
+
+        self.verticalLayout_15.addWidget(self.btn_edituser)
+
+
+        self.verticalLayout_7.addWidget(self.widget_5, 0, Qt.AlignHCenter|Qt.AlignTop)
 
 
         self.horizontalLayout_4.addWidget(self.rightMenu)
@@ -547,13 +575,9 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.btn_menu.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"Servicios Bedoya", None))
-        self.btn_search.setText("")
-        self.btn_invoices.setText("")
-        self.btn_budgets.setText("")
-        self.btn_clients.setText("")
-        self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Inicio", None))
-        self.btn_reports.setText(QCoreApplication.translate("MainWindow", u"Reportes", None))
-        self.btn_account.setText(QCoreApplication.translate("MainWindow", u"Mi cuenta", None))
+        self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Clientes", None))
+        self.btn_budgets.setText(QCoreApplication.translate("MainWindow", u"Presupuestos", None))
+        self.btn_invoices.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"Ajustes", None))
         self.btn_help.setText(QCoreApplication.translate("MainWindow", u"Ayuda", None))
         self.btn_about.setText(QCoreApplication.translate("MainWindow", u"Informacion adicional", None))
@@ -571,8 +595,18 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
         ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"REPORTS", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"ACCOUNT", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"PRESUPUESTOS", None))
+        self.btn_addbudgettemplate.setText(QCoreApplication.translate("MainWindow", u"Nueva Plantilla", None))
+        self.btn_addbudget.setText(QCoreApplication.translate("MainWindow", u"Nuevo Presupuesto", None))
+        ___qtablewidgetitem6 = self.tableWidget_2.horizontalHeaderItem(0)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
+        ___qtablewidgetitem7 = self.tableWidget_2.horizontalHeaderItem(1)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Nombre", None));
+        ___qtablewidgetitem8 = self.tableWidget_2.horizontalHeaderItem(2)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem9 = self.tableWidget_2.horizontalHeaderItem(3)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"De momento no se puede hacer nada...", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"INFO", None))
@@ -586,6 +620,8 @@ class Ui_MainWindow(object):
         self.btn_adduser.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir Usuario", None))
         self.nif_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NIF", None))
         self.btn_deleteuser.setText(QCoreApplication.translate("MainWindow", u"Eliminar Usuario", None))
+        self.nif_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NIF", None))
+        self.btn_edituser.setText(QCoreApplication.translate("MainWindow", u"Editar usuario", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Servicios Bedoya. Copyright 2023", None))
     # retranslateUi
 

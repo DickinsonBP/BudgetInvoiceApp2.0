@@ -28,12 +28,12 @@
 #header, #mainBody, #footer {
 	background-color: #27263c;
 }
-#btn_clients, #btn_budgets, #btn_invoices, #btn_search, #btn_adduser, #btn_deletesuser  {
+#btn_clients, #btn_adduser, #btn_deletesuser, #btn_edituser  {
 	border: 2px solid  #ece424 ;
 	border-radius: 10px;
 	text-align: center;
 }
- #btn_adduser,#btn_deleteuser  {
+ #btn_adduser,#btn_deleteuser, #btn_edituser   {
 	border: 2px solid  #ece424 ;
 	background-color: #9c991c ;
 	border-radius: 10px;
@@ -130,146 +130,6 @@ QLineEdit{
             </property>
             <property name="text">
              <string>Servicios Bedoya</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item alignment="Qt::AlignRight">
-        <widget class="QFrame" name="frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="btn_search">
-            <property name="minimumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>res/Icons/search.png</normaloff>res/Icons/search.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_invoices">
-            <property name="minimumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>res/Icons/dollar-sign.png</normaloff>res/Icons/dollar-sign.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_budgets">
-            <property name="minimumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>res/Icons/file-text.png</normaloff>res/Icons/file-text.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_clients">
-            <property name="minimumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>38</width>
-              <height>38</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>res/Icons/users.png</normaloff>res/Icons/users.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
             </property>
            </widget>
           </item>
@@ -396,7 +256,7 @@ QLineEdit{
                    <string notr="true">background-color: #1b1b27;</string>
                   </property>
                   <property name="text">
-                   <string>Inicio</string>
+                   <string>Clientes</string>
                   </property>
                   <property name="icon">
                    <iconset>
@@ -405,30 +265,30 @@ QLineEdit{
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_reports">
+                 <widget class="QPushButton" name="btn_budgets">
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
                   <property name="text">
-                   <string>Reportes</string>
+                   <string>Presupuestos</string>
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>res/Icons/printer.png</normaloff>res/Icons/printer.png</iconset>
+                    <normaloff>../res/Icons/file-text.png</normaloff>../res/Icons/file-text.png</iconset>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_account">
+                 <widget class="QPushButton" name="btn_invoices">
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
                   <property name="text">
-                   <string>Mi cuenta</string>
+                   <string>Facturas</string>
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>res/Icons/user.png</normaloff>res/Icons/user.png</iconset>
+                    <normaloff>../res/Icons/dollar-sign.png</normaloff>../res/Icons/dollar-sign.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -657,28 +517,116 @@ QLineEdit{
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="reportsPage">
-             <widget class="QLabel" name="label_3">
-              <property name="geometry">
-               <rect>
-                <x>260</x>
-                <y>170</y>
-                <width>201</width>
-                <height>91</height>
-               </rect>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>14</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>REPORTS</string>
-              </property>
-             </widget>
+            <widget class="QWidget" name="budgetPage">
+             <layout class="QVBoxLayout" name="verticalLayout_17">
+              <item>
+               <widget class="QWidget" name="widget_6" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <item>
+                  <widget class="QFrame" name="frame">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>14</pointsize>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>PRESUPUESTOS</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignRight">
+                     <widget class="QPushButton" name="btn_addbudgettemplate">
+                      <property name="font">
+                       <font>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string>Nueva Plantilla</string>
+                      </property>
+                      <property name="icon">
+                       <iconset>
+                        <normaloff>../res/Icons/plus-circle.png</normaloff>../res/Icons/plus-circle.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>24</width>
+                        <height>24</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignRight">
+                     <widget class="QPushButton" name="btn_addbudget">
+                      <property name="font">
+                       <font>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string>Nuevo Presupuesto</string>
+                      </property>
+                      <property name="icon">
+                       <iconset>
+                        <normaloff>../res/Icons/plus-square.png</normaloff>../res/Icons/plus-square.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>24</width>
+                        <height>24</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tableWidget_2">
+                <column>
+                 <property name="text">
+                  <string>Identificador</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Nombre</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Cliente</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Fecha</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
             </widget>
-            <widget class="QWidget" name="accountPage">
+            <widget class="QWidget" name="invoicePage">
              <widget class="QLabel" name="label_7">
               <property name="geometry">
                <rect>
@@ -695,7 +643,7 @@ QLineEdit{
                </font>
               </property>
               <property name="text">
-               <string>ACCOUNT</string>
+               <string>Facturas</string>
               </property>
              </widget>
             </widget>
@@ -928,6 +876,48 @@ QLineEdit{
                <property name="icon">
                 <iconset>
                  <normaloff>../res/Icons/delete.png</normaloff>../res/Icons/delete.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+           <widget class="QWidget" name="widget_5" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QFrame" name="frame_8">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_16">
+                <item>
+                 <widget class="QLineEdit" name="nif_3">
+                  <property name="placeholderText">
+                   <string>NIF</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_edituser">
+               <property name="text">
+                <string>Editar usuario</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../res/Icons/edit.png</normaloff>../res/Icons/edit.png</iconset>
                </property>
                <property name="iconSize">
                 <size>

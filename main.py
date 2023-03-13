@@ -87,6 +87,9 @@ class MainWindow(QMainWindow):
         self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.addUser(self,dbFolder))
         self.ui.btn_deleteuser.clicked.connect(lambda: AppFunctions.deleteUser(self,dbFolder))
 
+        self.ui.btn_addbudget.clicked.connect(lambda: AppFunctions.addBudget(self,dbFolder))
+        self.ui.btn_addbudgettemplate.clicked.connect(lambda: AppFunctions.addBudgetTemplate(self,dbFolder))
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
