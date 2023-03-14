@@ -160,7 +160,7 @@ class Ui_NewUserWindow(object):
         self.btn_saveuser.setFont(font1)
         self.btn_saveuser.setCursor(QCursor(Qt.PointingHandCursor))
         icon = QIcon()
-        icon.addFile(u"../res/Icons/check.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"res/Icons/check.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_saveuser.setIcon(icon)
         self.btn_saveuser.setIconSize(QSize(24, 24))
 
@@ -171,7 +171,7 @@ class Ui_NewUserWindow(object):
         self.btn_cancel.setFont(font1)
         self.btn_cancel.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
-        icon1.addFile(u"../res/Icons/thumbs-down.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u"res/Icons/thumbs-down.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_cancel.setIcon(icon1)
         self.btn_cancel.setIconSize(QSize(24, 24))
 

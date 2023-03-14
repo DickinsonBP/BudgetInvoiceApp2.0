@@ -18,6 +18,7 @@ from views.ui_main import Ui_MainWindow
 
 # IMPORT APP FUNCTIONS
 from views.functions import AppFunctions
+from Database.db_functions import select_all_users, delete_user
 
 from Custom_Widgets.Widgets import *
 
@@ -76,20 +77,96 @@ class MainWindow(QMainWindow):
         #QAppSettings.updateAppSettings(self)
 
         # DataBase Folder
-        dbFolder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Database/DBP_DB.db'))
+        #dbFolder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Database/DBP_DB.db'))
         
         #Run main function to create the database and the table
-        AppFunctions.main(dbFolder)
+        AppFunctions.main()
 
         #Display all users
-        AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
+        #AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
 
-        self.ui.btn_adduser.clicked.connect(lambda: AppFunctions.open_adduser_window(self))
-        self.ui.btn_deleteuser.clicked.connect(lambda: AppFunctions.open_deleteuser_window(self))
-        self.ui.btn_updateUserTable.clicked.connect(lambda: AppFunctions.refresh_table_users(self, dbFolder))
+        self.populate_user_table(select_all_users())
+        self.ui.btn_updateUserTable.clicked.connect(lambda: self.populate_user_table(select_all_users()))
+        self.ui.btn_adduser.clicked.connect(self.open_new_user_window)
+        self.ui.btn_edituser.clicked.connect(self.open_edit_user_window)
+        self.ui.btn_deleteuser.clicked.connect(self.remove_user)
 
-        self.ui.btn_addbudget.clicked.connect(lambda: AppFunctions.addBudget(self,dbFolder))
-        self.ui.btn_addbudgettemplate.clicked.connect(lambda: AppFunctions.addBudgetTemplate(self,dbFolder))
+
+        #self.ui.btn_addbudget.clicked.connect(lambda: AppFunctions.addBudget(self,dbFolder))
+        #self.ui.btn_addbudgettemplate.clicked.connect(lambda: AppFunctions.addBudgetTemplate(self,dbFolder))
+
+
+
+    def populate_user_table(self, data):
+        """
+        It takes a list of lists (data) and populates a QTableWidget with the data. 
+        
+        The first line of the function sets the number of rows in the table to the number of lists in the
+        data list. 
+        
+        The second line loops through the data list. 
+        
+        The third line loops through each list in the data list. 
+        
+        The fourth line populates the table with the data. 
+        
+        The fifth line calls the users_qty function. 
+        
+        The users_qty function is defined below.
+        
+        :param data: list of lists
+        """
+        self.ui.table_users.setRowCount(len(data))
+
+        for index_row,row in enumerate(data):
+            for index_cell, cell in enumerate(row):
+                self.ui.table_users.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+        
+        self.users_qty()
+
+    def refresh_user_table_from_child_window(self):
+        data = select_all_users()
+        self.populate_user_table(data)
+        
+    def remove_user(self):
+        """
+        It removes a user from the database and the table widget
+        """
+        selected_row = self.ui.table_users.selectedItems()
+
+        if selected_row:
+            user_id = int(selected_row[0].text())
+            row = selected_row[0].row()
+
+            if delete_user(user_id):
+                self.ui.table_users.removeRow(row)
+
+        self.users_qty()
+
+    def users_qty(self):
+        """
+        It counts the number of rows in a table and displays the result in a label.
+        """
+        qty_rows = str(self.ui.table_users.rowCount())
+        self.ui.clients_qty.setText(qty_rows)
+
+    def open_new_user_window(self):
+        from views.newUserWindow import NewUserWindow
+        window = NewUserWindow(self)
+        window.show()
+    
+    def open_edit_user_window(self):
+        from views.editUserWindow import EditUserWindow
+        selected_row = self.ui.table_users.selectedItems()
+
+        if selected_row:
+            user_id = int(selected_row[0].text())
+            window = EditUserWindow(self, user_id)
+            window.show()
+
+        self.ui.table_users.clearSelection()
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

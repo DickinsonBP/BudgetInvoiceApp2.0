@@ -1,23 +1,38 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import Qt
-from .ui_newuser import Ui_NewUserWindow
+from .ui_edituser import Ui_EditUserWindow
 #from Data.books import insert_book, select_book_by_id
 import shutil
 import os
 
 
-from Database.db_functions import insert_user
+from Database.db_functions import select_user_by_id, update_user
 
-class NewUserWindow(QWidget, Ui_NewUserWindow):
+class EditUserWindow(QWidget, Ui_EditUserWindow):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, _id = None):
+
+        self._id = _id
         super().__init__(parent)
+
         self.parent = parent
         self.setupUi(self)
         self.setWindowFlag(Qt.Window)
 
-        self.btn_saveuser.clicked.connect(self.addUser)
+        self.populate_inputs()
+
+        self.btn_saveuser.clicked.connect(self.update_user)
         self.btn_cancel.clicked.connect(self.close)
+
+
+    def populate_inputs(self):
+        data = select_user_by_id(self._id)
+
+        self.line_nif.setText(data[1])
+        self.line_name.setText(data[2])
+        self.line_email.setText(data[3])
+        self.line_address.setText(data[4])
+        self.line_phone.setText(data[5])
 
     def check_inputs(self):
         nif = self.line_nif.text()
@@ -34,10 +49,10 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
         if phone == "":
             print("El campo telefono es obligatorio")
             errors_count +=1
-        
+
         return (errors_count == 0)
     
-    def addUser(self):
+    def update_user(self):
 
         nif = self.line_nif.text()
         name = self.line_name.text()
@@ -50,7 +65,7 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
             
             data = (nif,name,email,address,phone)
 
-            if (insert_user(data)):
+            if (update_user(self._id,data)):
                 self.clean_inputs()
                 self.parent.refresh_user_table_from_child_window()
                 self.close()

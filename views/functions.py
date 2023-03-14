@@ -6,45 +6,28 @@ from sqlite3 import Error
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox, QDialogButtonBox, QLabel,QVBoxLayout
 from PySide6.QtCore import Qt
 
+from Database.db_functions import create_connection, create_table
+
 class AppFunctions():
     def __init__(self, arg):
         super(AppFunctions, self).__init__()
         self.arg = arg
 
-    def create_connection(db_file):
-        conn = None
-        try:
-            conn = sqlite3.connect(db_file)
-            print("CONNECTION OK!")
-        except Error as e:
-            print(e)
-        
-        return conn
-    
-    def create_table(conn, create_table_sql):
-        try:
-            c = conn.cursor()
-            c.execute(create_table_sql)
-            print("TABLE CREATED OK")
-        except Error as e:
-            print("FAILED CREATING TABLE")
-            print(e)
-
-    def main(dbFolder):
+    def main():
         tables = [
             " CREATE TABLE IF NOT EXISTS Users (USER_ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,USER_NIF TEXT,USER_NAME TEXT,USER_EMAIL TEXT,USER_ADDRESS TEXT,USER_PHONE TEXT) ",
             " CREATE TABLE IF NOT EXISTS Budgets (BUDGET_ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, BUDGET_NAME TEXT, USER_ID INTEGER NOT NULL,CONSTRAINT FK_USER_ID FOREIGN KEY (USER_ID) REFERENCES User (USER_ID)) "
         ]
-        conn = AppFunctions.create_connection(dbFolder)
+        conn = create_connection()
 
         if conn is not None:
             print("MAIN CONNECTION")
             for table in tables:
-                AppFunctions.create_table(conn, table)
+                create_table(conn, table)
         else:
             print("Error! Cannot create the database connection.")
     
-    def getAllUsers(dbFolder):
+    def getAllUsers_bak(dbFolder):
         conn = AppFunctions.create_connection(dbFolder)
 
         get_all_users = "SELECT * FROM Users;"
@@ -59,7 +42,7 @@ class AppFunctions():
             print("ERROR! Get all users has failed")
             print(e)
     
-    def getAllUsers_return(dbFolder):
+    def getAllUsers_return_bak(dbFolder):
         conn = AppFunctions.create_connection(dbFolder)
 
         get_all_users = "SELECT * FROM Users;"
