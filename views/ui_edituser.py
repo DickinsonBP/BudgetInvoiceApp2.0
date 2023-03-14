@@ -81,11 +81,11 @@ class Ui_EditUserWindow(object):
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
         font = QFont()
-        font.setPointSize(14)
+        font.setPointSize(25)
         font.setBold(True)
         self.label.setFont(font)
 
-        self.horizontalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.label, 0, Qt.AlignHCenter)
 
 
         self.verticalLayout_3.addWidget(self.frame)

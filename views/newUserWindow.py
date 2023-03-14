@@ -5,6 +5,7 @@ from .ui_newuser import Ui_NewUserWindow
 import shutil
 import os
 
+from views.functions import AppFunctions
 
 from Database.db_functions import insert_user
 
@@ -31,9 +32,14 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
         if name == "":
             print("El campo nombre es obligatorio")
             errors_count += 1
-        if phone == "":
-            print("El campo telefono es obligatorio")
+        if phone == "" or len(phone) > 9 or len(phone) < 9: 
+            print("El campo telefono es obligatorio y su longitud debe ser 9")
             errors_count +=1
+        
+        #(res, msg) = AppFunctions.check_cif(nif)
+        #if not res:
+        #    print(msg)
+        #    errors_count +=1
         
         return (errors_count == 0)
     

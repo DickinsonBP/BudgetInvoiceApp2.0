@@ -26,219 +26,73 @@ class AppFunctions():
                 create_table(conn, table)
         else:
             print("Error! Cannot create the database connection.")
-    
-    def getAllUsers_bak(dbFolder):
-        conn = AppFunctions.create_connection(dbFolder)
 
-        get_all_users = "SELECT * FROM Users;"
 
-        try:
-            c = conn.cursor()
-            c.execute(get_all_users)
-            print("GET ALL USERS OK")
-            #print("Users: "+str(c.fetchall()))
-            return c
-        except Error as e:
-            print("ERROR! Get all users has failed")
-            print(e)
-    
-    def getAllUsers_return_bak(dbFolder):
-        conn = AppFunctions.create_connection(dbFolder)
+    def check_cif(cif):
 
-        get_all_users = "SELECT * FROM Users;"
+        not_allowed = '/[\'^£$%&*()}{@#~?><>,|=_+¬-]/'
+        dni_nie_word = "TRWAGMYFPDXBNJZSQVHLCKE"
+        word_res = "JABCDEFGHI"
+        other_cif = ["P","Q","R","S","W"]
 
-        try:
-            c = conn.cursor()
-            c.execute(get_all_users)
-            print("GET ALL USERS OK")
-            return c.fetchall()
-        except Error as e:
-            print("ERROR! Get all users has failed")
-            print(e)
 
-    def insert_user_data(dbFolder, data):
-        conn = AppFunctions.create_connection(dbFolder)
-
-        sql = f""" INSERT INTO Users (USER_NIF, USER_NAME, USER_EMAIL, USER_ADDRESS, USER_PHONE) 
-                    VALUES(?, ?, ?, ?, ?)
-        """
-
-        try:
-            cur = conn.cursor()
-            cur.execute(sql, data)
-            conn.commit()
-            print("ADD USER OK!")
-
-            return True, cur.lastrowid
-        except Error as e:
-            print(f"ERROR! No se ha podido añadir el usurio {data[1]}")
-            print(e)   
-    
-    def displayUsers(self, rows):
-        for row in rows:
-            rowPos = self.ui.table_users.rowCount()
-
-            #skip rows that have already been loaded to table
-            if rowPos+1 > row[0]:
-                continue
-
-            itemCount = 0
-            #new table row
-            self.ui.table_users.setRowCount(rowPos + 1)
-            qtablewidgetitem = QTableWidgetItem()
-            self.ui.table_users.setVerticalHeaderItem(rowPos, qtablewidgetitem)
-
-            #add items to row
-
-            for item in row:
-                #print("Item: "+str(item))
-                self.qtablewidgetitem = QTableWidgetItem()
-                self.qtablewidgetitem.setText(str(item))
-                self.ui.table_users.setItem(rowPos, itemCount, self.qtablewidgetitem)
-                self.qtablewidgetitem = self.ui.table_users.item(rowPos, itemCount)
-                itemCount = itemCount + 1
-            
-            rowPos = rowPos + 1
-
-    def refresh_table_users(self, dbFolder):
-        data = self.getAllUsers(dbFolder)
-        self.populate_table(data)
-
-    def populate_table(self,data):
-        self.ui.table_users.setRowCount(len(data))
-
-        for (index_row, row) in enumerate(data):
-            for(index_cell, cell) in enumerate(row):
-                self.ui.table_users.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
-        self.records_qty()
-
-    #deprecated     
-    def addUser_f(self, dbFolder):
-
-        conn = AppFunctions.create_connection(dbFolder)
-
-        nif = self.ui.nif.text()
-        userName = self.ui.userName.text()
-        email = self.ui.email.text()
-        phone = self.ui.phone.text()
-        address = self.ui.address.text()
-
-        if nif != '' and userName !=  '':
-            add_user = f"""INSERT INTO Users (USER_NIF, USER_NAME, USER_EMAIL, USER_ADDRESS, USER_PHONE) VALUES('{nif}','{userName}','{email}','{phone}','{address}')"""
-
-            if not conn.cursor().execute(add_user):
-                print("Error! Could not insert person data")
-            else:
-                print("ADD USER OK!")
-                conn.commit()
-                #clear from input
-                self.ui.nif.setText("")
-                self.ui.userName.setText("")
-                self.ui.email.setText("")
-                self.ui.phone.setText("")
-                self.ui.address.setText("")
-
-                AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
-        else:
-            print("ERROR! Empty User Input")
-            dlg = QMessageBox(self)
-            dlg.setWindowTitle("Borrar usuario?")
-            dlg.setText("Por favor introduce un dato valido")
-            dlg.setStandardButtons(QMessageBox.Ok)
-            dlg.setIcon(QMessageBox.Warning)
-
-            dlg.exec()
-    
-    def open_adduser_window(self):
-        from .newUserWindow import NewUserWindow
+        cif = cif.upper()
+        first = cif[0]
         
-        window = NewUserWindow(self)
-        window.show()
+        if(len(cif) > 9):
+            return (False, "La longitud del CIF es incorrecta, sobran datos")
+        elif(len(cif) < 9):
+            return (False, "La longitud del CIF es incorrecta, faltan datos")
+        else:
+            if any(c in not_allowed for c in cif):
+                #ERROR. Not allowed characters
+                return (False, "No se permiten los siguientes caracteres en el CIF: "+not_allowed)
+            else:
+                if(type(first) == int):
+                    #DNI
+                    num = int(cif[:8])
+                    letter = cif[-1]
 
-
-    def deleteUser(self, dbFolder):
-        conn = AppFunctions.create_connection(dbFolder)
-
-        nif = self.ui.nif_2.text()
-
-        if nif != '':
-            
-            select_user=f"SELECT USER_NAME FROM Users WHERE USER_NIF='{nif}'"
-
-            c = conn.cursor()
-            
-            # the user exists
-            if c.execute(select_user):
-
-                name = c.fetchall()[0][0]
-
-                dlg = QMessageBox(self)
-                dlg.setWindowTitle("Borrar usuario?")
-                dlg.setText(f"Seguro que quieres borrar a {name}??")
-                dlg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-                dlg.setIcon(QMessageBox.Question)
-
-                btn = dlg.exec()
-
-                if btn == QMessageBox.Yes:
-                    delete_user = f"DELETE FROM Users WHERE USER_NIF='{nif}'"
-
-                    if not conn.cursor().execute(delete_user):
-                        print("ERROR! Could not delete user")
-                        dlg.setText("No se ha podido borrar el usuario")
-                        dlg.setStandardButtons(QMessageBox.Ok)
-                        dlg.setIcon(QMessageBox.Warning)
+                    if(dni_nie_word[num % 23] == letter):
+                        return (True, "")
                     else:
-                        print("DELETE USER OK!")
-                        dlg2 = QMessageBox(self)
-                        dlg2.setText("El usuario se ha borrado correctamente, se actualizará cuando reinicies la aplicación")
-                        dlg2.setStandardButtons(QMessageBox.Ok)
-                        dlg2.setIcon(QMessageBox.Information)
-                        dlg2.exec()
-                        conn.commit()
-                        #clear from input
-                        self.ui.nif_2.setText("")
+                        return (False, "El numero del DNI esta mal, por favor revisa y vuelve a introducirlo correctamente")
 
+                elif(first == "X" or first == "Y"):
+                    #NIE
+                    num = int(cif[1:8])
+                    letter = cif[-1]
+
+                    if(dni_nie_word[num % 23] == letter):
+                        return (True, "")
+                    else:
+                        return (False, "El numero del NIE esta mal, por favor revisa y vuelve a introducirlo correctamente")
                 else:
-                    print(f"CONTIUNE! The user {name} will not be deleted")
-            else:
-                print("ERROR! The user does not exist!")
-                dlg = QMessageBox(self)
-                dlg.setWindowTitle("Borrar usuario?")
-                dlg.setText("El usuario introducido no existe en la base de datos")
-                dlg.setStandardButtons(QMessageBox.Ok)
-                dlg.setIcon(QMessageBox.Warning)
+                    #CIF
+                    num = int(cif[1:8])
+                    last = cif[-1]
 
-                btn = dlg.exec()
-        else:
-            print("Empty Input")
-            dlg = QMessageBox(self)
-            dlg.setWindowTitle("Borrar usuario?")
-            dlg.setText("Por favor introduce un dato valido")
-            dlg.setStandardButtons(QMessageBox.Ok)
-            dlg.setIcon(QMessageBox.Warning)
+                    total = int(num[1]) + int(num[3]) + int(num[5])
 
-            dlg.exec()
-        
-        #Always show the users 
-        AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
+                    odd_val = [
+                        str(int(num[0])*2),
+                        str(int(num[2])*2),
+                        str(int(num[4])*2),
+                        str(int(num[6])*2)
+                    ]
 
-    def open_deleteuser_window(self):
-        from .ui_edituser import Ui_EditUserWindow
-        
-        self.setWindowFlag(Qt.Window)
+                    for val in odd_val:
+                        if(len(val) > 1):
+                            total = total + int(val[0]) + int(val[1])
+                        else:
+                            total = total + int(val[0])
+                    
+                    total = 10 - total[1]
 
-        row = self.ui.table_users.selectedItems()
-        if row:
-            user_id = int(row[0].text())
-            window = Ui_EditUserWindow(self, user_id)
-            window.show()
-
-        self.ui.table_users.clearSelection()
-
-
-    def addBudget(self,dbFolder):
-        print("PRESUPUESTO")
-
-    def addBudgetTemplate(self,dbFolder):
-        print("PRESUPUESTO PLANTILLA")
+                    if(first in other_cif):
+                        if(word_res[total] == last): return (True, "")
+                        else: return (False, "La letra de control del CIF (la ultima) esta mal, por favor revisa y vuelve a introducirlo correctamente")
+                    else:
+                        if(total == last): return (True, "")
+                        else: return (False, "El numero de control del CIF (el ultimo) esta mal, por favor revisa y vuelve a introducirlo correctamente")
+    
