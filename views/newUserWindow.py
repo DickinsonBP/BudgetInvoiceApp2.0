@@ -36,11 +36,6 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
             print("El campo telefono es obligatorio y su longitud debe ser 9")
             errors_count +=1
         
-        #(res, msg) = AppFunctions.check_cif(nif)
-        #if not res:
-        #    print(msg)
-        #    errors_count +=1
-        
         return (errors_count == 0)
     
     def addUser(self):

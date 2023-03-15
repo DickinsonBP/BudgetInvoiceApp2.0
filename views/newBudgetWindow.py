@@ -1,0 +1,85 @@
+from PySide6.QtWidgets import QWidget, QMessageBox
+from PySide6.QtCore import Qt
+from .ui_newbudget import Ui_NewBudgetWindow
+#from Data.books import insert_book, select_book_by_id
+import shutil
+import os
+
+from views.functions import AppFunctions
+
+from Database.db_functions import insert_budget, select_all_users, select_user_by_name
+
+class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.parent = parent
+        self.setupUi(self)
+        self.setWindowFlag(Qt.Window)
+
+        self.populate_comobox()
+
+        self.btn_savebudget.clicked.connect(self.addBudget)
+        self.btn_cancel.clicked.connect(self.close)
+
+        self.btn_newuser.clicked.connect(self.open_new_user_window)
+
+    def populate_comobox(self):
+
+        for usr in select_all_users():
+            self.user_comobox.addItem(usr[2])
+        
+    def check_inputs(self):
+        title = self.line_title.text()
+        date = self.date_newbudget.text()
+        user = self.user_comobox.currentText()
+        address = self.line_address.text()
+
+        errors_count = 0
+        
+        if title == "":
+            print("El campo titulo es obligatorio")
+            errors_count += 1
+        if date == "" : 
+            print("El campo fecha es obligatorio")
+            errors_count +=1
+        
+        return (errors_count == 0)
+    
+    def addBudget(self):
+
+        title = self.line_title.text()
+        date = self.date_newbudget.text()
+        user = self.user_comobox.currentText()
+
+        address = self.line_address.text()
+
+
+        if(self.check_inputs()):
+            
+            user_id = select_user_by_name(user)[0]
+
+
+            data = (title,date,user_id,address)
+
+            if (insert_budget(data)):
+                self.clean_inputs()
+                self.parent.refresh_budget_table_from_child_window()
+                self.close()
+        else:
+            msg = QMessageBox.critical(
+                    self,
+                    "Cuidado!",
+                    "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!",
+                    buttons = QMessageBox.Ok,
+                    defaultButton=QMessageBox.Ok
+                )
+
+    def open_new_user_window(self):
+        self.parent.open_new_user_window()
+
+    def clean_inputs(self):
+        self.line_title.clear()
+        self.date_newbudget.clear()
+        self.user_comobox.clear()
+        self.line_address.clear()

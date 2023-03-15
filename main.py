@@ -18,7 +18,7 @@ from views.ui_main import Ui_MainWindow
 
 # IMPORT APP FUNCTIONS
 from views.functions import AppFunctions
-from Database.db_functions import select_all_users, delete_user
+from Database.db_functions import select_all_users, select_user_by_id, delete_user, delete_budget, select_all_budgets, init_tables, remove_db
 
 from Custom_Widgets.Widgets import *
 
@@ -41,61 +41,36 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(my_icon)
         self.setWindowTitle("Servicios Bedoya")
 
-        ## TOGGLE/BURGUER MENU
-        ########################################################################
-        #self.ui.Btn_Toggle.clicked.connect(lambda: UIFunctions.toggleMenu(self, 250, True))
 
-        ########################################################################
         # APPLY JSON STYLESHEET
-        ########################################################################
-        # self = QMainWindow class
-        # self.ui = Ui_MainWindow / user interface class
         loadJsonStyle(self, self.ui)
-        ########################################################################
 
-        ## SHOW ==> MAIN WINDOW
-        ########################################################################
+        ## SHOW MAIN WINDOW
+
         self.show()
-        ## ==> END ##
 
-        ########################################################################
-        # UPDATE APP SETTINGS LOADED FROM JSON STYLESHEET 
-        # ITS IMPORTANT TO RUN THIS AFTER SHOWING THE WINDOW
-        # THIS PROCESS WILL RUN ON A SEPARATE THREAD WHEN GENERATING NEW ICONS
-        # TO PREVENT THE WINDOW FROM BEING UNRESPONSIVE
-        ########################################################################
-        # self = QMainWindow class
         QAppSettings.updateAppSettings(self)
-
-              # CHANGE THE THEME NAME IN SETTINGS
-        # Use one of the app themes from your JSON file
-        #settings.setValue("THEME", "Default-Dark")
-            
-        # RE APPLY THE NEW SETINGS
-        # CompileStyleSheet might also work
-        # CompileStyleSheet.applyCompiledSass(self)
-        #QAppSettings.updateAppSettings(self)
-
-        # DataBase Folder
-        #dbFolder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Database/DBP_DB.db'))
         
-        #Run main function to create the database and the table
-        AppFunctions.main()
+        #MAIN CONFIGURATIONS
+        #START DATABASE
+        init_tables()
 
-        #Display all users
-        #AppFunctions.displayUsers(self, AppFunctions.getAllUsers(dbFolder))
-
+        #RELOAD TABLES
         self.populate_user_table(select_all_users())
+        self.populate_budget_table(select_all_budgets())
+
+        #BUTTONS CONFIGURATIONS 
         self.ui.btn_updateUserTable.clicked.connect(lambda: self.populate_user_table(select_all_users()))
         self.ui.btn_adduser.clicked.connect(self.open_new_user_window)
         self.ui.btn_edituser.clicked.connect(self.open_edit_user_window)
         self.ui.btn_deleteuser.clicked.connect(self.remove_user)
 
+        self.ui.btn_updateBudgetTable.clicked.connect(lambda: self.populate_budget_table(select_all_budgets()))
+        self.ui.btn_addbudget.clicked.connect(self.open_new_budget_window) 
+        #self.ui.btn_editbudget.clicked.connect(self.open_edit_budget_window) 
+        self.ui.btn_deletebudget.clicked.connect(self.remove_budget)
 
-        #self.ui.btn_addbudget.clicked.connect(lambda: AppFunctions.addBudget(self,dbFolder))
-        #self.ui.btn_addbudgettemplate.clicked.connect(lambda: AppFunctions.addBudgetTemplate(self,dbFolder))
-
-
+        self.ui.btn_deletebd.clicked.connect(self.destroybd)
 
     def populate_user_table(self, data):
         """
@@ -124,9 +99,30 @@ class MainWindow(QMainWindow):
         
         self.users_qty()
 
+    def populate_budget_table(self, data):
+
+        self.ui.table_budgets.setRowCount(len(data))
+
+        for index_row,row in enumerate(data):
+            for index_cell, cell in enumerate(row):
+                if(index_cell == 4):
+                    #get user name
+                    usr_name = select_user_by_id(cell)[2]
+                    print(usr_name)
+                    self.ui.table_budgets.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
+                else:
+                    #regular data 
+                    self.ui.table_budgets.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+        
+        self.budgets_qty()
+
     def refresh_user_table_from_child_window(self):
         data = select_all_users()
         self.populate_user_table(data)
+
+    def refresh_budget_table_from_child_window(self):
+        data = select_all_budgets()
+        self.populate_budget_table(data)
         
     def remove_user(self):
         """
@@ -143,6 +139,17 @@ class MainWindow(QMainWindow):
 
         self.users_qty()
 
+    def remove_budget(self):
+        selected_row = self.ui.table_budgets.selectedItems()
+        if selected_row:
+            butget_id = int(selected_row[0].text())
+            row = selected_row[0].row()
+
+            if delete_budget(butget_id):
+                self.ui.table_budgets.removeRow(row)
+
+        self.budgets_qty()
+
     def users_qty(self):
         """
         It counts the number of rows in a table and displays the result in a label.
@@ -150,9 +157,18 @@ class MainWindow(QMainWindow):
         qty_rows = str(self.ui.table_users.rowCount())
         self.ui.clients_qty.setText(qty_rows)
 
+    def budgets_qty(self):
+        qty_rows = str(self.ui.table_budgets.rowCount())
+        self.ui.budget_qty.setText(qty_rows)
+
     def open_new_user_window(self):
         from views.newUserWindow import NewUserWindow
         window = NewUserWindow(self)
+        window.show()
+
+    def open_new_budget_window(self):
+        from views.newBudgetWindow import NewBudgetWindow
+        window = NewBudgetWindow(self)
         window.show()
     
     def open_edit_user_window(self):
@@ -166,6 +182,20 @@ class MainWindow(QMainWindow):
 
         self.ui.table_users.clearSelection()
 
+    def destroybd(self):
+        msg = QMessageBox.critical(
+                    self,
+                    "Cuidado!",
+                    "Estas seguro que quieres borrar todos los datos de la base de datos?",
+                    buttons = QMessageBox.Ok | QMessageBox.Cancel,
+                    defaultButton=QMessageBox.Ok
+                )
+        if msg == QMessageBox.Ok:
+            print("BORRAR BASE DE DATOS :O")
+            remove_db()
+            init_tables()
+        elif msg == QMessageBox.Cancel:
+            print("NO SE BORRA LA BD, MENOS MAL 0.o")
 
 
 if __name__ == "__main__":
