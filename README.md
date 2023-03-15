@@ -3,35 +3,21 @@ Project to automate the generation of budgets and invoices
 
 ## Requirements
 
-* Python 3
-* Pipenv `pip install pipenv`
+* Python3
+* PySide6
+* (all requirements at the requirements.txt file)
 
 ### Command to generate .gitignore
 ```
 curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 ```
 
-### Command to unit test
-```
-python3 -m unittest discover
-```
+## Initial/Clients Window
+### This is the initial window, it shows the clients
+![plot](./res/readme/initialwindow.png)
+### This window shows all clients in the system and the number of them. They can be added, edited and deleted.
+![plot](./res/readme/clients.png)
 
-### Use pipenv to package dependencies
-#### Generate file
-```
-pipenv install --dev pycodestyle
-```
-##### If when executing it gives an error, use which pipenv to see where is installed and use that path
-#### Edit Pipfile generated
-```
-[scripts]
-lint = "pycodestyle folder1 folder2 ..."
-```
-#### Run pipenv
-```
-pipenv run lint
-```
-
-Usar pyside.
-pyside-uic convierte un archivo ui a .py
-C:\Python311\Scripts\pyside6-uic.exe .\pyside_test.ui -o "pyside.py" -x
+## Budgets window
+### This window shows all budgets in the system and the number of them. They can be added, edited and deleted.
+![plot](./res/readme/budgets.png)
