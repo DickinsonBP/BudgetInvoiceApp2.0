@@ -42,7 +42,7 @@ class Ui_NewBudgetWindow(object):
 "	border-top-left-radius: 10px;\n"
 "	border-bottom-left-radius: 10px;\n"
 "}\n"
-"QLineEdit, QDateEdit, QComboBox{\n"
+"QLineEdit, QDateEdit, QComboBox, #btn_date{\n"
 "	padding: 5px 10px;\n"
 "	border-radius: 10px;\n"
 "	background-color: #27263c;\n"
@@ -63,7 +63,9 @@ class Ui_NewBudgetWindow(object):
 "	background-color: #9C995F ;\n"
 "}")
         self.verticalLayout = QVBoxLayout(NewBudgetWindow)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.centralwidget = QWidget(NewBudgetWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -113,11 +115,10 @@ class Ui_NewBudgetWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_date)
 
-        self.date_newbudget = QDateEdit(self.widget_2)
-        self.date_newbudget.setObjectName(u"date_newbudget")
-        self.date_newbudget.setFont(font1)
+        self.budget_date = QDateEdit(self.widget_2)
+        self.budget_date.setObjectName(u"budget_date")
 
-        self.verticalLayout_4.addWidget(self.date_newbudget)
+        self.verticalLayout_4.addWidget(self.budget_date, 0, Qt.AlignHCenter)
 
         self.label_client = QLabel(self.widget_2)
         self.label_client.setObjectName(u"label_client")

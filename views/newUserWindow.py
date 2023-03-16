@@ -5,7 +5,7 @@ from .ui_newuser import Ui_NewUserWindow
 import shutil
 import os
 
-from views.functions import AppFunctions
+from views.support_functions import *
 
 from Database.db_functions import insert_user
 

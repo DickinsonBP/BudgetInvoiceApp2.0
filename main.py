@@ -17,7 +17,7 @@ from PySide6.QtWidgets import *
 from views.ui_main import Ui_MainWindow
 
 # IMPORT APP FUNCTIONS
-from views.functions import AppFunctions
+from views.support_functions import *
 from Database.db_functions import select_all_users, select_user_by_id, delete_user, delete_budget, select_all_budgets, init_tables, remove_db
 
 from Custom_Widgets.Widgets import *
@@ -181,6 +181,11 @@ class MainWindow(QMainWindow):
             window.show()
 
         self.ui.table_users.clearSelection()
+
+    def open_new_date_window(self):
+        from views.newDateWindow import NewDateWindow
+        window = NewDateWindow(self)
+        window.show()
 
     def destroybd(self):
         msg = QMessageBox.critical(

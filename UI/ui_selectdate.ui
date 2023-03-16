@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SelectDate</class>
+ <widget class="QWidget" name="SelectDate">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>391</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Seleccionar fecha</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	border: none;
+	background-color: transparent;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+	color: #fff;
+}
+#centralwidget{
+	background-color: #1b1b27;
+}
+QDateEdit, QPushButton{
+	padding: 5px 10px;
+	border-radius: 10px;
+	background-color: #27263c;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="centralwidget" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCalendarWidget" name="cld_widget">
+        <property name="styleSheet">
+         <string notr="true">QCalendarWidget QToolButton{
+	background-color : #27263c;
+}
+QCalendarWidget QToolButton::hover{
+	background-color : cyan;
+}
+QCalendarWidget QToolButton::pressed{
+	background-color : red;
+}
+
+QCalendarWidget QWidget { alternate-background-color: rgb(128, 128, 128); }
+
+QCalendarWidget QAbstractItemView:enabled 
+  {
+  	font-size:14px;  
+  	color: white;
+  	background-color: black;  
+  	selection-background-color: rgb(64, 64, 64); 
+  	selection-color: rgb(0, 255, 0); 
+  }
+
+QCalendarWidget QWidget#qt_calendar_navigationbar
+{ 
+  background-color: #27263c; 
+}
+
+QCalendarWidget QAbstractItemView:disabled 
+{ 
+	color: rgb(64, 64, 64); 
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QDateEdit" name="date_select"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bnt_savedate">
+           <property name="text">
+            <string>Ok</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

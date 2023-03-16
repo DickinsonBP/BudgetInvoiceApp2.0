@@ -32,7 +32,7 @@ QPushButton{
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
-QLineEdit, QDateEdit, QComboBox{
+QLineEdit, QDateEdit, QComboBox, #btn_date{
 	padding: 5px 10px;
 	border-radius: 10px;
 	background-color: #27263c;
@@ -54,6 +54,21 @@ QLineEdit, QDateEdit, QComboBox{
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QWidget" name="centralwidget" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -115,14 +130,8 @@ QLineEdit, QDateEdit, QComboBox{
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QDateEdit" name="date_newbudget">
-              <property name="font">
-               <font>
-                <bold>true</bold>
-               </font>
-              </property>
-             </widget>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QDateEdit" name="budget_date"/>
             </item>
             <item>
              <widget class="QLabel" name="label_client">

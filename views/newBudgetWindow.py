@@ -1,11 +1,12 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QDate
 from .ui_newbudget import Ui_NewBudgetWindow
 #from Data.books import insert_book, select_book_by_id
 import shutil
 import os
+import datetime
 
-from views.functions import AppFunctions
+from views.support_functions import *
 
 from Database.db_functions import insert_budget, select_all_users, select_user_by_name
 
@@ -18,11 +19,21 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.setWindowFlag(Qt.Window)
 
         self.populate_comobox()
+        self.populate_dateedit()
 
         self.btn_savebudget.clicked.connect(self.addBudget)
         self.btn_cancel.clicked.connect(self.close)
 
         self.btn_newuser.clicked.connect(self.open_new_user_window)
+
+
+    def populate_dateedit(self):
+        try:
+            date = datetime.datetime().now().strftime("%d/%m/%Y")
+            self.budget_date.setDate(QDate.fromString(str(date)))
+            print_log(f"Put date time to the QDateEdit {date}")
+        except Exception as e:
+            print_log("ERROR! No se ha podido actualizar la fecha en el QDateEdit de los presupuestos. Error --> "+str(e))
 
     def populate_comobox(self):
 
@@ -31,17 +42,17 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         
     def check_inputs(self):
         title = self.line_title.text()
-        date = self.date_newbudget.text()
+        date = self.budget_date.text()
         user = self.user_comobox.currentText()
         address = self.line_address.text()
 
         errors_count = 0
         
         if title == "":
-            print("El campo titulo es obligatorio")
+            print_log("El campo titulo es obligatorio")
             errors_count += 1
         if date == "" : 
-            print("El campo fecha es obligatorio")
+            print_log("El campo fecha es obligatorio")
             errors_count +=1
         
         return (errors_count == 0)
@@ -77,6 +88,9 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def open_new_user_window(self):
         self.parent.open_new_user_window()
+
+    def open_new_date_window(self):
+        self.parent.open_new_date_window()
 
     def clean_inputs(self):
         self.line_title.clear()
