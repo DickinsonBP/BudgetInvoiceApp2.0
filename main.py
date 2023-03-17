@@ -131,7 +131,7 @@ class MainWindow(QMainWindow):
 
         for index_row,row in enumerate(data):
             for index_cell, cell in enumerate(row):
-                if(index_cell == 3):
+                if(index_cell == 4):
                     #get user name
                     usr_name = select_user_by_id(cell)[2]
                     #print_log("User name: "+str(usr_name))

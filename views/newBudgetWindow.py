@@ -9,6 +9,7 @@ import datetime
 from views.support_functions import *
 
 from Database.db_functions import insert_data, select_all_users, select_user_by_name, get_next_budget_id
+from .BudgetData import BudgetData
 
 class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
@@ -109,6 +110,8 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
                     self.clean_inputs()
                     self.parent.refresh_budget_table_from_child_window()
                     self.close()
+                    window = BudgetData(budget_number)
+                    window.show()
                 else:
                     message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
             else:
