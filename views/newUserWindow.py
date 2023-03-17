@@ -7,7 +7,7 @@ import os
 
 from views.support_functions import *
 
-from Database.db_functions import insert_user
+from Database.db_functions import insert_data
 
 class NewUserWindow(QWidget, Ui_NewUserWindow):
 
@@ -51,18 +51,14 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
             
             data = (nif,name,email,address,phone)
 
-            if (insert_user(data)):
+            if (insert_data(data,"User")):
                 self.clean_inputs()
                 self.parent.refresh_user_table_from_child_window()
                 self.close()
+            else:
+                message_box("critical","Algo ha fallado al guardar el nuevo usuario, revisa los datos y vuelve a intentar")
         else:
-            msg = QMessageBox.critical(
-                    self,
-                    "Cuidado!",
-                    "Revisa los datos que has introducido, ni el nombre ni el telefono pueden estar vacios!",
-                    buttons = QMessageBox.Ok,
-                    defaultButton=QMessageBox.Ok
-                )
+            message_box("critical","Revisa los datos que has introducido, ni el nombre ni el telefono pueden estar vacios!")
     
     def clean_inputs(self):
         self.line_nif.clear()

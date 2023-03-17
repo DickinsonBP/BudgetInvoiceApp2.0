@@ -90,3 +90,19 @@ def print_log(msg):
         log.close()
     except Exception as e:
         print(f"[{date_and_hour}]: Error! No se ha podido añadir el mensaje: "+str(msg)+" error --> "+str(e))
+
+def message_box(case, msg):
+    try:
+
+        case = case.upper()
+
+        box = QMessageBox()
+        if(case == "CRITICAL"):
+            box.setWindowTitle("Cuidado!")
+            box.setText(msg)
+            box.setStandardButtons(QMessageBox.Ok)
+            box.setIcon(QMessageBox.Critical)
+            button = box.exec()
+
+    except Exception as e:
+        print_log("ERRO! No se ha podido enseñar la ventana de mensaje. Error --> "+str(e))

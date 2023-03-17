@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewBudgetWindow</class>
- <widget class="QWidget" name="NewBudgetWindow">
+ <class>NewInvoiceWindow</class>
+ <widget class="QWidget" name="NewInvoiceWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Nuevo Presupuesto</string>
+   <string>Nueva Factura</string>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -38,18 +38,18 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
 	background-color: #27263c;
 }
 
-#btn_savebudget, #btn_cance , #btn_newuser , #btn_clientaddress  {
+#btn_saveinvoice, #btn_cance , #btn_newuser , #btn_clientaddress  {
 	border: 2px solid  #ece424 ;
 	border-radius: 10px;
 	text-align: center;
 }
- #btn_savebudget, #btn_cancel , #btn_newuser , #btn_clientaddress  {
+ #btn_saveinvoice, #btn_cancel , #btn_newuser , #btn_clientaddress  {
 	border: 2px solid  #ece424 ;
 	background-color: #9c991c ;
 	border-radius: 10px;
 	text-align: center;
 }
- #btn_savebudget:pressed, #btn_cancel:pressed   {
+ #btn_saveinvoice:pressed, #btn_cancel:pressed   {
 	background-color: #9C995F ;
 }</string>
   </property>
@@ -93,7 +93,7 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
                </font>
               </property>
               <property name="text">
-               <string>Nuevo Presupuesto</string>
+               <string>Nueva Factura</string>
               </property>
              </widget>
             </item>
@@ -104,29 +104,29 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
           <widget class="QWidget" name="widget_2" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="label_invoicenumber">
               <property name="font">
                <font>
                 <bold>true</bold>
                </font>
               </property>
               <property name="text">
-               <string>Numero de presupuesto</string>
+               <string>Numero de factura</string>
               </property>
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QLineEdit" name="line_budgetNumber"/>
+             <widget class="QLineEdit" name="line_invoicenumber"/>
             </item>
             <item>
-             <widget class="QLabel" name="label_budgettitle">
+             <widget class="QLabel" name="label_invoicetitle">
               <property name="font">
                <font>
                 <bold>true</bold>
                </font>
               </property>
               <property name="text">
-               <string>Titulo del presupuesto</string>
+               <string>Titulo de la factura</string>
               </property>
              </widget>
             </item>
@@ -226,7 +226,7 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
              <widget class="QWidget" name="widget_3" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_2">
                <item alignment="Qt::AlignHCenter">
-                <widget class="QPushButton" name="btn_savebudget">
+                <widget class="QPushButton" name="btn_saveinvoice">
                  <property name="font">
                   <font>
                    <bold>true</bold>

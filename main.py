@@ -18,7 +18,7 @@ from views.ui_main import Ui_MainWindow
 
 # IMPORT APP FUNCTIONS
 from views.support_functions import *
-from Database.db_functions import select_all_users, select_user_by_id, delete_user, delete_budget, select_all_budgets, init_tables, remove_db
+from Database.db_functions import *
 
 from Custom_Widgets.Widgets import *
 
@@ -58,18 +58,27 @@ class MainWindow(QMainWindow):
         #RELOAD TABLES
         self.populate_user_table(select_all_users())
         self.populate_budget_table(select_all_budgets())
+        self.populate_invoice_table(select_all_invoices())
 
         #BUTTONS CONFIGURATIONS 
-        self.ui.btn_updateUserTable.clicked.connect(lambda: self.populate_user_table(select_all_users()))
+
+        #CLIENTS
         self.ui.btn_adduser.clicked.connect(self.open_new_user_window)
         self.ui.btn_edituser.clicked.connect(self.open_edit_user_window)
+        self.ui.btn_updateUserTable.clicked.connect(lambda: self.populate_user_table(select_all_users()))
         self.ui.btn_deleteuser.clicked.connect(self.remove_user)
 
-        self.ui.btn_updateBudgetTable.clicked.connect(lambda: self.populate_budget_table(select_all_budgets()))
+        #BUDGETS
         self.ui.btn_addbudget.clicked.connect(self.open_new_budget_window) 
+        self.ui.btn_updateBudgetTable.clicked.connect(lambda: self.populate_budget_table(select_all_budgets()))
         #self.ui.btn_editbudget.clicked.connect(self.open_edit_budget_window) 
         self.ui.btn_deletebudget.clicked.connect(self.remove_budget)
 
+        #INVOICES
+        self.ui.btn_addinvoice.clicked.connect(self.open_new_invoice_window)
+        self.ui.btn_deleteinvoice.clicked.connect(self.remove_invoice)
+
+        #delete DB
         self.ui.btn_deletebd.clicked.connect(self.destroybd)
 
     def populate_user_table(self, data):
@@ -105,7 +114,7 @@ class MainWindow(QMainWindow):
 
         for index_row,row in enumerate(data):
             for index_cell, cell in enumerate(row):
-                if(index_cell == 3):
+                if(index_cell == 4):
                     #get user name
                     usr_name = select_user_by_id(cell)[2]
                     #print_log("User name: "+str(usr_name))
@@ -116,6 +125,23 @@ class MainWindow(QMainWindow):
         
         self.budgets_qty()
 
+    def populate_invoice_table(self, data):
+
+        self.ui.table_invoices.setRowCount(len(data))
+
+        for index_row,row in enumerate(data):
+            for index_cell, cell in enumerate(row):
+                if(index_cell == 3):
+                    #get user name
+                    usr_name = select_user_by_id(cell)[2]
+                    #print_log("User name: "+str(usr_name))
+                    self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
+                else:
+                    #regular data 
+                    self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+        
+        self.invoices_qty()
+
     def refresh_user_table_from_child_window(self):
         data = select_all_users()
         self.populate_user_table(data)
@@ -123,7 +149,10 @@ class MainWindow(QMainWindow):
     def refresh_budget_table_from_child_window(self):
         data = select_all_budgets()
         self.populate_budget_table(data)
-        
+
+    def refresh_invoice_table_from_child_window(self):
+        self.populate_invoice_table(select_all_invoices())
+
     def remove_user(self):
         """
         It removes a user from the database and the table widget
@@ -150,6 +179,17 @@ class MainWindow(QMainWindow):
 
         self.budgets_qty()
 
+    def remove_invoice(self):
+        selected_row = self.ui.table_invoices.selectedItems()
+        if selected_row:
+            invoice_id = int(selected_row[0].text())
+            row = selected_row[0].row()
+
+            if delete_invoice(invoice_id):
+                self.ui.table_invoices.removeRow(row)
+
+        self.invoices_qty()
+
     def users_qty(self):
         """
         It counts the number of rows in a table and displays the result in a label.
@@ -160,6 +200,10 @@ class MainWindow(QMainWindow):
     def budgets_qty(self):
         qty_rows = str(self.ui.table_budgets.rowCount())
         self.ui.budget_qty.setText(qty_rows)
+    
+    def invoices_qty(self):
+        qty_rows = str(self.ui.table_invoices.rowCount())
+        self.ui.invoices_qty.setText(qty_rows)
 
     def open_new_user_window(self):
         from views.newUserWindow import NewUserWindow
@@ -169,6 +213,11 @@ class MainWindow(QMainWindow):
     def open_new_budget_window(self):
         from views.newBudgetWindow import NewBudgetWindow
         window = NewBudgetWindow(self)
+        window.show()
+
+    def open_new_invoice_window(self):
+        from views.newInvoiceWindow import NewInvoiceWindow
+        window = NewInvoiceWindow(self)
         window.show()
     
     def open_edit_user_window(self):
@@ -181,11 +230,6 @@ class MainWindow(QMainWindow):
             window.show()
 
         self.ui.table_users.clearSelection()
-
-    def open_new_date_window(self):
-        from views.newDateWindow import NewDateWindow
-        window = NewDateWindow(self)
-        window.show()
 
     def destroybd(self):
         msg = QMessageBox.critical(

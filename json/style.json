@@ -112,12 +112,10 @@
 					"navigationButtons":[
 						{
 							"btn_home": "homePage",
-							"btn_about": "aboutPage",
 							"btn_budgets": "budgetPage",
 							"btn_settings": "settingsPage",
-							"btn_invoices": "invoicePage",
-							"btn_help": "infoPage"
-						}
+							"btn_invoices": "invoicePage"						
+                        }
 					]
 				}
 			]

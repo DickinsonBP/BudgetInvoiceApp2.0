@@ -47,9 +47,11 @@ class Ui_MainWindow(object):
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
 "}\n"
-" #btn_edituser, #btn_editbudget   {\n"
+" #btn_edituser, #btn_adduser , #btn_deleteuser , #btn_updateUserTable,\n"
+"#btn_editbudget, #btn_addbudget , #btn_deletebudget , #btn_updateBudgetTable,\n"
+"#btn_editinvoice, #btn_addinvoice , #btn_deleteinvoice , #btn_updateInvoiceTable    {\n"
 "	border: 2px solid  #ece424 ;\n"
-"	background-color: #D72323 ;\n"
+"	background-color: #D5D042 ;\n"
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
 "}\n"
@@ -60,7 +62,8 @@ class Ui_MainWindow(object):
 "	border-bottom-left-radius: 10px;\n"
 "}\n"
 "#btn_home  {\n"
-"	border-left: 3px solid #ece424;\n"
+"	border-left: 3px solid #ece4"
+                        "24;\n"
 "	font-weight: bold;\n"
 "}\n"
 "QLineEdit{\n"
@@ -226,20 +229,32 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addWidget(self.leftMenu)
 
-        self.mainBodyContent = QWidget(self.mainBody)
-        self.mainBodyContent.setObjectName(u"mainBodyContent")
-        self.verticalLayout_2 = QVBoxLayout(self.mainBodyContent)
+        self.separator = QWidget(self.mainBody)
+        self.separator.setObjectName(u"separator")
+        self.verticalLayout_2 = QVBoxLayout(self.separator)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+
+        self.horizontalLayout_4.addWidget(self.separator)
+
+        self.mainBodyContent = QCustomSlideMenu(self.mainBody)
+        self.mainBodyContent.setObjectName(u"mainBodyContent")
+        self.mainBodyContent.setMinimumSize(QSize(0, 0))
+        self.verticalLayout_7 = QVBoxLayout(self.mainBodyContent)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.mainPages = QCustomStackedWidget(self.mainBodyContent)
         self.mainPages.setObjectName(u"mainPages")
         self.homePage = QWidget()
         self.homePage.setObjectName(u"homePage")
         self.verticalLayout_10 = QVBoxLayout(self.homePage)
+        self.verticalLayout_10.setSpacing(0)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.widget_3 = QWidget(self.homePage)
         self.widget_3.setObjectName(u"widget_3")
         self.verticalLayout_11 = QVBoxLayout(self.widget_3)
+        self.verticalLayout_11.setSpacing(0)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.frame_6 = QFrame(self.widget_3)
         self.frame_6.setObjectName(u"frame_6")
         self.frame_6.setFrameShape(QFrame.StyledPanel)
@@ -272,7 +287,7 @@ class Ui_MainWindow(object):
         self.btn_updateUserTable.setIcon(icon7)
         self.btn_updateUserTable.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout_6.addWidget(self.btn_updateUserTable, 0, Qt.AlignRight)
+        self.horizontalLayout_6.addWidget(self.btn_updateUserTable)
 
         self.btn_deleteuser = QPushButton(self.frame_6)
         self.btn_deleteuser.setObjectName(u"btn_deleteuser")
@@ -283,7 +298,7 @@ class Ui_MainWindow(object):
         self.btn_deleteuser.setIcon(icon8)
         self.btn_deleteuser.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout_6.addWidget(self.btn_deleteuser, 0, Qt.AlignRight)
+        self.horizontalLayout_6.addWidget(self.btn_deleteuser)
 
         self.btn_edituser = QPushButton(self.frame_6)
         self.btn_edituser.setObjectName(u"btn_edituser")
@@ -305,7 +320,7 @@ class Ui_MainWindow(object):
         self.btn_adduser.setIcon(icon10)
         self.btn_adduser.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout_6.addWidget(self.btn_adduser, 0, Qt.AlignRight)
+        self.horizontalLayout_6.addWidget(self.btn_adduser)
 
 
         self.verticalLayout_11.addWidget(self.frame_6)
@@ -347,11 +362,15 @@ class Ui_MainWindow(object):
         self.budgetPage = QWidget()
         self.budgetPage.setObjectName(u"budgetPage")
         self.verticalLayout_17 = QVBoxLayout(self.budgetPage)
+        self.verticalLayout_17.setSpacing(0)
         self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
         self.widget_6 = QWidget(self.budgetPage)
         self.widget_6.setObjectName(u"widget_6")
         self.verticalLayout_18 = QVBoxLayout(self.widget_6)
+        self.verticalLayout_18.setSpacing(0)
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
         self.frame = QFrame(self.widget_6)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
@@ -383,7 +402,7 @@ class Ui_MainWindow(object):
         self.btn_updateBudgetTable.setIcon(icon7)
         self.btn_updateBudgetTable.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout.addWidget(self.btn_updateBudgetTable, 0, Qt.AlignRight)
+        self.horizontalLayout.addWidget(self.btn_updateBudgetTable)
 
         self.btn_addbudgettemplate = QPushButton(self.frame)
         self.btn_addbudgettemplate.setObjectName(u"btn_addbudgettemplate")
@@ -394,7 +413,7 @@ class Ui_MainWindow(object):
         self.btn_addbudgettemplate.setIcon(icon11)
         self.btn_addbudgettemplate.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout.addWidget(self.btn_addbudgettemplate, 0, Qt.AlignRight)
+        self.horizontalLayout.addWidget(self.btn_addbudgettemplate)
 
         self.btn_deletebudget = QPushButton(self.frame)
         self.btn_deletebudget.setObjectName(u"btn_deletebudget")
@@ -403,7 +422,7 @@ class Ui_MainWindow(object):
         self.btn_deletebudget.setIcon(icon8)
         self.btn_deletebudget.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout.addWidget(self.btn_deletebudget, 0, Qt.AlignRight)
+        self.horizontalLayout.addWidget(self.btn_deletebudget)
 
         self.btn_editbudget = QPushButton(self.frame)
         self.btn_editbudget.setObjectName(u"btn_editbudget")
@@ -412,18 +431,16 @@ class Ui_MainWindow(object):
         self.btn_editbudget.setIcon(icon9)
         self.btn_editbudget.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout.addWidget(self.btn_editbudget, 0, Qt.AlignRight)
+        self.horizontalLayout.addWidget(self.btn_editbudget)
 
         self.btn_addbudget = QPushButton(self.frame)
         self.btn_addbudget.setObjectName(u"btn_addbudget")
         self.btn_addbudget.setFont(font2)
         self.btn_addbudget.setCursor(QCursor(Qt.PointingHandCursor))
-        icon12 = QIcon()
-        icon12.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_addbudget.setIcon(icon12)
+        self.btn_addbudget.setIcon(icon10)
         self.btn_addbudget.setIconSize(QSize(24, 24))
 
-        self.horizontalLayout.addWidget(self.btn_addbudget, 0, Qt.AlignRight)
+        self.horizontalLayout.addWidget(self.btn_addbudget)
 
 
         self.verticalLayout_18.addWidget(self.frame)
@@ -432,8 +449,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_17.addWidget(self.widget_6)
 
         self.table_budgets = QTableWidget(self.budgetPage)
-        if (self.table_budgets.columnCount() < 5):
-            self.table_budgets.setColumnCount(5)
+        if (self.table_budgets.columnCount() < 6):
+            self.table_budgets.setColumnCount(6)
         __qtablewidgetitem6 = QTableWidgetItem()
         self.table_budgets.setHorizontalHeaderItem(0, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
@@ -444,6 +461,8 @@ class Ui_MainWindow(object):
         self.table_budgets.setHorizontalHeaderItem(3, __qtablewidgetitem9)
         __qtablewidgetitem10 = QTableWidgetItem()
         self.table_budgets.setHorizontalHeaderItem(4, __qtablewidgetitem10)
+        __qtablewidgetitem11 = QTableWidgetItem()
+        self.table_budgets.setHorizontalHeaderItem(5, __qtablewidgetitem11)
         self.table_budgets.setObjectName(u"table_budgets")
         font7 = QFont()
         font7.setPointSize(15)
@@ -455,15 +474,94 @@ class Ui_MainWindow(object):
         self.mainPages.addWidget(self.budgetPage)
         self.invoicePage = QWidget()
         self.invoicePage.setObjectName(u"invoicePage")
-        self.label_7 = QLabel(self.invoicePage)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(260, 200, 201, 91))
-        self.label_7.setFont(font1)
+        self.verticalLayout_8 = QVBoxLayout(self.invoicePage)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.widget_2 = QWidget(self.invoicePage)
+        self.widget_2.setObjectName(u"widget_2")
+        self.verticalLayout_9 = QVBoxLayout(self.widget_2)
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.frame_5 = QFrame(self.widget_2)
+        self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_7 = QHBoxLayout(self.frame_5)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.invoices_qty = QLabel(self.frame_5)
+        self.invoices_qty.setObjectName(u"invoices_qty")
+
+        self.horizontalLayout_7.addWidget(self.invoices_qty, 0, Qt.AlignRight)
+
+        self.label_2 = QLabel(self.frame_5)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font1)
+
+        self.horizontalLayout_7.addWidget(self.label_2, 0, Qt.AlignLeft)
+
+        self.btn_updateInvoiceTable = QPushButton(self.frame_5)
+        self.btn_updateInvoiceTable.setObjectName(u"btn_updateInvoiceTable")
+        self.btn_updateInvoiceTable.setFont(font2)
+        self.btn_updateInvoiceTable.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_updateInvoiceTable.setIcon(icon7)
+        self.btn_updateInvoiceTable.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_7.addWidget(self.btn_updateInvoiceTable)
+
+        self.btn_deleteinvoice = QPushButton(self.frame_5)
+        self.btn_deleteinvoice.setObjectName(u"btn_deleteinvoice")
+        self.btn_deleteinvoice.setIcon(icon8)
+        self.btn_deleteinvoice.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_7.addWidget(self.btn_deleteinvoice)
+
+        self.btn_editinvoice = QPushButton(self.frame_5)
+        self.btn_editinvoice.setObjectName(u"btn_editinvoice")
+        self.btn_editinvoice.setIcon(icon9)
+        self.btn_editinvoice.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_7.addWidget(self.btn_editinvoice)
+
+        self.btn_addinvoice = QPushButton(self.frame_5)
+        self.btn_addinvoice.setObjectName(u"btn_addinvoice")
+        icon12 = QIcon()
+        icon12.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_addinvoice.setIcon(icon12)
+        self.btn_addinvoice.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_7.addWidget(self.btn_addinvoice)
+
+
+        self.verticalLayout_9.addWidget(self.frame_5)
+
+        self.table_invoices = QTableWidget(self.widget_2)
+        if (self.table_invoices.columnCount() < 6):
+            self.table_invoices.setColumnCount(6)
+        __qtablewidgetitem12 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(0, __qtablewidgetitem12)
+        __qtablewidgetitem13 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(1, __qtablewidgetitem13)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(2, __qtablewidgetitem14)
+        __qtablewidgetitem15 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(3, __qtablewidgetitem15)
+        __qtablewidgetitem16 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(4, __qtablewidgetitem16)
+        __qtablewidgetitem17 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(5, __qtablewidgetitem17)
+        self.table_invoices.setObjectName(u"table_invoices")
+        self.table_invoices.setFont(font4)
+
+        self.verticalLayout_9.addWidget(self.table_invoices)
+
+
+        self.verticalLayout_8.addWidget(self.widget_2)
+
         self.mainPages.addWidget(self.invoicePage)
         self.settingsPage = QWidget()
         self.settingsPage.setObjectName(u"settingsPage")
         self.verticalLayout_14 = QVBoxLayout(self.settingsPage)
+        self.verticalLayout_14.setSpacing(0)
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
         self.label_4 = QLabel(self.settingsPage)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setFont(font1)
@@ -481,33 +579,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.addWidget(self.btn_deletebd, 0, Qt.AlignHCenter)
 
         self.mainPages.addWidget(self.settingsPage)
-        self.infoPage = QWidget()
-        self.infoPage.setObjectName(u"infoPage")
-        self.label_5 = QLabel(self.infoPage)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(260, 180, 201, 91))
-        self.label_5.setFont(font1)
-        self.mainPages.addWidget(self.infoPage)
-        self.aboutPage = QWidget()
-        self.aboutPage.setObjectName(u"aboutPage")
-        self.label_8 = QLabel(self.aboutPage)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setGeometry(QRect(280, 180, 201, 91))
-        self.label_8.setFont(font1)
-        self.mainPages.addWidget(self.aboutPage)
 
-        self.verticalLayout_2.addWidget(self.mainPages)
+        self.verticalLayout_7.addWidget(self.mainPages)
 
 
         self.horizontalLayout_4.addWidget(self.mainBodyContent)
-
-        self.rightMenu = QCustomSlideMenu(self.mainBody)
-        self.rightMenu.setObjectName(u"rightMenu")
-        self.rightMenu.setMinimumSize(QSize(0, 0))
-        self.verticalLayout_7 = QVBoxLayout(self.rightMenu)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-
-        self.horizontalLayout_4.addWidget(self.rightMenu)
 
 
         self.verticalLayout.addWidget(self.mainBody)
@@ -545,9 +621,9 @@ class Ui_MainWindow(object):
         self.clients_qty.setText(QCoreApplication.translate("MainWindow", u"#", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"CLIENTES", None))
         self.btn_updateUserTable.setText(QCoreApplication.translate("MainWindow", u"Actualizar", None))
-        self.btn_deleteuser.setText(QCoreApplication.translate("MainWindow", u"Borrar Usuario", None))
-        self.btn_edituser.setText(QCoreApplication.translate("MainWindow", u"Editar Usuario", None))
-        self.btn_adduser.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir usuario", None))
+        self.btn_deleteuser.setText(QCoreApplication.translate("MainWindow", u"Borrar", None))
+        self.btn_edituser.setText(QCoreApplication.translate("MainWindow", u"Editar", None))
+        self.btn_adduser.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir", None))
         ___qtablewidgetitem = self.table_users.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
         ___qtablewidgetitem1 = self.table_users.horizontalHeaderItem(1)
@@ -566,22 +642,39 @@ class Ui_MainWindow(object):
         self.btn_addbudgettemplate.setText(QCoreApplication.translate("MainWindow", u"Nueva Plantilla", None))
         self.btn_deletebudget.setText(QCoreApplication.translate("MainWindow", u"Eliminar Presupuesto", None))
         self.btn_editbudget.setText(QCoreApplication.translate("MainWindow", u"Editar Presupuesto", None))
-        self.btn_addbudget.setText(QCoreApplication.translate("MainWindow", u"Nuevo Presupuesto", None))
+        self.btn_addbudget.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         ___qtablewidgetitem6 = self.table_budgets.horizontalHeaderItem(0)
         ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
         ___qtablewidgetitem7 = self.table_budgets.horizontalHeaderItem(1)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Titulo", None));
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Numero de presupuesto", None));
         ___qtablewidgetitem8 = self.table_budgets.horizontalHeaderItem(2)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Titulo", None));
         ___qtablewidgetitem9 = self.table_budgets.horizontalHeaderItem(3)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
         ___qtablewidgetitem10 = self.table_budgets.horizontalHeaderItem(4)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem11 = self.table_budgets.horizontalHeaderItem(5)
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        self.invoices_qty.setText(QCoreApplication.translate("MainWindow", u"#", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
+        self.btn_updateInvoiceTable.setText(QCoreApplication.translate("MainWindow", u"Actualizar", None))
+        self.btn_deleteinvoice.setText(QCoreApplication.translate("MainWindow", u"Eliminar", None))
+        self.btn_editinvoice.setText(QCoreApplication.translate("MainWindow", u"Editar", None))
+        self.btn_addinvoice.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir", None))
+        ___qtablewidgetitem12 = self.table_invoices.horizontalHeaderItem(0)
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
+        ___qtablewidgetitem13 = self.table_invoices.horizontalHeaderItem(1)
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"Numero de factura", None));
+        ___qtablewidgetitem14 = self.table_invoices.horizontalHeaderItem(2)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"Titulo", None));
+        ___qtablewidgetitem15 = self.table_invoices.horizontalHeaderItem(3)
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
+        ___qtablewidgetitem16 = self.table_invoices.horizontalHeaderItem(4)
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem17 = self.table_invoices.horizontalHeaderItem(5)
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
         self.btn_deletebd.setText(QCoreApplication.translate("MainWindow", u"BORRAR BASE DE DATOS", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"INFO", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"ABOUT", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Servicios Bedoya. Copyright 2023", None))
     # retranslateUi
 

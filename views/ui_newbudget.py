@@ -96,10 +96,21 @@ class Ui_NewBudgetWindow(object):
         self.widget_2.setObjectName(u"widget_2")
         self.verticalLayout_4 = QVBoxLayout(self.widget_2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.label_budgettitle = QLabel(self.widget_2)
-        self.label_budgettitle.setObjectName(u"label_budgettitle")
+        self.label_2 = QLabel(self.widget_2)
+        self.label_2.setObjectName(u"label_2")
         font1 = QFont()
         font1.setBold(True)
+        self.label_2.setFont(font1)
+
+        self.verticalLayout_4.addWidget(self.label_2)
+
+        self.line_budgetNumber = QLineEdit(self.widget_2)
+        self.line_budgetNumber.setObjectName(u"line_budgetNumber")
+
+        self.verticalLayout_4.addWidget(self.line_budgetNumber, 0, Qt.AlignHCenter)
+
+        self.label_budgettitle = QLabel(self.widget_2)
+        self.label_budgettitle.setObjectName(u"label_budgettitle")
         self.label_budgettitle.setFont(font1)
 
         self.verticalLayout_4.addWidget(self.label_budgettitle)
@@ -219,6 +230,7 @@ class Ui_NewBudgetWindow(object):
     def retranslateUi(self, NewBudgetWindow):
         NewBudgetWindow.setWindowTitle(QCoreApplication.translate("NewBudgetWindow", u"Nuevo Presupuesto", None))
         self.label.setText(QCoreApplication.translate("NewBudgetWindow", u"Nuevo Presupuesto", None))
+        self.label_2.setText(QCoreApplication.translate("NewBudgetWindow", u"Numero de presupuesto", None))
         self.label_budgettitle.setText(QCoreApplication.translate("NewBudgetWindow", u"Titulo del presupuesto", None))
         self.label_date.setText(QCoreApplication.translate("NewBudgetWindow", u"Fecha", None))
         self.label_client.setText(QCoreApplication.translate("NewBudgetWindow", u"Cliente", None))
