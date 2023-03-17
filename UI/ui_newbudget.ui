@@ -38,12 +38,12 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
 	background-color: #27263c;
 }
 
-#btn_savebudget, #btn_cance , #btn_newuser   {
+#btn_savebudget, #btn_cance , #btn_newuser , #btn_clientaddress  {
 	border: 2px solid  #ece424 ;
 	border-radius: 10px;
 	text-align: center;
 }
- #btn_savebudget, #btn_cancel , #btn_newuser  {
+ #btn_savebudget, #btn_cancel , #btn_newuser , #btn_clientaddress  {
 	border: 2px solid  #ece424 ;
 	background-color: #9c991c ;
 	border-radius: 10px;
@@ -166,7 +166,7 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../res/Icons/check-square.png</normaloff>../res/Icons/check-square.png</iconset>
+                   <normaloff>res/Icons/check-square.png</normaloff>res/Icons/check-square.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -192,7 +192,20 @@ QLineEdit, QDateEdit, QComboBox, #btn_date{
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="line_address"/>
+             <widget class="QWidget" name="widget_5" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLineEdit" name="line_address"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_clientaddress">
+                 <property name="text">
+                  <string>Usar dirección del cliente</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </item>
             <item>
              <widget class="QWidget" name="widget_3" native="true">

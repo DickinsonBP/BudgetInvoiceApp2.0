@@ -275,7 +275,7 @@ QLineEdit{
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../res/Icons/file-text.png</normaloff>../res/Icons/file-text.png</iconset>
+                    <normaloff>res/Icons/file-text.png</normaloff>res/Icons/file-text.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -289,7 +289,7 @@ QLineEdit{
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../res/Icons/dollar-sign.png</normaloff>../res/Icons/dollar-sign.png</iconset>
+                    <normaloff>res/Icons/dollar-sign.png</normaloff>res/Icons/dollar-sign.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -444,7 +444,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/loader.png</normaloff>../res/Icons/loader.png</iconset>
+                        <normaloff>res/Icons/loader.png</normaloff>res/Icons/loader.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -469,7 +469,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/frown.png</normaloff>../res/Icons/frown.png</iconset>
+                        <normaloff>res/Icons/frown.png</normaloff>res/Icons/frown.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -494,7 +494,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/edit.png</normaloff>../res/Icons/edit.png</iconset>
+                        <normaloff>res/Icons/edit.png</normaloff>res/Icons/edit.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -519,7 +519,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/plus-square.png</normaloff>../res/Icons/plus-square.png</iconset>
+                        <normaloff>res/Icons/plus-square.png</normaloff>res/Icons/plus-square.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -662,7 +662,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/loader.png</normaloff>../res/Icons/loader.png</iconset>
+                        <normaloff>res/Icons/loader.png</normaloff>res/Icons/loader.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -687,7 +687,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/plus-circle.png</normaloff>../res/Icons/plus-circle.png</iconset>
+                        <normaloff>res/Icons/plus-circle.png</normaloff>res/Icons/plus-circle.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -712,7 +712,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/frown.png</normaloff>../res/Icons/frown.png</iconset>
+                        <normaloff>res/Icons/frown.png</normaloff>res/Icons/frown.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -737,7 +737,7 @@ QLineEdit{
                       </property>
                       <property name="icon">
                        <iconset>
-                        <normaloff>../res/Icons/edit.png</normaloff>../res/Icons/edit.png</iconset>
+                        <normaloff>res/Icons/edit.png</normaloff>res/Icons/edit.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -803,12 +803,12 @@ QLineEdit{
                 </column>
                 <column>
                  <property name="text">
-                  <string>Dirección</string>
+                  <string>Cliente</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Cliente</string>
+                  <string>Dirección</string>
                  </property>
                 </column>
                </widget>

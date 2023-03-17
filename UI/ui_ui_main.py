@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         self.btn_budgets.setObjectName(u"btn_budgets")
         self.btn_budgets.setCursor(QCursor(Qt.PointingHandCursor))
         icon2 = QIcon()
-        icon2.addFile(u"../res/Icons/file-text.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u"res/Icons/file-text.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_budgets.setIcon(icon2)
 
         self.verticalLayout_6.addWidget(self.btn_budgets)
@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
         self.btn_invoices.setObjectName(u"btn_invoices")
         self.btn_invoices.setCursor(QCursor(Qt.PointingHandCursor))
         icon3 = QIcon()
-        icon3.addFile(u"../res/Icons/dollar-sign.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u"res/Icons/dollar-sign.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_invoices.setIcon(icon3)
 
         self.verticalLayout_6.addWidget(self.btn_invoices)
@@ -268,7 +268,7 @@ class Ui_MainWindow(object):
         self.btn_updateUserTable.setFont(font2)
         self.btn_updateUserTable.setCursor(QCursor(Qt.PointingHandCursor))
         icon7 = QIcon()
-        icon7.addFile(u"../res/Icons/loader.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon7.addFile(u"res/Icons/loader.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_updateUserTable.setIcon(icon7)
         self.btn_updateUserTable.setIconSize(QSize(24, 24))
 
@@ -279,7 +279,7 @@ class Ui_MainWindow(object):
         self.btn_deleteuser.setFont(font2)
         self.btn_deleteuser.setCursor(QCursor(Qt.PointingHandCursor))
         icon8 = QIcon()
-        icon8.addFile(u"../res/Icons/frown.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon8.addFile(u"res/Icons/frown.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_deleteuser.setIcon(icon8)
         self.btn_deleteuser.setIconSize(QSize(24, 24))
 
@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
         self.btn_edituser.setFont(font2)
         self.btn_edituser.setCursor(QCursor(Qt.PointingHandCursor))
         icon9 = QIcon()
-        icon9.addFile(u"../res/Icons/edit.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon9.addFile(u"res/Icons/edit.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_edituser.setIcon(icon9)
         self.btn_edituser.setIconSize(QSize(24, 24))
 
@@ -301,7 +301,7 @@ class Ui_MainWindow(object):
         self.btn_adduser.setFont(font2)
         self.btn_adduser.setCursor(QCursor(Qt.PointingHandCursor))
         icon10 = QIcon()
-        icon10.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon10.addFile(u"res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_adduser.setIcon(icon10)
         self.btn_adduser.setIconSize(QSize(24, 24))
 
@@ -390,7 +390,7 @@ class Ui_MainWindow(object):
         self.btn_addbudgettemplate.setFont(font2)
         self.btn_addbudgettemplate.setCursor(QCursor(Qt.PointingHandCursor))
         icon11 = QIcon()
-        icon11.addFile(u"../res/Icons/plus-circle.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon11.addFile(u"res/Icons/plus-circle.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_addbudgettemplate.setIcon(icon11)
         self.btn_addbudgettemplate.setIconSize(QSize(24, 24))
 
@@ -418,7 +418,9 @@ class Ui_MainWindow(object):
         self.btn_addbudget.setObjectName(u"btn_addbudget")
         self.btn_addbudget.setFont(font2)
         self.btn_addbudget.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_addbudget.setIcon(icon10)
+        icon12 = QIcon()
+        icon12.addFile(u"../res/Icons/plus-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_addbudget.setIcon(icon12)
         self.btn_addbudget.setIconSize(QSize(24, 24))
 
         self.horizontalLayout.addWidget(self.btn_addbudget, 0, Qt.AlignRight)
@@ -572,9 +574,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem8 = self.table_budgets.horizontalHeaderItem(2)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
         ___qtablewidgetitem9 = self.table_budgets.horizontalHeaderItem(3)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
         ___qtablewidgetitem10 = self.table_budgets.horizontalHeaderItem(4)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
         self.btn_deletebd.setText(QCoreApplication.translate("MainWindow", u"BORRAR BASE DE DATOS", None))

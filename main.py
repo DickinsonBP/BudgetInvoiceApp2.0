@@ -105,10 +105,10 @@ class MainWindow(QMainWindow):
 
         for index_row,row in enumerate(data):
             for index_cell, cell in enumerate(row):
-                if(index_cell == 4):
+                if(index_cell == 3):
                     #get user name
                     usr_name = select_user_by_id(cell)[2]
-                    print(usr_name)
+                    #print_log("User name: "+str(usr_name))
                     self.ui.table_budgets.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
                 else:
                     #regular data 

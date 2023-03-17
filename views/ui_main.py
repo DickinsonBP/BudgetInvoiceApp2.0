@@ -572,9 +572,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem8 = self.table_budgets.horizontalHeaderItem(2)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
         ___qtablewidgetitem9 = self.table_budgets.horizontalHeaderItem(3)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
         ___qtablewidgetitem10 = self.table_budgets.horizontalHeaderItem(4)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
         self.btn_deletebd.setText(QCoreApplication.translate("MainWindow", u"BORRAR BASE DE DATOS", None))

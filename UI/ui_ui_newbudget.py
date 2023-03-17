@@ -48,12 +48,12 @@ class Ui_NewBudgetWindow(object):
 "	background-color: #27263c;\n"
 "}\n"
 "\n"
-"#btn_savebudget, #btn_cance , #btn_newuser   {\n"
+"#btn_savebudget, #btn_cance , #btn_newuser , #btn_clientaddress  {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
 "}\n"
-" #btn_savebudget, #btn_cancel , #btn_newuser  {\n"
+" #btn_savebudget, #btn_cancel , #btn_newuser , #btn_clientaddress  {\n"
 "	border: 2px solid  #ece424 ;\n"
 "	background-color: #9c991c ;\n"
 "	border-radius: 10px;\n"
@@ -140,7 +140,7 @@ class Ui_NewBudgetWindow(object):
         self.btn_newuser.setFont(font1)
         self.btn_newuser.setCursor(QCursor(Qt.PointingHandCursor))
         icon = QIcon()
-        icon.addFile(u"../res/Icons/check-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"res/Icons/check-square.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_newuser.setIcon(icon)
         self.btn_newuser.setIconSize(QSize(24, 24))
 
@@ -155,10 +155,22 @@ class Ui_NewBudgetWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_address)
 
-        self.line_address = QLineEdit(self.widget_2)
+        self.widget_5 = QWidget(self.widget_2)
+        self.widget_5.setObjectName(u"widget_5")
+        self.horizontalLayout_4 = QHBoxLayout(self.widget_5)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.line_address = QLineEdit(self.widget_5)
         self.line_address.setObjectName(u"line_address")
 
-        self.verticalLayout_4.addWidget(self.line_address)
+        self.horizontalLayout_4.addWidget(self.line_address)
+
+        self.btn_clientaddress = QPushButton(self.widget_5)
+        self.btn_clientaddress.setObjectName(u"btn_clientaddress")
+
+        self.horizontalLayout_4.addWidget(self.btn_clientaddress)
+
+
+        self.verticalLayout_4.addWidget(self.widget_5)
 
         self.widget_3 = QWidget(self.widget_2)
         self.widget_3.setObjectName(u"widget_3")
@@ -212,6 +224,7 @@ class Ui_NewBudgetWindow(object):
         self.label_client.setText(QCoreApplication.translate("NewBudgetWindow", u"Cliente", None))
         self.btn_newuser.setText(QCoreApplication.translate("NewBudgetWindow", u"Nuevo cliente", None))
         self.label_address.setText(QCoreApplication.translate("NewBudgetWindow", u"Direcci\u00f3n", None))
+        self.btn_clientaddress.setText(QCoreApplication.translate("NewBudgetWindow", u"Usar direcci\u00f3n del cliente", None))
         self.btn_savebudget.setText(QCoreApplication.translate("NewBudgetWindow", u"Guardar", None))
         self.btn_cancel.setText(QCoreApplication.translate("NewBudgetWindow", u"Cancelar", None))
     # retranslateUi

@@ -25,12 +25,23 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.btn_cancel.clicked.connect(self.close)
 
         self.btn_newuser.clicked.connect(self.open_new_user_window)
+        self.btn_clientaddress.clicked.connect(self.set_client_addres)
 
+
+    def set_client_addres(self):
+        try:
+            user = self.user_comobox.currentText()
+            #get client address
+            address = select_user_by_name(user)[4]
+            self.line_address.setText(str(address))
+            print_log(f"La direccion del usuario {user} para presupuesto es {address}, todo ok")
+        except Exception as e:
+            print_log("ERROR! No se ha podido seleccionar la dirección del usuario. Error --> "+str(e))
 
     def populate_dateedit(self):
         try:
-            date = datetime.datetime().now().strftime("%d/%m/%Y")
-            self.budget_date.setDate(QDate.fromString(str(date)))
+            date = QDate.currentDate()
+            self.budget_date.setDate(date)
             print_log(f"Put date time to the QDateEdit {date}")
         except Exception as e:
             print_log("ERROR! No se ha podido actualizar la fecha en el QDateEdit de los presupuestos. Error --> "+str(e))
@@ -59,32 +70,36 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     
     def addBudget(self):
 
-        title = self.line_title.text()
-        date = self.date_newbudget.text()
-        user = self.user_comobox.currentText()
+        try:
+            title = self.line_title.text()
+            date = self.budget_date.text()
+            user = self.user_comobox.currentText()
 
-        address = self.line_address.text()
-
-
-        if(self.check_inputs()):
-            
-            user_id = select_user_by_name(user)[0]
+            address = self.line_address.text()
 
 
-            data = (title,date,user_id,address)
+            if(self.check_inputs()):
+                
+                user_id = select_user_by_name(user)[0]
 
-            if (insert_budget(data)):
-                self.clean_inputs()
-                self.parent.refresh_budget_table_from_child_window()
-                self.close()
-        else:
-            msg = QMessageBox.critical(
-                    self,
-                    "Cuidado!",
-                    "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!",
-                    buttons = QMessageBox.Ok,
-                    defaultButton=QMessageBox.Ok
-                )
+                print_log("El usuario para el presupuesto es: "+user+" y su id es :"+str(user_id))
+
+                data = (title,date,address,user_id)
+
+                if (insert_budget(data)):
+                    self.clean_inputs()
+                    self.parent.refresh_budget_table_from_child_window()
+                    self.close()
+            else:
+                msg = QMessageBox.critical(
+                        self,
+                        "Cuidado!",
+                        "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!",
+                        buttons = QMessageBox.Ok,
+                        defaultButton=QMessageBox.Ok
+                    )
+        except Exception as e:
+            print_log("ERROR! No se ha podido añadir el nuevo presupuesto. Error --> "+str(e))
 
     def open_new_user_window(self):
         self.parent.open_new_user_window()
@@ -94,6 +109,6 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def clean_inputs(self):
         self.line_title.clear()
-        self.date_newbudget.clear()
+        self.budget_date.clear()
         self.user_comobox.clear()
         self.line_address.clear()
