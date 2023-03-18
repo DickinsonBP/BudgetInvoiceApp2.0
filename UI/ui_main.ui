@@ -387,11 +387,6 @@ QLineEdit{
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="separator" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_2"/>
-        </widget>
-       </item>
-       <item>
         <widget class="QCustomSlideMenu" name="mainBodyContent" native="true">
          <property name="minimumSize">
           <size>

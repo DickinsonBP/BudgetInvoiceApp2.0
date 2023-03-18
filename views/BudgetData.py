@@ -19,7 +19,7 @@ class BudgetData(QWidget, Ui_BudgetData):
         self.setupUi(self)
         self.setWindowFlag(Qt.Window)
 
-        self.populate_budget_number()
+        #self.populate_budget_number()
 
     def populate_budget_number(self):
         self.budget_number.setText(self.number)

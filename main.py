@@ -214,6 +214,12 @@ class MainWindow(QMainWindow):
         from views.newBudgetWindow import NewBudgetWindow
         window = NewBudgetWindow(self)
         window.show()
+    
+    def open_data_budget_window(self):
+        from views.BudgetData import BudgetData
+        window = BudgetData(self)
+        window.show()
+
 
     def open_new_invoice_window(self):
         from views.newInvoiceWindow import NewInvoiceWindow
@@ -230,6 +236,7 @@ class MainWindow(QMainWindow):
             window.show()
 
         self.ui.table_users.clearSelection()
+
 
     def destroybd(self):
         msg = QMessageBox.critical(

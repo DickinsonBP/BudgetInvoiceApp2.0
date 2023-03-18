@@ -1,0 +1,65 @@
+{
+    "QMainWindow": [
+        {
+            "title":"Servicios Bedoya"
+        }
+    ],
+    "QSettings": [
+        {
+            "ThemeSettings": [
+                {
+                    "CustomTheme": [
+                        {
+                            "Background-color": "#1b1b27",
+                            "Text-color": "#fff",
+                            "Accent-color": "#ece424",
+                            "Theme-name": "Default-Dark",
+                            "Icons-color": "#fff",
+                            "Default-Theme": true
+                        }
+                    ]
+                }
+            ],
+            "AppSettings":{
+                "OrginizationName":"Servicios Bedoya",
+                "ApplicationName":"Servicios Bedoya",
+                "OrginizationDormain":""
+            }
+        }
+    ],
+    "QStackedWidget":[
+        {
+            "name":"budgetPages",
+            "transitionAnimation":[
+				{
+					"fade":[
+						{
+							"active": true,
+							"duration":500,
+							"easingCurve": "Linear"
+						}
+					],
+					"slide":[
+						{
+							"active":true,
+							"duration": 500,
+							"direction": "horizontal",
+							"easingCurve": "Linear"
+						}
+					]
+				}
+			],
+            "navigation":[
+				{
+					"navigationButtons":[
+						{
+							"btn_continue": "edit_data",
+							"btn_back": "home_page"
+						}
+					]
+				}
+			]
+        }
+
+	]
+}

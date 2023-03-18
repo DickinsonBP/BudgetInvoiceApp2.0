@@ -7,6 +7,7 @@ import os
 import datetime
 
 from views.support_functions import *
+from Custom_Widgets.Widgets import *
 
 from Database.db_functions import insert_data, select_all_users, select_user_by_name, get_next_budget_id
 from .BudgetData import BudgetData
@@ -22,8 +23,10 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.populate_comobox()
         self.populate_dateedit()
         self.populate_invoiceNum()
+        
+        loadJsonStyle(self.parent,self,jsonFiles = {"json/budgetstyle.json"})
 
-        self.btn_savebudget.clicked.connect(self.addBudget)
+        #self.btn_continue.clicked.connect(self.nex_page)
         self.btn_cancel.clicked.connect(self.close)
 
         self.btn_newuser.clicked.connect(self.open_new_user_window)
@@ -65,7 +68,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     def populate_comobox(self):
 
         for usr in select_all_users():
-            self.user_comobox.addItem(usr[2])
+            self.user_combobox.addItem(usr[2])
         
     def check_inputs(self):
         budget_number = self.line_budgetNumber.text()
@@ -110,8 +113,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
                     self.clean_inputs()
                     self.parent.refresh_budget_table_from_child_window()
                     self.close()
-                    window = BudgetData(budget_number)
-                    window.show()
+                    self.parent.open_data_budget_window()
                 else:
                     message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
             else:
@@ -119,6 +121,9 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         except Exception as e:
             print_log("ERROR! No se ha podido añadir el nuevo presupuesto. Error --> "+str(e))
     
+    def next_page(self):
+        pass
+
     def open_new_user_window(self):
         self.parent.open_new_user_window()
         self.populate_comobox()

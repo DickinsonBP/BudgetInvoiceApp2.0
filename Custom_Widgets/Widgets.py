@@ -1486,6 +1486,7 @@ def loadJsonStyle(self, ui, **jsonFiles):
     #######################################################################
     self.ui = ui
     if not jsonFiles:
+        print("OOOOOOOO")
         if os.path.isfile("style.json"):
             file = open('style.json',)
             data = json.load(file)
@@ -1502,6 +1503,7 @@ def loadJsonStyle(self, ui, **jsonFiles):
             applyJsonStyle(self, self.ui, data)
 
     else:
+        print("HE ENTRADO AQUI")
         for file in jsonFiles['jsonFiles']:
             if os.path.isfile(file):
                 jsonFile = os.path.abspath(os.path.join(os.getcwd(), file))
