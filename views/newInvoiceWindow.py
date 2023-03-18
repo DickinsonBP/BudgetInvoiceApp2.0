@@ -34,7 +34,6 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
             #get client address
             address = select_user_by_name(user)[4]
             self.line_address.setText(str(address))
-            print_log(f"La direccion del usuario {user} para factura es {address}, todo ok")
         except Exception as e:
             print_log("ERROR! No se ha podido seleccionar la dirección del usuario en factura. Error --> "+str(e))
 
@@ -48,7 +47,6 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
             else: invoice_number = year[2:]+"00"+str(next_id)
 
             self.line_invoicenumber.setText(invoice_number)
-            print_log(f"Put text to the Invoice ID line input {invoice_number}")
 
         except Exception as e:
             print_log("ERROR! No se ha podido actualizar el ID de la nueva factura. Error --> "+str(e))
@@ -57,7 +55,6 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
         try:
             date = QDate.currentDate()
             self.budget_date.setDate(date)
-            print_log(f"Put date time to the QDateEdit {date}")
         except Exception as e:
             print_log("ERROR! No se ha podido actualizar la fecha en el QDateEdit de los presupuestos. Error --> "+str(e))
 
@@ -102,7 +99,6 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
                 
                 user_id = select_user_by_name(user)[0]
 
-                print_log("El usuario para la factura es: "+user+" y su id es :"+str(user_id))
 
                 data = (invoice_number,title,date,address,user_id)
 

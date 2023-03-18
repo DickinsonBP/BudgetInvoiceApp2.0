@@ -119,10 +119,10 @@ class Ui_NewBudgetWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_3)
 
-        self.lineEdit_2 = QLineEdit(self.home_page)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.line_title = QLineEdit(self.home_page)
+        self.line_title.setObjectName(u"line_title")
 
-        self.verticalLayout_4.addWidget(self.lineEdit_2)
+        self.verticalLayout_4.addWidget(self.line_title)
 
         self.label_4 = QLabel(self.home_page)
         self.label_4.setObjectName(u"label_4")
@@ -171,10 +171,10 @@ class Ui_NewBudgetWindow(object):
         self.widget_3.setObjectName(u"widget_3")
         self.horizontalLayout_3 = QHBoxLayout(self.widget_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.lineEdit = QLineEdit(self.widget_3)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.line_address = QLineEdit(self.widget_3)
+        self.line_address.setObjectName(u"line_address")
 
-        self.horizontalLayout_3.addWidget(self.lineEdit)
+        self.horizontalLayout_3.addWidget(self.line_address)
 
         self.btn_clientaddress = QPushButton(self.widget_3)
         self.btn_clientaddress.setObjectName(u"btn_clientaddress")
@@ -230,47 +230,50 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_5.addWidget(self.label_7, 0, Qt.AlignHCenter)
 
-        self.label_8 = QLabel(self.frame_2)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font)
+        self.budget_number = QLabel(self.frame_2)
+        self.budget_number.setObjectName(u"budget_number")
+        self.budget_number.setFont(font)
 
-        self.horizontalLayout_5.addWidget(self.label_8, 0, Qt.AlignLeft)
+        self.horizontalLayout_5.addWidget(self.budget_number, 0, Qt.AlignLeft)
 
 
         self.verticalLayout_5.addWidget(self.frame_2, 0, Qt.AlignTop)
 
-        self.widget_5 = QWidget(self.edit_data)
-        self.widget_5.setObjectName(u"widget_5")
-        self.verticalLayout_6 = QVBoxLayout(self.widget_5)
+        self.description_widget = QWidget(self.edit_data)
+        self.description_widget.setObjectName(u"description_widget")
+        self.verticalLayout_6 = QVBoxLayout(self.description_widget)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.btn_newrow = QPushButton(self.widget_5)
+        self.btn_newrow = QPushButton(self.description_widget)
         self.btn_newrow.setObjectName(u"btn_newrow")
 
         self.verticalLayout_6.addWidget(self.btn_newrow, 0, Qt.AlignLeft)
 
-        self.widget_6 = QWidget(self.widget_5)
-        self.widget_6.setObjectName(u"widget_6")
-        self.horizontalLayout_7 = QHBoxLayout(self.widget_6)
+        self.data_widget_1 = QWidget(self.description_widget)
+        self.data_widget_1.setObjectName(u"data_widget_1")
+        self.horizontalLayout_7 = QHBoxLayout(self.data_widget_1)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.comboBox_2 = QComboBox(self.widget_6)
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.combobox_type_1 = QComboBox(self.data_widget_1)
+        self.combobox_type_1.setObjectName(u"combobox_type_1")
 
-        self.horizontalLayout_7.addWidget(self.comboBox_2)
+        self.horizontalLayout_7.addWidget(self.combobox_type_1)
 
-        self.lineEdit_3 = QLineEdit(self.widget_6)
-        self.lineEdit_3.setObjectName(u"lineEdit_3")
+        self.line_desc_1 = QLineEdit(self.data_widget_1)
+        self.line_desc_1.setObjectName(u"line_desc_1")
 
-        self.horizontalLayout_7.addWidget(self.lineEdit_3)
+        self.horizontalLayout_7.addWidget(self.line_desc_1)
 
-        self.lineEdit_4 = QLineEdit(self.widget_6)
-        self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.line_price_1 = QLineEdit(self.data_widget_1)
+        self.line_price_1.setObjectName(u"line_price_1")
 
-        self.horizontalLayout_7.addWidget(self.lineEdit_4, 0, Qt.AlignRight)
+        self.horizontalLayout_7.addWidget(self.line_price_1, 0, Qt.AlignRight)
 
 
-        self.verticalLayout_6.addWidget(self.widget_6)
+        self.verticalLayout_6.addWidget(self.data_widget_1)
 
-        self.widget_7 = QWidget(self.widget_5)
+
+        self.verticalLayout_5.addWidget(self.description_widget)
+
+        self.widget_7 = QWidget(self.edit_data)
         self.widget_7.setObjectName(u"widget_7")
         self.horizontalLayout_8 = QHBoxLayout(self.widget_7)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
@@ -300,10 +303,7 @@ class Ui_NewBudgetWindow(object):
         self.horizontalLayout_8.addWidget(self.lineEdit_5, 0, Qt.AlignRight)
 
 
-        self.verticalLayout_6.addWidget(self.widget_7)
-
-
-        self.verticalLayout_5.addWidget(self.widget_5)
+        self.verticalLayout_5.addWidget(self.widget_7, 0, Qt.AlignBottom)
 
         self.widget_8 = QWidget(self.edit_data)
         self.widget_8.setObjectName(u"widget_8")
@@ -324,7 +324,7 @@ class Ui_NewBudgetWindow(object):
         self.horizontalLayout_6.addWidget(self.btn_back, 0, Qt.AlignHCenter)
 
 
-        self.verticalLayout_5.addWidget(self.widget_8)
+        self.verticalLayout_5.addWidget(self.widget_8, 0, Qt.AlignBottom)
 
         self.budgetPages.addWidget(self.edit_data)
 
@@ -355,11 +355,11 @@ class Ui_NewBudgetWindow(object):
         self.btn_continue.setText(QCoreApplication.translate("NewBudgetWindow", u"Continuar", None))
         self.btn_cancel.setText(QCoreApplication.translate("NewBudgetWindow", u"Cancelar", None))
         self.label_7.setText(QCoreApplication.translate("NewBudgetWindow", u"Presupuesto N\u00b0", None))
-        self.label_8.setText(QCoreApplication.translate("NewBudgetWindow", u"#", None))
+        self.budget_number.setText(QCoreApplication.translate("NewBudgetWindow", u"#", None))
         self.btn_newrow.setText(QCoreApplication.translate("NewBudgetWindow", u"A\u00f1adir fila", None))
-        self.comboBox_2.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Tipo", None))
-        self.lineEdit_3.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Descripci\u00f3n", None))
-        self.lineEdit_4.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
+        self.combobox_type_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Tipo", None))
+        self.line_desc_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Descripci\u00f3n", None))
+        self.line_price_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
         self.label_12.setText(QCoreApplication.translate("NewBudgetWindow", u"Precio total", None))
         self.label_11.setText(QCoreApplication.translate("NewBudgetWindow", u"IIVA", None))
         self.btn_save.setText(QCoreApplication.translate("NewBudgetWindow", u"Guardar", None))

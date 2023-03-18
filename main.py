@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
 
 
         # APPLY JSON STYLESHEET
-        loadJsonStyle(self, self.ui)
+        loadJsonStyle(self, self.ui,jsonFiles = {"json/homestyle.json"})
 
         ## SHOW MAIN WINDOW
 
@@ -117,7 +117,6 @@ class MainWindow(QMainWindow):
                 if(index_cell == 4):
                     #get user name
                     usr_name = select_user_by_id(cell)[2]
-                    #print_log("User name: "+str(usr_name))
                     self.ui.table_budgets.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
                 else:
                     #regular data 
@@ -134,7 +133,6 @@ class MainWindow(QMainWindow):
                 if(index_cell == 4):
                     #get user name
                     usr_name = select_user_by_id(cell)[2]
-                    #print_log("User name: "+str(usr_name))
                     self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
                 else:
                     #regular data 

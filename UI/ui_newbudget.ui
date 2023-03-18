@@ -132,7 +132,7 @@ QPushButton  {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
+              <widget class="QLineEdit" name="line_title"/>
              </item>
              <item>
               <widget class="QLabel" name="label_4">
@@ -196,7 +196,7 @@ QPushButton  {
               <widget class="QWidget" name="widget_3" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit"/>
+                 <widget class="QLineEdit" name="line_address"/>
                 </item>
                 <item>
                  <widget class="QPushButton" name="btn_clientaddress">
@@ -290,7 +290,7 @@ QPushButton  {
                  </widget>
                 </item>
                 <item alignment="Qt::AlignLeft">
-                 <widget class="QLabel" name="label_8">
+                 <widget class="QLabel" name="budget_number">
                   <property name="font">
                    <font>
                     <pointsize>25</pointsize>
@@ -306,7 +306,7 @@ QPushButton  {
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_5" native="true">
+              <widget class="QWidget" name="description_widget" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_6">
                 <item alignment="Qt::AlignLeft">
                  <widget class="QPushButton" name="btn_newrow">
@@ -316,24 +316,24 @@ QPushButton  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_6" native="true">
+                 <widget class="QWidget" name="data_widget_1" native="true">
                   <layout class="QHBoxLayout" name="horizontalLayout_7">
                    <item>
-                    <widget class="QComboBox" name="comboBox_2">
+                    <widget class="QComboBox" name="combobox_type_1">
                      <property name="placeholderText">
                       <string>Tipo</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_3">
+                    <widget class="QLineEdit" name="line_desc_1">
                      <property name="placeholderText">
                       <string>Descripción</string>
                      </property>
                     </widget>
                    </item>
                    <item alignment="Qt::AlignRight">
-                    <widget class="QLineEdit" name="lineEdit_4">
+                    <widget class="QLineEdit" name="line_price_1">
                      <property name="placeholderText">
                       <string>Precio</string>
                      </property>
@@ -342,47 +342,47 @@ QPushButton  {
                   </layout>
                  </widget>
                 </item>
+               </layout>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignBottom">
+              <widget class="QWidget" name="widget_7" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item>
-                 <widget class="QWidget" name="widget_7" native="true">
-                  <layout class="QHBoxLayout" name="horizontalLayout_8">
-                   <item>
-                    <widget class="QLabel" name="label_12">
-                     <property name="font">
-                      <font>
-                       <pointsize>15</pointsize>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Precio total</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item alignment="Qt::AlignRight">
-                    <widget class="QLabel" name="label_11">
-                     <property name="font">
-                      <font>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>IIVA</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_3"/>
-                   </item>
-                   <item alignment="Qt::AlignRight">
-                    <widget class="QLineEdit" name="lineEdit_5"/>
-                   </item>
-                  </layout>
+                 <widget class="QLabel" name="label_12">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Precio total</string>
+                  </property>
                  </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QLabel" name="label_11">
+                  <property name="font">
+                   <font>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>IIVA</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_3"/>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QLineEdit" name="lineEdit_5"/>
                 </item>
                </layout>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignBottom">
               <widget class="QWidget" name="widget_8" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item alignment="Qt::AlignHCenter">
