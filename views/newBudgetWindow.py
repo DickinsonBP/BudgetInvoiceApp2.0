@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QMessageBox
+from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Qt, QDate
 from .ui_newbudget import Ui_NewBudgetWindow
 #from Data.books import insert_book, select_book_by_id
@@ -10,12 +10,15 @@ from views.support_functions import *
 from Custom_Widgets.Widgets import *
 
 from Database.db_functions import insert_data, select_all_users, select_user_by_name, get_next_budget_id
-from .BudgetData import BudgetData
 
 class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def __init__(self, parent=None):
-        super().__init__(parent)
+        super().__init__()
+        self.parent = parent
+        self.setupUi(self)
+        self.setWindowFlag(Qt.Window)
+
         #variables
         self.b_number = ""
         self.num_rows = 0
@@ -23,18 +26,16 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
         self.data_vals = []
 
-        self.parent = parent
-        self.setupUi(self)
-        self.setWindowFlag(Qt.Window)
 
         self.populate_comobox()
         self.populate_dateedit()
         self.populate_invoiceNum()
         self.populate_type_combobox()
         
-        loadJsonStyle(self.parent,self,jsonFiles = {"json/budgetstyle.json"})
+        loadJsonStyle(self,self,jsonFiles = {"json/budgetstyle.json"})
 
         self.btn_cancel.clicked.connect(self.close)
+        self.btn_cancel2.clicked.connect(self.close)
         self.btn_continue.clicked.connect(self.check_inputs)
         self.btn_newuser.clicked.connect(self.open_new_user_window)
         self.btn_clientaddress.clicked.connect(self.set_client_addres)
@@ -103,19 +104,23 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def populate_invoiceNum(self):
         try:
-           
+            #code for other thing
             aux = {
                 "type":self.combobox_type_1,
                 "desc":self.line_desc_1,
                 "price":self.line_price_1
             }
+
             self.data_vals.append(aux)
+            ##############
 
             year = datetime.datetime.now().strftime("%Y")
             next_id = get_next_budget_id()
-
-            if(len(str(next_id)) > 1): self.b_number = year[2:]+"0"+str(next_id)
-            else: self.b_number = year[2:]+"00"+str(next_id)
+            if(next_id):
+                if(len(str(next_id)) > 1): self.b_number = year[2:]+"0"+str(next_id)
+                else: self.b_number = year[2:]+"00"+str(next_id)
+            else:
+                self.b_number = year[2:]+"001"
 
             self.line_budgetNumber.setText(self.b_number)
             self.set_next_window_budget_number()
@@ -156,44 +161,40 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     
     def addBudget(self):
 
-        try:
-            self.b_number = self.line_budgetNumber.text()
-            title = self.line_title.text()
-            date = self.budget_date.text()
-            user = self.user_combobox.currentText()
+        self.b_number = self.line_budgetNumber.text()
+        title = self.line_title.text()
+        date = self.budget_date.text()
+        user = self.user_combobox.currentText()
 
-            address = self.line_address.text()
+        address = self.line_address.text()
 
 
-            if(self.check_inputs()):
-                
-                user_id = select_user_by_name(user)
+        if(self.check_inputs()):
+            
+            user_id = select_user_by_name(user)
 
-                path = create_json("presupuesto",user_id, self.data_vals,self.b_number)
-                if(path):
-                    data = (self.budget_number,title,date,address,user_id[0],path)
-                    print(data)
-                    #if(insert_data(data, "Budget")):
-                    #    self.clean_inputs()
-                    #    self.parent.refresh_budget_table_from_child_window()
-                    #    self.close()
-                    #else:
-                    #    message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
-                    #    print_log("ERROR! No se ha podido guardar el nuevo presupuesto")
+            json_path = create_json("presupuesto",user_id, self.data_vals,self.b_number)
+            create_pdf(json_path)
+            if(json_path):
+                data = (self.b_number,title,date,address,json_path,user_id[0])
+                if(insert_data(data, "Budget")):
+                    self.clean_inputs()
+                    self.close()
+                    self.parent.refresh_budget_table_from_child_window()
                 else:
-                    message_box("CRITICAL","Algo ha fallado al generar el archivo del presupuesto, revisa los datos y vuelve a intentar")
-                    print_log("ERROR! No se ha podido generar el archivo del nuevo presupuesto")
+                    message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
+                    print_log("ERROR! No se ha podido guardar el nuevo presupuesto")
             else:
-                message_box("CRITICAL", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
-                print_log("ERROR! Hay datos obligatorios vacios en el presupuesto.")
-        except Exception as e:
-            print_log("ERROR! No se ha podido añadir el nuevo presupuesto. Error --> "+str(e))
-
+                message_box("CRITICAL","Algo ha fallado al generar el archivo del presupuesto, revisa los datos y vuelve a intentar")
+                print_log("ERROR! No se ha podido generar el archivo del nuevo presupuesto")
+        else:
+            message_box("warning", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
+            print_log("ERROR! Hay datos obligatorios vacios en el presupuesto.")
+       
     def open_new_user_window(self):
         self.parent.open_new_user_window()
         self.populate_comobox()
 
     def clean_inputs(self):
         self.line_title.clear()
-        self.user_combobox.clear()
         self.line_address.clear()

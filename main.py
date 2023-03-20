@@ -78,9 +78,6 @@ class MainWindow(QMainWindow):
         self.ui.btn_addinvoice.clicked.connect(self.open_new_invoice_window)
         self.ui.btn_deleteinvoice.clicked.connect(self.remove_invoice)
 
-        #delete DB
-        self.ui.btn_deletebd.clicked.connect(self.destroybd)
-
     def populate_user_table(self, data):
         """
         It takes a list of lists (data) and populates a QTableWidget with the data. 
@@ -100,16 +97,18 @@ class MainWindow(QMainWindow):
         
         :param data: list of lists
         """
-        self.ui.table_users.setRowCount(len(data))
+        if(data):
+            self.ui.table_users.setRowCount(len(data))
 
-        for index_row,row in enumerate(data):
-            for index_cell, cell in enumerate(row):
-                self.ui.table_users.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
-        
-        self.users_qty()
+            for index_row,row in enumerate(data):
+                for index_cell, cell in enumerate(row):
+                    self.ui.table_users.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+            
+            self.users_qty()
+        else:
+            self.ui.clients_qty.setText("0")
 
     def populate_budget_table(self, data):
-
         self.ui.table_budgets.setRowCount(len(data))
 
         for index_row,row in enumerate(data):
@@ -126,19 +125,22 @@ class MainWindow(QMainWindow):
 
     def populate_invoice_table(self, data):
 
-        self.ui.table_invoices.setRowCount(len(data))
+        if(data):
+            self.ui.table_invoices.setRowCount(len(data))
 
-        for index_row,row in enumerate(data):
-            for index_cell, cell in enumerate(row):
-                if(index_cell == 4):
-                    #get user name
-                    usr_name = select_user_by_id(cell)[2]
-                    self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
-                else:
-                    #regular data 
-                    self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
-        
-        self.invoices_qty()
+            for index_row,row in enumerate(data):
+                for index_cell, cell in enumerate(row):
+                    if(index_cell == 4):
+                        #get user name
+                        usr_name = select_user_by_id(cell)[2]
+                        self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(usr_name))
+                    else:
+                        #regular data 
+                        self.ui.table_invoices.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
+            
+            self.invoices_qty()
+        else:
+            self.ui.invoices_qty.setText("0")
 
     def refresh_user_table_from_child_window(self):
         data = select_all_users()
@@ -170,6 +172,10 @@ class MainWindow(QMainWindow):
         selected_row = self.ui.table_budgets.selectedItems()
         if selected_row:
             butget_id = int(selected_row[0].text())
+
+            #delete the json file associated to the budget
+            delete_json(select_budget_by_id(butget_id)[6])
+            
             row = selected_row[0].row()
 
             if delete_budget(butget_id):
@@ -218,7 +224,6 @@ class MainWindow(QMainWindow):
         window = BudgetData(self)
         window.show()
 
-
     def open_new_invoice_window(self):
         from views.newInvoiceWindow import NewInvoiceWindow
         window = NewInvoiceWindow(self)
@@ -234,22 +239,6 @@ class MainWindow(QMainWindow):
             window.show()
 
         self.ui.table_users.clearSelection()
-
-
-    def destroybd(self):
-        msg = QMessageBox.critical(
-                    self,
-                    "Cuidado!",
-                    "Estas seguro que quieres borrar todos los datos de la base de datos?",
-                    buttons = QMessageBox.Ok | QMessageBox.Cancel,
-                    defaultButton=QMessageBox.Ok
-                )
-        if msg == QMessageBox.Ok:
-            print("BORRAR BASE DE DATOS :O")
-            remove_db()
-            init_tables()
-        elif msg == QMessageBox.Cancel:
-            print("NO SE BORRA LA BD, MENOS MAL 0.o")
 
 
 if __name__ == "__main__":

@@ -56,9 +56,9 @@ class NewUserWindow(QWidget, Ui_NewUserWindow):
                 self.parent.refresh_user_table_from_child_window()
                 self.close()
             else:
-                message_box("critical","Algo ha fallado al guardar el nuevo usuario, revisa los datos y vuelve a intentar")
+                message_box("warning","Algo ha fallado al guardar el nuevo usuario, revisa los datos y vuelve a intentar")
         else:
-            message_box("critical","Revisa los datos que has introducido, ni el nombre ni el telefono pueden estar vacios!")
+            message_box("warning","Revisa los datos que has introducido, ni el nombre ni el telefono pueden estar vacios!")
     
     def clean_inputs(self):
         self.line_nif.clear()

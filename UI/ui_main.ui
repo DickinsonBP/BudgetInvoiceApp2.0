@@ -619,7 +619,7 @@ QLineEdit{
                    </column>
                    <column>
                     <property name="text">
-                     <string>Telefono</string>
+                     <string>Dirección</string>
                     </property>
                     <property name="font">
                      <font>
@@ -629,7 +629,7 @@ QLineEdit{
                    </column>
                    <column>
                     <property name="text">
-                     <string>Dirección</string>
+                     <string>Telefono</string>
                     </property>
                     <property name="font">
                      <font>
@@ -884,6 +884,11 @@ QLineEdit{
                   <string>Dirección</string>
                  </property>
                 </column>
+                <column>
+                 <property name="text">
+                  <string>Locaclización del archivo</string>
+                 </property>
+                </column>
                </widget>
               </item>
              </layout>
@@ -1128,14 +1133,14 @@ QLineEdit{
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QCustomSlideMenu</class>
-   <extends>QWidget</extends>
+   <class>QCustomStackedWidget</class>
+   <extends>QStackedWidget</extends>
    <header location="global">Custom_Widgets.Widgets.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>QCustomStackedWidget</class>
-   <extends>QStackedWidget</extends>
+   <class>QCustomSlideMenu</class>
+   <extends>QWidget</extends>
    <header location="global">Custom_Widgets.Widgets.h</header>
    <container>1</container>
   </customwidget>

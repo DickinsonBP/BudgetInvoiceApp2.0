@@ -153,7 +153,7 @@ class Ui_NewBudgetWindow(object):
         self.btn_newuser.setFont(font1)
         self.btn_newuser.setCursor(QCursor(Qt.PointingHandCursor))
         icon = QIcon()
-        icon.addFile(u"../res/Icons/check-square.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"res/Icons/check-square.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_newuser.setIcon(icon)
         self.btn_newuser.setIconSize(QSize(24, 24))
 
@@ -194,7 +194,7 @@ class Ui_NewBudgetWindow(object):
         self.btn_continue.setObjectName(u"btn_continue")
         self.btn_continue.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
-        icon1.addFile(u"../res/Icons/smile.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u"res/Icons/smile.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_continue.setIcon(icon1)
         self.btn_continue.setIconSize(QSize(24, 24))
 
@@ -204,7 +204,7 @@ class Ui_NewBudgetWindow(object):
         self.btn_cancel.setObjectName(u"btn_cancel")
         self.btn_cancel.setCursor(QCursor(Qt.PointingHandCursor))
         icon2 = QIcon()
-        icon2.addFile(u"../res/Icons/frown.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u"res/Icons/frown.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_cancel.setIcon(icon2)
         self.btn_cancel.setIconSize(QSize(24, 24))
 
@@ -323,6 +323,11 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_6.addWidget(self.btn_back, 0, Qt.AlignHCenter)
 
+        self.btn_cancel2 = QPushButton(self.widget_8)
+        self.btn_cancel2.setObjectName(u"btn_cancel2")
+
+        self.horizontalLayout_6.addWidget(self.btn_cancel2, 0, Qt.AlignHCenter)
+
 
         self.verticalLayout_5.addWidget(self.widget_8, 0, Qt.AlignBottom)
 
@@ -364,5 +369,6 @@ class Ui_NewBudgetWindow(object):
         self.label_11.setText(QCoreApplication.translate("NewBudgetWindow", u"IIVA", None))
         self.btn_save.setText(QCoreApplication.translate("NewBudgetWindow", u"Guardar", None))
         self.btn_back.setText(QCoreApplication.translate("NewBudgetWindow", u"Volver", None))
+        self.btn_cancel2.setText(QCoreApplication.translate("NewBudgetWindow", u"Cancelar", None))
     # retranslateUi
 

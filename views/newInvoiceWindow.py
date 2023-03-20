@@ -109,7 +109,7 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
                 else:
                     message_box("CRITICAL","Algo ha fallado al guardar la factura, revisa los datos y vuelve a intentar")
             else:
-                message_box("critical", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
+                message_box("warning", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
 
         except Exception as e:
             print_log("ERROR! No se ha podido añadir el nuevo presupuesto. Error --> "+str(e))

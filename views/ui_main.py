@@ -442,8 +442,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_17.addWidget(self.widget_6)
 
         self.table_budgets = QTableWidget(self.budgetPage)
-        if (self.table_budgets.columnCount() < 6):
-            self.table_budgets.setColumnCount(6)
+        if (self.table_budgets.columnCount() < 7):
+            self.table_budgets.setColumnCount(7)
         __qtablewidgetitem6 = QTableWidgetItem()
         self.table_budgets.setHorizontalHeaderItem(0, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
@@ -456,6 +456,8 @@ class Ui_MainWindow(object):
         self.table_budgets.setHorizontalHeaderItem(4, __qtablewidgetitem10)
         __qtablewidgetitem11 = QTableWidgetItem()
         self.table_budgets.setHorizontalHeaderItem(5, __qtablewidgetitem11)
+        __qtablewidgetitem12 = QTableWidgetItem()
+        self.table_budgets.setHorizontalHeaderItem(6, __qtablewidgetitem12)
         self.table_budgets.setObjectName(u"table_budgets")
         font7 = QFont()
         font7.setPointSize(15)
@@ -528,18 +530,18 @@ class Ui_MainWindow(object):
         self.table_invoices = QTableWidget(self.widget_2)
         if (self.table_invoices.columnCount() < 6):
             self.table_invoices.setColumnCount(6)
-        __qtablewidgetitem12 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(0, __qtablewidgetitem12)
         __qtablewidgetitem13 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(1, __qtablewidgetitem13)
+        self.table_invoices.setHorizontalHeaderItem(0, __qtablewidgetitem13)
         __qtablewidgetitem14 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(2, __qtablewidgetitem14)
+        self.table_invoices.setHorizontalHeaderItem(1, __qtablewidgetitem14)
         __qtablewidgetitem15 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(3, __qtablewidgetitem15)
+        self.table_invoices.setHorizontalHeaderItem(2, __qtablewidgetitem15)
         __qtablewidgetitem16 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(4, __qtablewidgetitem16)
+        self.table_invoices.setHorizontalHeaderItem(3, __qtablewidgetitem16)
         __qtablewidgetitem17 = QTableWidgetItem()
-        self.table_invoices.setHorizontalHeaderItem(5, __qtablewidgetitem17)
+        self.table_invoices.setHorizontalHeaderItem(4, __qtablewidgetitem17)
+        __qtablewidgetitem18 = QTableWidgetItem()
+        self.table_invoices.setHorizontalHeaderItem(5, __qtablewidgetitem18)
         self.table_invoices.setObjectName(u"table_invoices")
         self.table_invoices.setFont(font4)
 
@@ -626,9 +628,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3 = self.table_users.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Email", None));
         ___qtablewidgetitem4 = self.table_users.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
         ___qtablewidgetitem5 = self.table_users.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Telefono", None));
         self.budget_qty.setText(QCoreApplication.translate("MainWindow", u"#", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"PRESUPUESTOS", None))
         self.btn_updateBudgetTable.setText(QCoreApplication.translate("MainWindow", u"Actualizar", None))
@@ -648,24 +650,26 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
         ___qtablewidgetitem11 = self.table_budgets.horizontalHeaderItem(5)
         ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem12 = self.table_budgets.horizontalHeaderItem(6)
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Locaclizaci\u00f3n del archivo", None));
         self.invoices_qty.setText(QCoreApplication.translate("MainWindow", u"#", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Facturas", None))
         self.btn_updateInvoiceTable.setText(QCoreApplication.translate("MainWindow", u"Actualizar", None))
         self.btn_deleteinvoice.setText(QCoreApplication.translate("MainWindow", u"Eliminar", None))
         self.btn_editinvoice.setText(QCoreApplication.translate("MainWindow", u"Editar", None))
         self.btn_addinvoice.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir", None))
-        ___qtablewidgetitem12 = self.table_invoices.horizontalHeaderItem(0)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
-        ___qtablewidgetitem13 = self.table_invoices.horizontalHeaderItem(1)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"Numero de factura", None));
-        ___qtablewidgetitem14 = self.table_invoices.horizontalHeaderItem(2)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"Titulo", None));
-        ___qtablewidgetitem15 = self.table_invoices.horizontalHeaderItem(3)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
-        ___qtablewidgetitem16 = self.table_invoices.horizontalHeaderItem(4)
-        ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
-        ___qtablewidgetitem17 = self.table_invoices.horizontalHeaderItem(5)
-        ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
+        ___qtablewidgetitem13 = self.table_invoices.horizontalHeaderItem(0)
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"Identificador", None));
+        ___qtablewidgetitem14 = self.table_invoices.horizontalHeaderItem(1)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"Numero de factura", None));
+        ___qtablewidgetitem15 = self.table_invoices.horizontalHeaderItem(2)
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"Titulo", None));
+        ___qtablewidgetitem16 = self.table_invoices.horizontalHeaderItem(3)
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"Fecha", None));
+        ___qtablewidgetitem17 = self.table_invoices.horizontalHeaderItem(4)
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem18 = self.table_invoices.horizontalHeaderItem(5)
+        ___qtablewidgetitem18.setText(QCoreApplication.translate("MainWindow", u"Direcci\u00f3n", None));
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"AJUSTES", None))
         self.btn_deletebd.setText(QCoreApplication.translate("MainWindow", u"BORRAR BASE DE DATOS", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Servicios Bedoya. Copyright 2023", None))

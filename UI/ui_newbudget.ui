@@ -172,7 +172,7 @@ QPushButton  {
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../res/Icons/check-square.png</normaloff>../res/Icons/check-square.png</iconset>
+                    <normaloff>res/Icons/check-square.png</normaloff>res/Icons/check-square.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -230,7 +230,7 @@ QPushButton  {
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../res/Icons/smile.png</normaloff>../res/Icons/smile.png</iconset>
+                    <normaloff>res/Icons/smile.png</normaloff>res/Icons/smile.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -250,7 +250,7 @@ QPushButton  {
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../res/Icons/frown.png</normaloff>../res/Icons/frown.png</iconset>
+                    <normaloff>res/Icons/frown.png</normaloff>res/Icons/frown.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -414,6 +414,13 @@ QPushButton  {
                     <width>24</width>
                     <height>24</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QPushButton" name="btn_cancel2">
+                  <property name="text">
+                   <string>Cancelar</string>
                   </property>
                  </widget>
                 </item>

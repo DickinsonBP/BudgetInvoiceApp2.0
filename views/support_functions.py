@@ -1,11 +1,11 @@
-import os, sys, datetime
-#Database import
-import sqlite3
-from sqlite3 import Error
+import os, os.path, sys, datetime,stat
+#other libraries import
+import json
+from pdfdocument.document import PDFDocument
+
 #Pyside6 import
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox, QDialogButtonBox, QLabel,QVBoxLayout
 from PySide6.QtCore import Qt
-import json
 
 
 def check_cif(cif):
@@ -100,22 +100,43 @@ def message_box(case, msg):
         if(case == "CRITICAL"):
             box.setWindowTitle("Cuidado!")
             box.setText(msg)
-            box.setStandardButtons(QMessageBox.Ok)
+            box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             box.setIcon(QMessageBox.Critical)
-            button = box.exec()
 
+        if(case == "WARNING"):
+            box.setWindowTitle("Cuidado!")
+            box.setText(msg)
+            box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            box.setIcon(QMessageBox.Warning)
+
+        return box.exec()
     except Exception as e:
         print_log("ERRO! No se ha podido enseñar la ventana de mensaje. Error --> "+str(e))
 
+def delete_json(path):
+    try:
+        os.remove(path)
+    except Exception as e:
+        print_log(f"ERROR! No se ha podido borrar el archivo: {path}. Error --> "+str(e))
+
+def create_folder(path):
+    if(not os.path.isdir(path)): 
+        os.makedirs(path)
+        os.chmod(path,stat.S_IRWXO )
 
 def create_json(d_type, user_data, data_vals, d_number):
     try:
-        path = "res/data/"+d_type+"s/"
-        file_path = path +d_type+"_"+str(d_number)+".json"
+
+        json_path = "res/data/json/"+d_type+"s/"+d_type+"_"+str(d_number)+".json"
+        pdf_path = "res/data/pdf/"+d_type+"s/"+d_type+"_"+str(d_number)+".pdf"
 
         #check
-        if(not os.path.isdir(path)): os.makedirs(path)
-        if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
+        create_folder(os.path.abspath('res/data/'))
+        create_folder(os.path.abspath('res/data/json/'))
+        create_folder(os.path.abspath('res/data/pdf/'))
+
+        if(os.path.isfile(json_path)): message_box("critical","Este presupuesto ya existe!")
+        if(os.path.isfile(pdf_path)): message_box("critical","Este presupuesto ya existe!")
 
 
         json_data = {
@@ -190,10 +211,30 @@ def create_json(d_type, user_data, data_vals, d_number):
                     json_data["body"][item].setdefault("note",i['desc'].text())
 
         json_obj = json.dumps(json_data)
-        with open(file_path,'w')as f:
+        with open(json_path,'w')as f:
             f.write(json_obj)
 
-        return file_path
+        return (json_path,pdf_path)
+    
     except Exception as e:
         print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
-        message_box("critical","ERROR: "+str(e))
+        message_box("critical","ERROR No se ha podido crear el archivo json: "+str(e))
+
+def create_pdf(json_file):
+    #print_log(f"Path donde se va a generar el pdf: {path}")
+    path = json_file.split(" ")[-1]
+    pdf = PDFDocument(path)
+    pdf.init_report()
+
+    src_file = open(json_file)
+    data = json.load(src_file)
+
+    print(data)
+    addr = {'first_name':"Dickinson", 'last_name':"Bedoya",
+            'address':"123 Ding Dong Lane", 
+            'zip_code':"75002", 'city':"Dakota"}
+    
+
+    pdf.address(addr)
+    pdf.p("This is a paragraph!")
+    pdf.generate()
