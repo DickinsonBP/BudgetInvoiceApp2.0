@@ -18,12 +18,10 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         super().__init__(parent)
         #variables
         self.b_number = ""
-        self.num_rows = 1
+        self.num_rows = 0
+        self.num_types = 0
 
-        self.widgets = {}
-        self.description_vars = {}
-        self.type_vars = {}
-        self.price_vars = {}
+        self.data_vals = []
 
         self.parent = parent
         self.setupUi(self)
@@ -41,7 +39,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.btn_newuser.clicked.connect(self.open_new_user_window)
         self.btn_clientaddress.clicked.connect(self.set_client_addres)
         self.btn_newrow.clicked.connect(self.add_row)
-        #self.btn_save.clicked.connect(self.addBudget)
+        self.btn_save.clicked.connect(self.addBudget)
 
     def set_next_window_budget_number(self):
         self.budget_number.setText(self.b_number)
@@ -53,19 +51,30 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         new_horizontalLayout = QHBoxLayout(new_widget)
 
         new_type_combobox = QComboBox()
+        new_type_combobox.setObjectName("combobox_type_"+str(self.num_rows))
         new_type_combobox.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Tipo", None))
-        self.type_vars.setdefault("type_"+str(self.num_rows),new_type_combobox)
         new_horizontalLayout.addWidget(new_type_combobox)
+        
+
 
         new_desc_line = QLineEdit(self.description_widget)
+        new_desc_line.setObjectName("line_desc_"+str(self.num_rows))
         new_desc_line.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Descripci\u00f3n", None))
-        self.description_vars.setdefault("desc_"+str(self.num_rows),new_desc_line)
         new_horizontalLayout.addWidget(new_desc_line)
 
+
         new_price_line = QLineEdit(self.description_widget)
+        new_price_line.setObjectName("line_price_"+str(self.num_rows))
         new_price_line.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
-        self.price_vars.setdefault("price_"+str(self.num_rows),new_price_line)
         new_horizontalLayout.addWidget(new_price_line,0,Qt.AlignRight)
+
+        aux = {
+                "type":new_type_combobox,
+                "desc":new_desc_line,
+                "price":new_price_line
+            }
+
+        self.data_vals.append(aux)
 
         self.verticalLayout_6.addWidget(new_widget)
 
@@ -74,18 +83,18 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     def populate_type_combobox(self):
         types = ["Titulo","Subtitulo","Texto normal","Nota"]
 
-        #start with the initial comobox
-        for item in types:
-            self.combobox_type_1.addItem(item)
-
         #continue with all the comobox at the dictionary
-        for name, comobox in self.type_vars.items():
-            for item in types:
-                comobox.addItem(item)
+        for i in self.data_vals[self.num_rows:]:
+            for key,comobox in i.items():
+                if(key == 'type'):
+                    for item in types:
+                        comobox.addItem(item)
+
+        self.num_types += 1
 
     def set_client_addres(self):
         try:
-            user = self.user_comobox.currentText()
+            user = self.user_combobox.currentText()
             #get client address
             address = select_user_by_name(user)[4]
             self.line_address.setText(str(address))
@@ -95,6 +104,13 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     def populate_invoiceNum(self):
         try:
            
+            aux = {
+                "type":self.combobox_type_1,
+                "desc":self.line_desc_1,
+                "price":self.line_price_1
+            }
+            self.data_vals.append(aux)
+
             year = datetime.datetime.now().strftime("%Y")
             next_id = get_next_budget_id()
 
@@ -151,18 +167,25 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
             if(self.check_inputs()):
                 
-                user_id = select_user_by_name(user)[0]
+                user_id = select_user_by_name(user)
 
-                path = self.create_budget_json()
-                data = (self.budget_number,title,date,address,user_id,path)
-                if(insert_data(data, "Budget")):
-                    self.clean_inputs()
-                    self.parent.refresh_budget_table_from_child_window()
-                    self.close()
+                path = self.create_budget_json(user_id)
+                if(path):
+                    data = (self.budget_number,title,date,address,user_id[0],path)
+                    print(data)
+                    #if(insert_data(data, "Budget")):
+                    #    self.clean_inputs()
+                    #    self.parent.refresh_budget_table_from_child_window()
+                    #    self.close()
+                    #else:
+                    #    message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
+                    #    print_log("ERROR! No se ha podido guardar el nuevo presupuesto")
                 else:
-                    message_box("CRITICAL","Algo ha fallado al guardar el presupuesto, revisa los datos y vuelve a intentar")
+                    message_box("CRITICAL","Algo ha fallado al generar el archivo del presupuesto, revisa los datos y vuelve a intentar")
+                    print_log("ERROR! No se ha podido generar el archivo del nuevo presupuesto")
             else:
                 message_box("CRITICAL", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
+                print_log("ERROR! Hay datos obligatorios vacios en el presupuesto.")
         except Exception as e:
             print_log("ERROR! No se ha podido añadir el nuevo presupuesto. Error --> "+str(e))
 
@@ -175,11 +198,93 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.user_combobox.clear()
         self.line_address.clear()
 
-    def create_budget_json(self):
-        path = 'res/data/budgets/'
-        file_path = path +"presupuesto_"+str(self.b_number)+".json"
+    def create_budget_json(self,user_data):
+        
+        try:
+            path = 'res/data/budgets/'
+            file_path = path +"presupuesto_"+str(self.b_number)+".json"
 
-        #check
-        if(not os.path.exists(path)): os.mkdir(path)
-        if(os.path.exists(file_path)): message_box("critical","Este presupuesto ya existe!")
+            #check
+            if(not os.path.isdir(path)): os.makedirs(path)
+            if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
+
+
+            json_data = {
+                "header":
+                [
+                    {
+                        "budget_number":self.b_number,
+                        "client": [
+                            {
+                                "name":str(user_data[2]),
+                                "nif":str(user_data[1]),
+                                "address":str(user_data[4])
+                            }
+                        ]
+                    }
+                ]
+            }
+
             
+            """aux = {
+                "type":QComboBox(),
+                "desc":QLineEdit(),
+                "price":QLineEdit()
+            }"""
+
+            item = 0
+            for i in self.data_vals:
+                for key, data in i.items():
+                    if(key == "type") and (data.currentText() == "Titulo") and (not 'body' in json_data):
+                        
+                        #create body in json 
+                        json_data.setdefault("body",[])
+                        json_data["body"].append({})
+
+                        if(item): item +=1
+                        json_data["body"][item].setdefault("title",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Titulo") and ('body' in json_data):
+                        
+                        #body in json
+                        json_data["body"].append({})
+                        json_data["body"][item].setdefault("title",i['desc'].text())
+                        
+                    elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'body' in json_data):
+                        
+                        json_data.setdefault("body",[])
+                        json_data["body"].append({})
+                        json_data["body"][item].setdefault("subtitle",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Subtitulo") and ('body' in json_data):
+                        
+                        json_data["body"][item].setdefault("subtitle",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Texto normal") and (not 'body' in json_data):
+                        
+                        json_data.setdefault("body",[])
+                        json_data["body"].append({})
+                        json_data["body"][item].setdefault("text",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Texto normal") and ('body' in json_data):
+                        
+                        json_data["body"][item].setdefault("text",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Nota") and (not 'body' in json_data):
+                        
+                        json_data.setdefault("body",[])
+                        json_data["body"].append({})
+                        json_data["body"][item].setdefault("note",i['desc'].text())
+
+                    elif(key == "type") and (data.currentText() == "Nota") and ('body' in json_data):
+                        
+                        json_data["body"][item].setdefault("note",i['desc'].text())
+
+            json_obj = json.dumps(json_data)
+            with open(file_path,'w')as f:
+                f.write(json_obj)
+
+            return file_path
+        except Exception as e:
+            print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
+            message_box("critical","ERROR: "+str(e))
