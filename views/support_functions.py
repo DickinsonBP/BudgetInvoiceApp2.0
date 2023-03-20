@@ -5,7 +5,7 @@ from sqlite3 import Error
 #Pyside6 import
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox, QDialogButtonBox, QLabel,QVBoxLayout
 from PySide6.QtCore import Qt
-
+import json
 
 
 def check_cif(cif):
@@ -106,3 +106,94 @@ def message_box(case, msg):
 
     except Exception as e:
         print_log("ERRO! No se ha podido enseñar la ventana de mensaje. Error --> "+str(e))
+
+
+def create_json(d_type, user_data, data_vals, d_number):
+    try:
+        path = "res/data/"+d_type+"s/"
+        file_path = path +d_type+"_"+str(d_number)+".json"
+
+        #check
+        if(not os.path.isdir(path)): os.makedirs(path)
+        if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
+
+
+        json_data = {
+            "header":
+            [
+                {
+                    d_type+"_number":d_number,
+                    "client": [
+                        {
+                            "name":str(user_data[2]),
+                            "nif":str(user_data[1]),
+                            "address":str(user_data[4])
+                        }
+                    ]
+                }
+            ]
+        }
+
+        
+        """aux = {
+            "type":QComboBox(),
+            "desc":QLineEdit(),
+            "price":QLineEdit()
+        }"""
+
+        item = 0
+        for i in data_vals:
+            for key, data in i.items():
+                if(key == "type") and (data.currentText() == "Titulo") and (not 'body' in json_data):
+                    
+                    #create body in json 
+                    json_data.setdefault("body",[])
+                    json_data["body"].append({})
+
+                    json_data["body"][item].setdefault("title",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Titulo") and ('body' in json_data):
+                    
+                    #body in json
+                    json_data["body"].append({})
+                    item +=1
+                    json_data["body"][item].setdefault("title",i['desc'].text())
+                    
+                elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'body' in json_data):
+                    
+                    json_data.setdefault("body",[])
+                    json_data["body"].append({})
+                    json_data["body"][item].setdefault("subtitle",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Subtitulo") and ('body' in json_data):
+                    
+                    json_data["body"][item].setdefault("subtitle",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Texto normal") and (not 'body' in json_data):
+                    
+                    json_data.setdefault("body",[])
+                    json_data["body"].append({})
+                    json_data["body"][item].setdefault("text",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Texto normal") and ('body' in json_data):
+                    
+                    json_data["body"][item].setdefault("text",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Nota") and (not 'body' in json_data):
+                    
+                    json_data.setdefault("body",[])
+                    json_data["body"].append({})
+                    json_data["body"][item].setdefault("note",i['desc'].text())
+
+                elif(key == "type") and (data.currentText() == "Nota") and ('body' in json_data):
+                    
+                    json_data["body"][item].setdefault("note",i['desc'].text())
+
+        json_obj = json.dumps(json_data)
+        with open(file_path,'w')as f:
+            f.write(json_obj)
+
+        return file_path
+    except Exception as e:
+        print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
+        message_box("critical","ERROR: "+str(e))

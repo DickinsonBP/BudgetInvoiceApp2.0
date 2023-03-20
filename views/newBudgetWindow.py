@@ -169,7 +169,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
                 
                 user_id = select_user_by_name(user)
 
-                path = self.create_budget_json(user_id)
+                path = create_json("presupuesto",user_id, self.data_vals,self.b_number)
                 if(path):
                     data = (self.budget_number,title,date,address,user_id[0],path)
                     print(data)
@@ -197,94 +197,3 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.line_title.clear()
         self.user_combobox.clear()
         self.line_address.clear()
-
-    def create_budget_json(self,user_data):
-        
-        try:
-            path = 'res/data/budgets/'
-            file_path = path +"presupuesto_"+str(self.b_number)+".json"
-
-            #check
-            if(not os.path.isdir(path)): os.makedirs(path)
-            if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
-
-
-            json_data = {
-                "header":
-                [
-                    {
-                        "budget_number":self.b_number,
-                        "client": [
-                            {
-                                "name":str(user_data[2]),
-                                "nif":str(user_data[1]),
-                                "address":str(user_data[4])
-                            }
-                        ]
-                    }
-                ]
-            }
-
-            
-            """aux = {
-                "type":QComboBox(),
-                "desc":QLineEdit(),
-                "price":QLineEdit()
-            }"""
-
-            item = 0
-            for i in self.data_vals:
-                for key, data in i.items():
-                    if(key == "type") and (data.currentText() == "Titulo") and (not 'body' in json_data):
-                        
-                        #create body in json 
-                        json_data.setdefault("body",[])
-                        json_data["body"].append({})
-
-                        if(item): item +=1
-                        json_data["body"][item].setdefault("title",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Titulo") and ('body' in json_data):
-                        
-                        #body in json
-                        json_data["body"].append({})
-                        json_data["body"][item].setdefault("title",i['desc'].text())
-                        
-                    elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'body' in json_data):
-                        
-                        json_data.setdefault("body",[])
-                        json_data["body"].append({})
-                        json_data["body"][item].setdefault("subtitle",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Subtitulo") and ('body' in json_data):
-                        
-                        json_data["body"][item].setdefault("subtitle",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Texto normal") and (not 'body' in json_data):
-                        
-                        json_data.setdefault("body",[])
-                        json_data["body"].append({})
-                        json_data["body"][item].setdefault("text",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Texto normal") and ('body' in json_data):
-                        
-                        json_data["body"][item].setdefault("text",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Nota") and (not 'body' in json_data):
-                        
-                        json_data.setdefault("body",[])
-                        json_data["body"].append({})
-                        json_data["body"][item].setdefault("note",i['desc'].text())
-
-                    elif(key == "type") and (data.currentText() == "Nota") and ('body' in json_data):
-                        
-                        json_data["body"][item].setdefault("note",i['desc'].text())
-
-            json_obj = json.dumps(json_data)
-            with open(file_path,'w')as f:
-                f.write(json_obj)
-
-            return file_path
-        except Exception as e:
-            print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
-            message_box("critical","ERROR: "+str(e))
