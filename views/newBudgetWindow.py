@@ -174,7 +174,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
             user_id = select_user_by_name(user)
 
             json_path = create_json("presupuesto",user_id, self.data_vals,self.b_number)
-            create_pdf(json_path)
+            create_pdf(json_path,self.b_number,"presupuesto")
             if(json_path):
                 data = (self.b_number,title,date,address,json_path,user_id[0])
                 if(insert_data(data, "Budget")):

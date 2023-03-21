@@ -174,7 +174,7 @@ class MainWindow(QMainWindow):
             butget_id = int(selected_row[0].text())
 
             #delete the json file associated to the budget
-            delete_json(select_budget_by_id(butget_id)[6])
+            delete_attached_files('presupuesto',select_budget_by_id(butget_id)[1])
             
             row = selected_row[0].row()
 

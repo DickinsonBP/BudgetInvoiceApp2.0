@@ -113,31 +113,41 @@ def message_box(case, msg):
     except Exception as e:
         print_log("ERRO! No se ha podido enseñar la ventana de mensaje. Error --> "+str(e))
 
-def delete_json(path):
+def delete_attached_files(doc_type,_id):
     try:
-        os.remove(path)
+        json_path = os.path.abspath('res/data/json/'+str(doc_type)+'/'+str(doc_type)+'_'+str(_id)+'.json')
+        pdf_path = os.path.abspath('res/data/pdf/'+str(doc_type)+'/'+str(doc_type)+'_'+str(_id)+'.pdf')
+        os.remove(json_path)
+        os.remove(pdf_path)
     except Exception as e:
-        print_log(f"ERROR! No se ha podido borrar el archivo: {path}. Error --> "+str(e))
+        print_log(f"ERROR! No se ha podido borrar el archivo. Error --> "+str(e))
 
-def create_folder(path):
-    if(not os.path.isdir(path)): 
-        os.makedirs(path)
-        os.chmod(path,stat.S_IRWXO )
+def create_path(ext,d_number,d_type):
+    try:
+        dir_path = "res/data/"+ext+"/"+d_type+"/"
+
+        match ext:
+            case "json":
+                file_path = dir_path+d_type+"_"+str(d_number)+".json"
+            case "pdf":
+                file_path = dir_path+d_type+"_"+str(d_number)+".pdf"
+
+        #check
+        if(not os.path.isdir(dir_path)): 
+            os.makedirs(dir_path)
+            os.chmod(dir_path, stat.S_IRWXO)
+
+        return file_path
+
+    except Exception as e:
+        print_log(f"ERROR! No se ha podido generar el path para el documneto de tipo {d_type}. Error --> "+str(e))
 
 def create_json(d_type, user_data, data_vals, d_number):
     try:
+        
+        file_path = create_path("json",d_number,d_type)
 
-        json_path = "res/data/json/"+d_type+"s/"+d_type+"_"+str(d_number)+".json"
-        pdf_path = "res/data/pdf/"+d_type+"s/"+d_type+"_"+str(d_number)+".pdf"
-
-        #check
-        create_folder(os.path.abspath('res/data/'))
-        create_folder(os.path.abspath('res/data/json/'))
-        create_folder(os.path.abspath('res/data/pdf/'))
-
-        if(os.path.isfile(json_path)): message_box("critical","Este presupuesto ya existe!")
-        if(os.path.isfile(pdf_path)): message_box("critical","Este presupuesto ya existe!")
-
+        if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
 
         json_data = {
             "header":
@@ -146,7 +156,7 @@ def create_json(d_type, user_data, data_vals, d_number):
                     d_type+"_number":d_number,
                     "client": [
                         {
-                            "name":str(user_data[2]),
+                            "first_name":str(user_data[2]),
                             "nif":str(user_data[1]),
                             "address":str(user_data[4])
                         }
@@ -155,7 +165,7 @@ def create_json(d_type, user_data, data_vals, d_number):
             ]
         }
 
-        
+
         """aux = {
             "type":QComboBox(),
             "desc":QLineEdit(),
@@ -166,7 +176,7 @@ def create_json(d_type, user_data, data_vals, d_number):
         for i in data_vals:
             for key, data in i.items():
                 if(key == "type") and (data.currentText() == "Titulo") and (not 'body' in json_data):
-                    
+
                     #create body in json 
                     json_data.setdefault("body",[])
                     json_data["body"].append({})
@@ -174,67 +184,61 @@ def create_json(d_type, user_data, data_vals, d_number):
                     json_data["body"][item].setdefault("title",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Titulo") and ('body' in json_data):
-                    
+
                     #body in json
                     json_data["body"].append({})
                     item +=1
                     json_data["body"][item].setdefault("title",i['desc'].text())
-                    
+
                 elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'body' in json_data):
-                    
+
                     json_data.setdefault("body",[])
                     json_data["body"].append({})
                     json_data["body"][item].setdefault("subtitle",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Subtitulo") and ('body' in json_data):
-                    
+
                     json_data["body"][item].setdefault("subtitle",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Texto normal") and (not 'body' in json_data):
-                    
+
                     json_data.setdefault("body",[])
                     json_data["body"].append({})
                     json_data["body"][item].setdefault("text",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Texto normal") and ('body' in json_data):
-                    
+
                     json_data["body"][item].setdefault("text",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Nota") and (not 'body' in json_data):
-                    
+
                     json_data.setdefault("body",[])
                     json_data["body"].append({})
                     json_data["body"][item].setdefault("note",i['desc'].text())
 
                 elif(key == "type") and (data.currentText() == "Nota") and ('body' in json_data):
-                    
+
                     json_data["body"][item].setdefault("note",i['desc'].text())
 
         json_obj = json.dumps(json_data)
-        with open(json_path,'w')as f:
+        with open(file_path,'w')as f:
             f.write(json_obj)
 
-        return (json_path,pdf_path)
-    
+        return file_path
     except Exception as e:
         print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
-        message_box("critical","ERROR No se ha podido crear el archivo json: "+str(e))
+        message_box("critical","ERROR: "+str(e))
 
-def create_pdf(json_file):
-    #print_log(f"Path donde se va a generar el pdf: {path}")
-    path = json_file.split(" ")[-1]
-    pdf = PDFDocument(path)
+def create_pdf(json_file,d_number,d_type):
+
+    file_path = create_path("pdf",d_number,d_type)
+    pdf = PDFDocument(file_path)
     pdf.init_report()
-
     src_file = open(json_file)
     data = json.load(src_file)
-
-    print(data)
-    addr = {'first_name':"Dickinson", 'last_name':"Bedoya",
-            'address':"123 Ding Dong Lane", 
-            'zip_code':"75002", 'city':"Dakota"}
     
-
+    addr = data['header'][0]['client'][0]
+    
     pdf.address(addr)
     pdf.p("This is a paragraph!")
     pdf.generate()
