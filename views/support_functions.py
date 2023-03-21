@@ -1,7 +1,9 @@
 import os, os.path, sys, datetime,stat
 #other libraries import
 import json
-from pdfdocument.document import PDFDocument
+#for pdf
+import jinja2
+import pdfkit
 
 #Pyside6 import
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox, QDialogButtonBox, QLabel,QVBoxLayout
@@ -150,19 +152,10 @@ def create_json(d_type, user_data, data_vals, d_number):
         if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
 
         json_data = {
-            "header":
-            [
-                {
-                    d_type+"_number":d_number,
-                    "client": [
-                        {
-                            "first_name":str(user_data[2]),
-                            "nif":str(user_data[1]),
-                            "address":str(user_data[4])
-                        }
-                    ]
-                }
-            ]
+            "doc_number":d_number,
+            "client_name":str(user_data[2]),
+            "nif":str(user_data[1]),
+            "address":str(user_data[4])
         }
 
 
@@ -231,14 +224,23 @@ def create_json(d_type, user_data, data_vals, d_number):
 
 def create_pdf(json_file,d_number,d_type):
 
-    file_path = create_path("pdf",d_number,d_type)
-    pdf = PDFDocument(file_path)
-    pdf.init_report()
-    src_file = open(json_file)
-    data = json.load(src_file)
+    #if(d_type == "presupuesto"): template_path = "res/data/template/budget.html"
+    #if(d_type == "factura"): template_path = "res/data/template/invoice.html"
+    css_path = "res/data/template/template.css"
+    template_path = "res/data/template/invoice.A4.html"
+
+    template_name = template_path.split('/')[-1]
+    template_path = template_path.replace(template_name,'')
     
-    addr = data['header'][0]['client'][0]
-    
-    pdf.address(addr)
-    pdf.p("This is a paragraph!")
-    pdf.generate()
+    out_path = create_path("pdf",d_number,d_type)
+
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path))
+    template = env.get_template(template_name)
+    config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+
+    f = open(json_file)
+    data = json.load(f)
+
+    html = template.render(data)
+
+    pdfkit.from_string(html,out_path,css=css_path,configuration=config)

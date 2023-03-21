@@ -1,8 +1,7 @@
 import jinja2
 import pdfkit
-import json
 
-def crea_pdf(template_path,info):
+def crea_pdf(template_path,info,css=''):
     template_name = template_path.split('/')[-1]
     template_path = template_path.replace(template_name,'')
 
@@ -11,7 +10,7 @@ def crea_pdf(template_path,info):
     template = env.get_template(template_name)
 
     html = template.render(info)
-    print(html)
+
     options = {
         'margin-top':'0.05in',
         'margin-left':'0.05in',
@@ -22,13 +21,13 @@ def crea_pdf(template_path,info):
     
     config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
 
-    out_path = "D:\\CODES\\BudgetInvoiceApp2.0\\out.pdf"
+    out_path = "C:\\Users\\dicki\\Desktop\\"
 
-    pdfkit.from_string(html,out_path,configuration=config)
+    pdfkit.from_string(html,out_path,css=css,options=options,configuration=config)
 
 if __name__ == "__main__":
     template_path = "D:/CODES/BudgetInvoiceApp2.0/template.html"
-
-    data = json.load(open('res/data/json/presupuesto/presupuesto_23001.json'))
-    print(data)
-    crea_pdf(template_path,data)
+    info = {'numeroPresupuesto':23001,
+            'nombreCliente':'Dickinson Bedoya Perez',
+            'direccion':'Plaza Jacint Verdaguer'}
+    crea_pdf(template_path,info)

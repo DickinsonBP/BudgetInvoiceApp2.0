@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         my_icon = QIcon()
-        my_icon.addFile('res/img/logo.png')
+        my_icon.addFile('res/img/SB/logo.png')
 
         self.setWindowIcon(my_icon)
         self.setWindowTitle("Servicios Bedoya")
