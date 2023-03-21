@@ -81,6 +81,21 @@ value running(header) makes this HTML element float into the top left page margi
 box. This page margin box repeats on every page in case we would have a multi-page
 invoice.
 */
+.clientData {
+  width: 50%; 
+  height: 81px; 
+  font-size: 15px;
+  text-align: left;
+  color:black;
+}
+
+.ownerData{
+  width: 50%; 
+  height: 81px; 
+  text-align: left;
+  color: #7D7D7D;
+}
+
 header{
   height:8cm;
   padding:0 2cm;
@@ -161,19 +176,6 @@ space between this header and the client's address.
 Additionally this header text gets the hightlight color as font color.
 */
 
-.clientData {
-  width: 500px;
-  height: 00px;
-  text-align: right;
-  color:black;
-}
-
-.ownerData{
-  width: 50%; 
-  height: 81px; 
-  text-align: left;
-  color: #7D7D7D;
-}
 
 header .headerSection h3{
   margin:0 .75cm 0 0;
@@ -210,7 +212,7 @@ The invoice details should not be uppercase and also be aligned to the right.
 */
 header .invoiceDetails,
 header .invoiceDetails h2{
-  text-align:left;
+  text-align:right;
   /*font-size:1em;*/
   text-transform:none;
 }
