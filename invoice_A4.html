@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styles/invoice.css">
+<html>
+<!-- The footer contains the company's website and address. To align the address details we will use flexbox in the CSS style. -->
+<!-- The header element will appear on the top of each page of this invoice document. -->
+  <body>
+    <header>
+      <div class="headerSection">
+        <!-- As a logo we take an SVG element and add the name in an standard H1 element behind it. -->
+        <div class="logoAndName">
+          <svg>
+            <img class="logoImage" src="file:///CODES/BudgetInvoiceApp2.0/res/img/SB/logo.png">
+          </svg>
+          <h1>Servicios Bedoya</h1>
+          <div class="ownerData">
+            <h3>Omar de jesus Bedoya Orrego</h3>
+            <b>5555555 -</b>
+            <b>684311861 - </b>
+            <b>serviciosbedoya@hotmail.com</b>
+          </div>
+          <div class="clientData">
+            <b>{{client_name}}</b>
+            <b>{{nif}}</b>
+            <b>{{address}}</b>
+          </div>
+          <div class="invoiceDetails">
+            <h2>Factura N° {{doc_number}}</h2>
+            <b>{{actual_date}}</b>
+          </div>
+      </div>
+      <!-- The two header rows are divided by an blue line, we use the HR element for this. -->
+      <div class="headerSection">
+        <!-- The clients details come on the left side below the logo and company name. -->
+      </div>
+    </header>
+    
+    <hr />
+    
+    <!-- In the main section the table for the separate items is added. Also we add another table for the summary, so subtotal, tax and total amount. -->
+    <main>
+      <table>
+        <!-- A THEAD element is used to ensure the header of the table is repeated if it consumes more than one page. -->
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <!-- The single invoice items are all within the TBODY of the table. -->
+        <tbody>
+          <tr>
+            <td>
+              <b>Item Names Goes Here</b>
+              <br />
+              Description goes here
+            </td>
+            <td>
+              $100
+            </td>
+            <td>
+              4
+            </td>
+            <td>
+              $400.00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Lorem Ipsum</b>
+              <br />
+              Description goes here
+            </td>
+            <td>
+              $250
+            </td>
+            <td>
+              2
+            </td>
+            <td>
+              $500.00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Dolor Set Amit Caslum</b>
+              <br />
+              Description goes here
+            </td>
+            <td>
+              $300
+            </td>
+            <td>
+              1
+            </td>
+            <td>
+              $300.00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- The summary table contains the subtotal, tax and total amount. -->
+      <table class="summary">
+        <tr>
+          <th>
+            Subtotal
+          </th>
+          <td>
+            $1200.00
+          </td>
+        </tr>
+        <tr>
+          <th>
+            IVA {{iva}}
+          </th>
+          <td>
+            $000.00
+          </td>
+        </tr>
+        <tr class="total">
+          <th>
+            Total
+          </th>
+          <td>
+            $12,000.00
+          </td>
+        </tr>
+      </table>
+    </main>
+    <!-- Within the aside tag we will put the terms and conditions which shall be shown below the invoice table. -->
+    <aside>
+      <!-- Before the terms and conditions we will add another blue divider line with the help of the HR tag. -->
+      <hr />
+      <div>
+
+        <div>
+          <b>Pago a la siguiente cuenta</b>
+          <ul>
+            <li>IBAN CUENTA</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </body>
+</html>

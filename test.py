@@ -1,33 +1,35 @@
-import jinja2
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
 import pdfkit
 
-def crea_pdf(template_path,info,css=''):
-    template_name = template_path.split('/')[-1]
-    template_path = template_path.replace(template_name,'')
-
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path))
-
-    template = env.get_template(template_name)
-
-    html = template.render(info)
-
-    options = {
-        'margin-top':'0.05in',
-        'margin-left':'0.05in',
-        'margin-right':'0.05in',
-        'margin-bottom':'0.05in',
-        'envoding':'UTF-8'
-    }
+def create_pdf(template_vars):
     
-    config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('invoice_A4.html')
+    html_out = template.render(template_vars)
+    #path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+    #config = configuration(wkhtmltopdf=path_wkhtmltopdf)
+    options = {
+        "enable-local-file-access": "",
+        "encoding":"UTF-8"
+    }
 
-    out_path = "C:\\Users\\dicki\\Desktop\\"
+    file_content = pdfkit.from_string(
+        html_out,
+        'out.pdf',
+        css='styles/invoice.css',
+        options=options
+    )
 
-    pdfkit.from_string(html,out_path,css=css,options=options,configuration=config)
+    return file_content
 
-if __name__ == "__main__":
-    template_path = "D:/CODES/BudgetInvoiceApp2.0/template.html"
-    info = {'numeroPresupuesto':23001,
-            'nombreCliente':'Dickinson Bedoya Perez',
-            'direccion':'Plaza Jacint Verdaguer'}
-    crea_pdf(template_path,info)
+
+if __name__ == '__main__':
+
+    info = {'doc_number':23001,
+            'actual_date':'21/03/2023',
+            'client_name':'Dickinson Bedoya Perez',
+            'nif':'55607446R',
+            'address':'Plaza Jacint Verdaguer 10, 3 - 1'}
+    
+    create_pdf(info)
