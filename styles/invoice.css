@@ -167,6 +167,14 @@ header .ownerData h3{
 
 header .invoicedata {
   position: absolute;
+  right: 50px;
+  top: 30px;
+  font-size: 20px;
+  text-align: right;
+}
+
+header .clientdata {
+  position: absolute;
   right: 30px;
   top: 200px;
   font-size: 15px;
@@ -309,6 +317,13 @@ main table th{
   text-align:left;
 }
 
+main .inv_total,
+main .subtotal,
+main .vat{
+  position: absolute;
+  right: 60px;
+}
+
 /*
 The summary table, so the table containing the subtotal, tax and total amount 
 gets a width of 40% + 2cm. The plus 2cm is added because our body has a 2cm padding
@@ -316,6 +331,16 @@ but we want our highlight color for the total row to go to the edge of the docum
 
 To move the table to the right side we simply set a margin-left of 60%.
 */
+
+main table.header{
+  font-size: 20px;
+}
+
+main table.tableDesc
+{
+  font-size: 15px;
+}
+
 main table.summary{
   width:calc(40% + 2cm);
   margin-left:60%;
@@ -356,6 +381,12 @@ footer, we use the Prince custom property "-prince-float" with the value bottom.
 
 See Page Floats on https://www.princexml.com/howcome/2021/guides/float/.
 */
+
+aside .payment{
+  font-size: 20px;
+  font-weight:bold;
+}
+
 aside{
   -prince-float: bottom;
   padding:0 2cm .5cm 2cm;

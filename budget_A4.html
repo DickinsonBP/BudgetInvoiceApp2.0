@@ -15,12 +15,12 @@
           <div class="ownerData">
             <h3>Omar de jesus Bedoya Orrego</h3>
             <b>5555555 -</b>
-            <b>684311861 - </b>
+            <b>684311861 -</b>
             <b>serviciosbedoya@hotmail.com</b>
           </div>
         </div>
           <div class="invoicedata">
-            <p><b>Factura N° {{doc_number}}</b></p>
+            <p><b>Presupuesto N° {{doc_number}}</b></p>
             <p><b>{{actual_date}}</b></p>
           </div>
           <div class="clientdata">
@@ -37,7 +37,7 @@
     
     <!-- In the main section the table for the separate items is added. Also we add another table for the summary, so subtotal, tax and total amount. -->
     <main>
-      <table>
+      <table class="header">
         <!-- A THEAD element is used to ensure the header of the table is repeated if it consumes more than one page. -->
         <thead>
           <tr>
@@ -46,7 +46,7 @@
           </tr>
         </thead>
         <!-- The single invoice items are all within the TBODY of the table. -->
-        <tbody>
+        <tbody class="tableDesc">
           {{desc}}
         </tbody>
       </table>

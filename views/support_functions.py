@@ -2,7 +2,8 @@ import os, os.path, sys, datetime,stat
 #other libraries import
 import json
 #for pdf
-import jinja2
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
 import pdfkit
 
 #Pyside6 import
@@ -144,19 +145,91 @@ def create_path(ext,d_number,d_type):
     except Exception as e:
         print_log(f"ERROR! No se ha podido generar el path para el documneto de tipo {d_type}. Error --> "+str(e))
 
-def create_json(d_type, user_data, data_vals, d_number):
+def create_json(d_type, user_data, address,data_vals, d_number):
+    try:
+        
+        file_path = create_path("json",d_number,d_type)
+
+        if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
+        #example
+        #info = {
+        #    "doc_number":d_number,
+        #    "client_name":str(user_data[2]),
+        #    "nif":str(user_data[1]),
+        #    "address":str(address),
+        #    'desc':[
+        #        ['Titulo','Esto es una descripcion de prueba',100,7,700],
+        #        ['Texto normal','Esto es una descripcion de prueba 2',200,3,600]
+        #    ], 
+        #    'subtotal':'123445',
+        #    'iva':21,
+        #    'invoice_total':'123000,23456'
+        #}
+
+        json_data = {'doc_number':d_number,
+            'actual_date':datetime.datetime.now().strftime("%d/%m/%Y"),
+            'client_name':str(user_data[2]),
+            'nif':str(user_data[1]),
+            'address':str(address),
+            'desc':[]}
+
+
+        """aux = {
+            "type":QComboBox(),
+            "desc":QLineEdit(),
+            "price":QLineEdit()
+        }"""
+
+        #initialize arrays
+
+        index = 0
+        for i in data_vals:
+            pos = 0
+            json_data['desc'].append([])
+            for key, data in i.items():
+                if(pos == 0): json_data['desc'][index].append(str(data.currentText()))
+                if(pos == 1): json_data['desc'][index].append(str(data.text()))
+                if(pos == 2): json_data['desc'][index].append(str(data.text()))
+                pos += 1
+            index +=1
+
+        json_obj = json.dumps(json_data)
+        with open(file_path,'w')as f:
+            f.write(json_obj)
+
+        return file_path
+    except Exception as e:
+        print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
+        message_box("critical","ERROR: "+str(e))
+
+
+
+def create_json_old(d_type, user_data, data_vals, d_number):
     try:
         
         file_path = create_path("json",d_number,d_type)
 
         if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
 
-        json_data = {
+        info = {
             "doc_number":d_number,
             "client_name":str(user_data[2]),
             "nif":str(user_data[1]),
-            "address":str(user_data[4])
+            "address":str(user_data[4]),
+            'desc':[
+                ['Titulo','Esto es una descripcion de prueba',100,7,700],
+                ['Texto normal','Esto es una descripcion de prueba 2',200,3,600]
+            ], 
+            'subtotal':'123445',
+            'iva':21,
+            'invoice_total':'123000,23456'
         }
+
+        json_data = {'doc_number':d_number,
+            'actual_date':datetime.datetime.now().strftime("%d/%m/%Y"),
+            'client_name':str(user_data[2]),
+            'nif':str(user_data[1]),
+            'address':str(user_data[4])}
 
 
         """aux = {
@@ -168,50 +241,50 @@ def create_json(d_type, user_data, data_vals, d_number):
         item = 0
         for i in data_vals:
             for key, data in i.items():
-                if(key == "type") and (data.currentText() == "Titulo") and (not 'body' in json_data):
+                if(key == "type") and (data.currentText() == "Titulo") and (not 'desc' in json_data):
 
-                    #create body in json 
-                    json_data.setdefault("body",[])
-                    json_data["body"].append({})
+                    #create desc in json 
+                    json_data.setdefault("desc",[])
+                    json_data["desc"].append([])
 
-                    json_data["body"][item].setdefault("title",i['desc'].text())
+                    json_data["desc"][item] = {"title":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Titulo") and ('body' in json_data):
+                elif(key == "type") and (data.currentText() == "Titulo") and ('desc' in json_data):
 
-                    #body in json
-                    json_data["body"].append({})
+                    #desc in json
+                    json_data["desc"].append([])
                     item +=1
-                    json_data["body"][item].setdefault("title",i['desc'].text())
+                    json_data["desc"][item] = {"title":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'body' in json_data):
+                elif(key == "type") and (data.currentText() == "Subtitulo") and (not 'desc' in json_data):
 
-                    json_data.setdefault("body",[])
-                    json_data["body"].append({})
-                    json_data["body"][item].setdefault("subtitle",i['desc'].text())
+                    json_data.setdefault("desc",[])
+                    json_data["desc"].append([])
+                    json_data["desc"][item] = {"subtitle":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Subtitulo") and ('body' in json_data):
+                elif(key == "type") and (data.currentText() == "Subtitulo") and ('desc' in json_data):
 
-                    json_data["body"][item].setdefault("subtitle",i['desc'].text())
+                    json_data["desc"][item] = {"subtitle":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Texto normal") and (not 'body' in json_data):
+                elif(key == "type") and (data.currentText() == "Texto normal") and (not 'desc' in json_data):
 
-                    json_data.setdefault("body",[])
-                    json_data["body"].append({})
-                    json_data["body"][item].setdefault("text",i['desc'].text())
+                    json_data.setdefault("desc",[])
+                    json_data["desc"].append([])
+                    json_data["desc"][item] = {"text":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Texto normal") and ('body' in json_data):
+                elif(key == "type") and (data.currentText() == "Texto normal") and ('desc' in json_data):
 
-                    json_data["body"][item].setdefault("text",i['desc'].text())
+                    json_data["desc"][item] = {"text":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Nota") and (not 'body' in json_data):
+                elif(key == "type") and (data.currentText() == "Nota") and (not 'desc' in json_data):
 
-                    json_data.setdefault("body",[])
-                    json_data["body"].append({})
-                    json_data["body"][item].setdefault("note",i['desc'].text())
+                    json_data.setdefault("desc",[])
+                    json_data["desc"].append([])
+                    json_data["desc"][item] = {"note":i['desc'].text()}
 
-                elif(key == "type") and (data.currentText() == "Nota") and ('body' in json_data):
+                elif(key == "type") and (data.currentText() == "Nota") and ('desc' in json_data):
 
-                    json_data["body"][item].setdefault("note",i['desc'].text())
+                    json_data["desc"][item] = {"note":i['desc'].text()}
 
         json_obj = json.dumps(json_data)
         with open(file_path,'w')as f:
@@ -222,25 +295,37 @@ def create_json(d_type, user_data, data_vals, d_number):
         print_log("ERROR! No se ha podido generar un json para el presupuesto. Error --> "+str(e))
         message_box("critical","ERROR: "+str(e))
 
-def create_pdf(json_file,d_number,d_type):
+def gen_table(description):
+    html = "<tr>"
+    for desc in description:
+        if(desc[0] == "Titulo"):html = html + "<tr><b>"+str(desc[1])+"</b></tr>"
+        if(desc[0] == "Subtitulo"):html = html + "<tr><b>"+str(desc[1])+"</b></tr>"
+        if(desc[0] == "Texto normal"):html = html + "<tr>"+str(desc[1])+"</tr>"
+        if(desc[0] == "Nota"):html = html + "<tr>"+str(desc[1])+"</tr>"
 
-    #if(d_type == "presupuesto"): template_path = "res/data/template/budget.html"
-    #if(d_type == "factura"): template_path = "res/data/template/invoice.html"
-    css_path = "res/data/template/template.css"
-    template_path = "res/data/template/invoice.A4.html"
+    html = html + "</tr>"
+    return html
 
-    template_name = template_path.split('/')[-1]
-    template_path = template_path.replace(template_name,'')
-    
-    out_path = create_path("pdf",d_number,d_type)
+def create_pdf(doc_type,json_path):
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path))
-    template = env.get_template(template_name)
-    config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+    template_vars = json.load(open(json_path))
+    if(doc_type == "presupuesto"): template_path = 'budget_A4.html'
+    if(doc_type == "factura"): template_path = 'invoice_A4.html'
 
-    f = open(json_file)
-    data = json.load(f)
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template(template_path)
+    if(type(template_vars['desc']) == list): template_vars['desc'] = gen_table(template_vars['desc'])
+    html_out = template.render(template_vars)
+    #path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+    #config = configuration(wkhtmltopdf=path_wkhtmltopdf)
+    options = {
+        "enable-local-file-access": "",
+        "encoding":"UTF-8"
+    }
 
-    html = template.render(data)
-
-    pdfkit.from_string(html,out_path,css=css_path,configuration=config)
+    file_content = pdfkit.from_string(
+        html_out,
+        'out.pdf',
+        css='styles/invoice.css',
+        options=options
+    )
