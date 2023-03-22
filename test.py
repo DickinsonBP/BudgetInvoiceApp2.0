@@ -30,6 +30,7 @@ if __name__ == '__main__':
             'actual_date':'21/03/2023',
             'client_name':'Dickinson Bedoya Perez',
             'nif':'55607446R',
-            'address':'Plaza Jacint Verdaguer 10, 3 - 1'}
+            'address':'Plaza Jacint Verdaguer 10, 3 - 1',
+            'total':'123'}
     
     create_pdf(info)

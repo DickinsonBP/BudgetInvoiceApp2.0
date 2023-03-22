@@ -81,20 +81,6 @@ value running(header) makes this HTML element float into the top left page margi
 box. This page margin box repeats on every page in case we would have a multi-page
 invoice.
 */
-.clientData {
-  width: 50%; 
-  height: 81px; 
-  font-size: 15px;
-  text-align: left;
-  color:black;
-}
-
-.ownerData{
-  width: 50%; 
-  height: 81px; 
-  text-align: left;
-  color: #7D7D7D;
-}
 
 header{
   height:8cm;
@@ -157,9 +143,40 @@ header .logoAndName svg{
 
 header .logoImage{
   display:flex;
-  align-items:center;
+  align-items:left;
   justify-content:space-between;
   width:100px;height:100px;
+}
+
+header .ownerData,
+header .ownerData h3{
+  font-size: 15px; 
+  text-align: left;
+  color: #7D7D7D;
+}
+
+/*.clientData {
+  width: 50%; 
+  height: 81px; 
+  font-size: 15px;
+  color:black;
+  border: 2px solid  #ece424 ;
+  border-radius: 10px;
+  text-align: center;
+}*/
+
+header .invoicedata {
+  position: absolute;
+  right: 30px;
+  top: 200px;
+  font-size: 15px;
+  display: flex;
+  flex: 1;
+  margin-right: 20px;
+  border: 2px solid #ece424;
+  border-radius: 10px;
+	text-align: center;
+  padding: 10px;
 }
 
 /*

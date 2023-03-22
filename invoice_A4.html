@@ -19,19 +19,16 @@
             <b>serviciosbedoya@hotmail.com</b>
           </div>
         </div>
-        <div class="invoiceDetails">
-          <h2>Factura N° {{doc_number}}</h2>
-          <b>{{actual_date}}</b>
+          <div class="invoicedata">
+            <p><b>Factura N° {{doc_number}}</b></p>
+            <p><b>{{actual_date}}</b></p>
+            <p><b>{{client_name}}</b></p>
+            <p><b>{{nif}}</b></p>
+            <p><b>{{address}}</b></p>
+          </div>
         </div>
-        <div class="clientData">
-          <p><b>{{client_name}}</b></p>
-          <p><b>{{nif}}</b></p>
-          <p><b>{{address}}</b></p>
-        </div>
+
         <!-- The two header rows are divided by an blue line, we use the HR element for this. -->
-      <div class="headerSection">
-        <!-- The clients details come on the left side below the logo and company name. -->
-      </div>
     </header>
     
     <hr />
@@ -123,7 +120,7 @@
             Total
           </th>
           <td>
-            $12,000.00
+            EEEEEEEEE{{total}}€
           </td>
         </tr>
       </table>
