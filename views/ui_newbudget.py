@@ -286,21 +286,27 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_8.addWidget(self.label_12)
 
+        self.line_total = QLineEdit(self.widget_7)
+        self.line_total.setObjectName(u"line_total")
+
+        self.horizontalLayout_8.addWidget(self.line_total, 0, Qt.AlignHCenter)
+
         self.label_11 = QLabel(self.widget_7)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setFont(font1)
 
         self.horizontalLayout_8.addWidget(self.label_11, 0, Qt.AlignRight)
 
-        self.comboBox_3 = QComboBox(self.widget_7)
-        self.comboBox_3.setObjectName(u"comboBox_3")
+        self.comboBox_vat = QComboBox(self.widget_7)
+        self.comboBox_vat.setObjectName(u"comboBox_vat")
 
-        self.horizontalLayout_8.addWidget(self.comboBox_3)
+        self.horizontalLayout_8.addWidget(self.comboBox_vat)
 
-        self.lineEdit_5 = QLineEdit(self.widget_7)
-        self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.label_total = QLabel(self.widget_7)
+        self.label_total.setObjectName(u"label_total")
+        self.label_total.setFont(font1)
 
-        self.horizontalLayout_8.addWidget(self.lineEdit_5, 0, Qt.AlignRight)
+        self.horizontalLayout_8.addWidget(self.label_total)
 
 
         self.verticalLayout_5.addWidget(self.widget_7, 0, Qt.AlignBottom)
@@ -367,6 +373,7 @@ class Ui_NewBudgetWindow(object):
         self.line_price_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
         self.label_12.setText(QCoreApplication.translate("NewBudgetWindow", u"Precio total", None))
         self.label_11.setText(QCoreApplication.translate("NewBudgetWindow", u"IIVA", None))
+        self.label_total.setText(QCoreApplication.translate("NewBudgetWindow", u"#", None))
         self.btn_save.setText(QCoreApplication.translate("NewBudgetWindow", u"Guardar", None))
         self.btn_back.setText(QCoreApplication.translate("NewBudgetWindow", u"Volver", None))
         self.btn_cancel2.setText(QCoreApplication.translate("NewBudgetWindow", u"Cancelar", None))

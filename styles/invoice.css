@@ -333,12 +333,12 @@ To move the table to the right side we simply set a margin-left of 60%.
 */
 
 main table.header{
-  font-size: 20px;
+  font-size: 25px;
 }
 
 main table.tableDesc
 {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 main table.summary{

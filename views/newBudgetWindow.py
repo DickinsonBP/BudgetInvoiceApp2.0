@@ -23,7 +23,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.b_number = ""
         self.num_rows = 0
         self.num_types = 0
-
+        self.total = 0
         self.data_vals = []
 
 
@@ -31,6 +31,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.populate_dateedit()
         self.populate_invoiceNum()
         self.populate_type_combobox()
+        self.populate_total()
         
         loadJsonStyle(self,self,jsonFiles = {"json/budgetstyle.json"})
 
@@ -80,6 +81,8 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.verticalLayout_6.addWidget(new_widget)
 
         self.populate_type_combobox()
+
+        self.populate_total()
 
     def populate_type_combobox(self):
         types = ["Titulo","Subtitulo","Texto normal","Nota"]
@@ -137,7 +140,19 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     def populate_comobox(self):
         for usr in select_all_users():
             self.user_combobox.addItem(usr[2])
-        
+    
+    def populate_vat_comobox(self):
+        for item in ['21%','10%']:
+            self.comboBox_vat.addItem(item)
+    
+    def populate_total(self):
+        for data in self.data_vals:
+            print(data)
+            for key,val in data:
+                if(key in 'price'):
+                    self.total = self.total + float(val)
+                    self.label_total.setText(str(self.total)+"€")
+
     def check_inputs(self):
         self.b_number = self.line_budgetNumber.text()
         title = self.line_title.text()
@@ -165,7 +180,8 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         title = self.line_title.text()
         date = self.budget_date.text()
         user = self.user_combobox.currentText()
-
+        vat = self.comboBox_vat.currentText()
+        total_price = self.line_total.text()
         address = self.line_address.text()
 
 
@@ -173,7 +189,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
             
             user_id = select_user_by_name(user)
 
-            json_path = create_json("presupuesto",user_id,address,self.data_vals,self.b_number)
+            json_path = create_json("presupuesto",user_id,address,self.data_vals,self.b_number, vat, total_price)
             create_pdf("presupuesto",json_path)
             if(json_path):
                 data = (self.b_number,title,date,address,json_path,user_id[0])

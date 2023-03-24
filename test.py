@@ -6,6 +6,18 @@ def gen_table(description):
     html = ""
     for desc in description:
         html = html + "<tr>"
+        if(desc[0] == "Titulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
+        if(desc[0] == "Subtitulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
+        if(desc[0] == "Texto normal"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
+        if(desc[0] == "Nota"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
+        html = html + "</tr>"
+
+    return html
+
+def gen_table_old(description):
+    html = ""
+    for desc in description:
+        html = html + "<tr>"
         for cell in desc:
             html = html + "<td>"+str(cell)+"</td>"
         html = html + "</tr>"
@@ -43,8 +55,12 @@ if __name__ == '__main__':
             'nif':'55607446R',
             'address':'Plaza Jacint Verdaguer 10, 3 - 1',
             'desc':[
-                ['Esto es una descripcion de prueba',700],
-                ['Esto es una descripcion de prueba 2',600]
+                ['Titulo','Titulo de prueba',''],
+                ['Subtitulo','Subtitulo de prueba',''],
+                ['Texto normal','Texto normal',200],
+                ['Texto normal','Texto normal 2',200],
+                ['Titulo','TEsto es otro titulo',''],
+                ['Texto normal','Texto normal4',200],
             ], 
             'subtotal':'123445',
             'iva':21,
