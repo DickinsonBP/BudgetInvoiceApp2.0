@@ -10,6 +10,8 @@ from views.support_functions import *
 
 from Database.db_functions import insert_data, select_all_users, select_user_by_name, get_next_invoice_id
 
+invoices_path = r"C:\Users\dicki\Desktop\Salida\Facturas"
+
 class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
 
     def __init__(self, parent=None):
@@ -100,7 +102,7 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
                 user_id = select_user_by_name(user)[0]
 
 
-                data = (invoice_number,title,date,address,user_id)
+                data = (invoice_number,title,date,user_id,invoices_path,address)
 
                 if (insert_data(data,"Invoice")):
                     self.clean_inputs()
@@ -119,8 +121,10 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
         self.parent.open_new_user_window()
         self.populate_comobox()
 
-
     def clean_inputs(self):
         self.line_title.clear()
         self.user_comobox.clear()
         self.line_address.clear()
+
+    def download_invoice(self):
+        pass
