@@ -99,15 +99,32 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
 
             if(self.check_inputs()):
                 
-                user_id = select_user_by_name(user)[0]
+                user_data = select_user_by_name(user)
 
 
-                data = (invoice_number,title,date,user_id,invoices_path,address)
+                data = (invoice_number,title,date,user_data[0],invoices_path,address)
 
                 if (insert_data(data,"Invoice")):
                     self.clean_inputs()
                     self.parent.refresh_invoice_table_from_child_window()
                     self.close()
+                    create_pdf(
+                        "factura",
+                        {
+                            'doc_number':invoice_number,
+                            'doc_title':title,
+                            'actual_date':datetime.datetime.now().strftime("%d/%m/%Y"),
+                            'client_name':user_data[2],
+                            'nif':user_data[1],
+                            'address':user_data[4],
+                            'desc':[
+                            ], 
+                            'subtotal':'123445',
+                            'iva':21,
+                            'invoice_total':'123000,23456'
+                        },
+                        invoices_path
+                    )
                 else:
                     message_box("CRITICAL","Algo ha fallado al guardar la factura, revisa los datos y vuelve a intentar")
             else:

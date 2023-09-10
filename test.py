@@ -11,7 +11,7 @@ def gen_table(description):
         html = html + "<tr>"
         if(desc[0] == "Titulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
         if(desc[0] == "Subtitulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
-        if(desc[0] == "Texto normal"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
+        if(desc[0] == "Texto normal"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+" €</td>"
         if(desc[0] == "Nota"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
         html = html + "</tr>"
 
@@ -20,7 +20,8 @@ def gen_table(description):
 def create_pdf(template_vars):
     
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('budget_A4.html')
+    # template = env.get_template('budget_A4.html')
+    template = env.get_template('invoice_A4.html')
     if(type(template_vars['desc']) == list): template_vars['desc'] = gen_table(template_vars['desc'])
     html_out = template.render(template_vars)
     # path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'

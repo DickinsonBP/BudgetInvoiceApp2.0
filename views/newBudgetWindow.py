@@ -11,6 +11,9 @@ from Custom_Widgets.Widgets import *
 
 from Database.db_functions import insert_data, select_all_users, select_user_by_name, get_next_budget_id
 
+budget_path = r"C:\Users\dicki\Desktop\Salida\Presupuestos"
+
+
 class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def __init__(self, parent=None):
@@ -147,10 +150,12 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
     
     def populate_total(self):
         for data in self.data_vals:
-            print(data)
-            for key,val in data:
+            # print(data)
+            for key,val in data.items():
                 if(key in 'price'):
-                    self.total = self.total + float(val)
+                    # "Es bonito" if es_bonito else "No es bonito"
+                    number = float(val.text()) if val.text() else 0
+                    self.total = self.total + number
                     self.label_total.setText(str(self.total)+"€")
 
     def check_inputs(self):
@@ -187,12 +192,12 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
         if(self.check_inputs()):
             
-            user_id = select_user_by_name(user)
+            user_data = select_user_by_name(user)
 
-            json_path = create_json("presupuesto",user_id,address,self.data_vals,self.b_number, vat, total_price)
-            create_pdf("presupuesto",json_path)
+            json_path = create_json("presupuesto",user_data,address,self.data_vals,self.b_number, title, vat, total_price)
+            create_pdf("presupuesto",json_path,budget_path)
             if(json_path):
-                data = (self.b_number,title,date,address,json_path,user_id[0])
+                data = (self.b_number,title,date,address,json_path,user_data[0])
                 if(insert_data(data, "Budget")):
                     self.clean_inputs()
                     self.close()

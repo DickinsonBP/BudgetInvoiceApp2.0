@@ -145,7 +145,7 @@ def create_path(ext,d_number,d_type):
     except Exception as e:
         print_log(f"ERROR! No se ha podido generar el path para el documneto de tipo {d_type}. Error --> "+str(e))
 
-def create_json(d_type, user_data, address, data_vals, d_number, vat, total):
+def create_json(d_type, user_data, address, data_vals, d_number, d_title, vat, total):
     try:
         
         file_path = create_path("json",d_number,d_type)
@@ -167,6 +167,7 @@ def create_json(d_type, user_data, address, data_vals, d_number, vat, total):
         #}
 
         json_data = {'doc_number':d_number,
+                     'doc_title': d_title,
             'actual_date':datetime.datetime.now().strftime("%d/%m/%Y"),
             'client_name':str(user_data[2]),
             'nif':str(user_data[1]),
@@ -209,17 +210,17 @@ def gen_table(description):
         html = html + "<tr>"
         if(desc[0] == "Titulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
         if(desc[0] == "Subtitulo"):html = html + "<td><b><i>"+str(desc[1])+"</i></b></td><td>"+str(desc[2])+"</td>"
-        if(desc[0] == "Texto normal"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
+        if(desc[0] == "Texto normal"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+" €</td>"
         if(desc[0] == "Nota"):html = html + "<td>"+str(desc[1])+"</td><td>"+str(desc[2])+"</td>"
         html = html + "</tr>"
 
     return html
 
-def create_pdf(doc_type,json_path):
+def create_pdf(doc_type,json_path, save_path):
 
     template_vars = json.load(open(json_path))
-    if(doc_type == "presupuesto"): template_path = 'budget_A4.html'
-    if(doc_type == "factura"): template_path = 'invoice_A4.html'
+    if(doc_type == "presupuesto"): template_path = 'html/budget_A4.html'
+    if(doc_type == "factura"): template_path = 'html/invoice_A4.html'
 
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template(template_path)
@@ -231,10 +232,38 @@ def create_pdf(doc_type,json_path):
         "enable-local-file-access": "",
         "encoding":"UTF-8"
     }
+    
+    doc_name = os.path.join(save_path, template_vars['doc_title']+".pdf")
 
     file_content = pdfkit.from_string(
         html_out,
-        'out.pdf',
+        doc_name,
+        css='styles/invoice.css',
+        options=options
+    )
+
+def create_pdf_(doc_type,template_vars, save_path):
+
+    # template_vars = json.load(open(json_path))
+    if(doc_type == "presupuesto"): template_path = 'html/budget_A4.html'
+    if(doc_type == "factura"): template_path = 'html/invoice_A4.html'
+
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template(template_path)
+    if(type(template_vars['desc']) == list): template_vars['desc'] = gen_table(template_vars['desc'])
+    html_out = template.render(template_vars)
+    #path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+    #config = configuration(wkhtmltopdf=path_wkhtmltopdf)
+    options = {
+        "enable-local-file-access": "",
+        "encoding":"UTF-8"
+    }
+    
+    doc_name = os.path.join(save_path, template_vars['doc_title']+".pdf")
+
+    file_content = pdfkit.from_string(
+        html_out,
+        doc_name,
         css='styles/invoice.css',
         options=options
     )
