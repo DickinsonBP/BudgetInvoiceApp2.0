@@ -35,6 +35,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.populate_invoiceNum()
         self.populate_type_combobox()
         self.populate_total()
+        self.populate_vat_comobox()
         
         loadJsonStyle(self,self,jsonFiles = {"json/budgetstyle.json"})
 
@@ -45,6 +46,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.btn_clientaddress.clicked.connect(self.set_client_addres)
         self.btn_newrow.clicked.connect(self.add_row)
         self.btn_save.clicked.connect(self.addBudget)
+        self.btn_updatePrice.clicked.connect(self.populate_total)
 
     def set_next_window_budget_number(self):
         self.budget_number.setText(self.b_number)
@@ -73,6 +75,12 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         new_price_line.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
         new_horizontalLayout.addWidget(new_price_line,0,Qt.AlignRight)
 
+        new_push_button = QPushButton(self.description_widget)
+        new_push_button.setObjectName("btn_delteRow_"+str(self.num_rows))
+        new_push_button.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Borrar", None))
+        new_push_button.clicked.connect(self.delete_row(self.num_rows))
+        new_horizontalLayout.addWidget(new_push_button,0,Qt.AlignRight)
+
         aux = {
                 "type":new_type_combobox,
                 "desc":new_desc_line,
@@ -86,6 +94,10 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.populate_type_combobox()
 
         self.populate_total()
+
+    def delete_row(self,row_id):
+        self.num_rows -= 1
+        
 
     def populate_type_combobox(self):
         types = ["Titulo","Subtitulo","Texto normal","Nota"]
@@ -145,15 +157,15 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
             self.user_combobox.addItem(usr[2])
     
     def populate_vat_comobox(self):
-        for item in ['21%','10%']:
+        for item in ['21','10','Sin IVA']:
             self.comboBox_vat.addItem(item)
     
     def populate_total(self):
+        self.total = 0
         for data in self.data_vals:
             # print(data)
             for key,val in data.items():
                 if(key in 'price'):
-                    # "Es bonito" if es_bonito else "No es bonito"
                     number = float(val.text()) if val.text() else 0
                     self.total = self.total + number
                     self.label_total.setText(str(self.total)+"€")
@@ -185,8 +197,9 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         title = self.line_title.text()
         date = self.budget_date.text()
         user = self.user_combobox.currentText()
-        vat = self.comboBox_vat.currentText()
-        total_price = self.line_total.text()
+        vat = int(self.comboBox_vat.currentText()) if(self.comboBox_vat.currentText() in ['21','10']) else 0
+        # total_price = float(self.line_total.text())
+        total_price = float(self.line_total.text()) if(self.line_total.text()) else 0
         address = self.line_address.text()
 
 

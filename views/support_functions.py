@@ -145,26 +145,18 @@ def create_path(ext,d_number,d_type):
     except Exception as e:
         print_log(f"ERROR! No se ha podido generar el path para el documneto de tipo {d_type}. Error --> "+str(e))
 
-def create_json(d_type, user_data, address, data_vals, d_number, d_title, vat, total):
+def create_json(d_type, user_data, address, data_vals, d_number, d_title, vat, subtotal):
+    def calculate_total(base, vat):
+        if(vat):
+            total = base + (base * (vat/100))
+        else:
+            total = base
+        return round(total,2)
     try:
         
         file_path = create_path("json",d_number,d_type)
 
         if(os.path.isfile(file_path)): message_box("critical","Este presupuesto ya existe!")
-        #example
-        #info = {
-        #    "doc_number":d_number,
-        #    "client_name":str(user_data[2]),
-        #    "nif":str(user_data[1]),
-        #    "address":str(address),
-        #    'desc':[
-        #        ['Titulo','Esto es una descripcion de prueba',100,7,700],
-        #        ['Texto normal','Esto es una descripcion de prueba 2',200,3,600]
-        #    ], 
-        #    'subtotal':'123445',
-        #    'iva':21,
-        #    'invoice_total':'123000,23456'
-        #}
 
         json_data = {'doc_number':d_number,
                      'doc_title': d_title,
@@ -172,7 +164,9 @@ def create_json(d_type, user_data, address, data_vals, d_number, d_title, vat, t
             'client_name':str(user_data[2]),
             'nif':str(user_data[1]),
             'address':str(address),
-            'subtotal':'',
+            'vat':vat,
+            'subtotal':subtotal,
+            'total': calculate_total(subtotal,vat),
             'desc':[]}
 
 
@@ -219,32 +213,6 @@ def gen_table(description):
 def create_pdf(doc_type,json_path, save_path):
 
     template_vars = json.load(open(json_path))
-    if(doc_type == "presupuesto"): template_path = 'html/budget_A4.html'
-    if(doc_type == "factura"): template_path = 'html/invoice_A4.html'
-
-    env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template(template_path)
-    if(type(template_vars['desc']) == list): template_vars['desc'] = gen_table(template_vars['desc'])
-    html_out = template.render(template_vars)
-    #path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
-    #config = configuration(wkhtmltopdf=path_wkhtmltopdf)
-    options = {
-        "enable-local-file-access": "",
-        "encoding":"UTF-8"
-    }
-    
-    doc_name = os.path.join(save_path, template_vars['doc_title']+".pdf")
-
-    file_content = pdfkit.from_string(
-        html_out,
-        doc_name,
-        css='styles/invoice.css',
-        options=options
-    )
-
-def create_pdf_(doc_type,template_vars, save_path):
-
-    # template_vars = json.load(open(json_path))
     if(doc_type == "presupuesto"): template_path = 'html/budget_A4.html'
     if(doc_type == "factura"): template_path = 'html/invoice_A4.html'
 

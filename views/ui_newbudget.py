@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ui_newbudget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.5.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -38,12 +38,7 @@ class Ui_NewBudgetWindow(object):
 "#centralwidget{\n"
 "	background-color: #1b1b27;\n"
 "}\n"
-"QPushButton{\n"
-"	text-align: left;\n"
-"	padding: 5px 10px;\n"
-"	border-top-left-radius: 10px;\n"
-"	border-bottom-left-radius: 10px;\n"
-"}\n"
+"\n"
 "QLineEdit, QDateEdit, QComboBox, #btn_date{\n"
 "	padding: 5px 10px;\n"
 "	border-radius: 10px;\n"
@@ -52,14 +47,12 @@ class Ui_NewBudgetWindow(object):
 "\n"
 "QPushButton  {\n"
 "	border: 2px solid  #ece424 ;\n"
-"	border-radius: 10px;\n"
-"	text-align: center;\n"
-"}\n"
-"QPushButton  {\n"
-"	border: 2px solid  #ece424 ;\n"
 "	background-color: #9c991c ;\n"
 "	border-radius: 10px;\n"
 "	text-align: center;\n"
+"	padding: 5px 10px;\n"
+"	border-top-left-radius: 10px;\n"
+"	border-bottom-left-radius: 10px;\n"
 "}\n"
 " QPushButton:pressed   {\n"
 "	background-color: #9C995F ;\n"
@@ -267,6 +260,11 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_7.addWidget(self.line_price_1, 0, Qt.AlignRight)
 
+        self.btn_deleteRow_1 = QPushButton(self.data_widget_1)
+        self.btn_deleteRow_1.setObjectName(u"btn_deleteRow_1")
+
+        self.horizontalLayout_7.addWidget(self.btn_deleteRow_1)
+
 
         self.verticalLayout_6.addWidget(self.data_widget_1)
 
@@ -286,10 +284,10 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_8.addWidget(self.label_12)
 
-        self.line_total = QLineEdit(self.widget_7)
-        self.line_total.setObjectName(u"line_total")
+        self.label_total = QLabel(self.widget_7)
+        self.label_total.setObjectName(u"label_total")
 
-        self.horizontalLayout_8.addWidget(self.line_total, 0, Qt.AlignHCenter)
+        self.horizontalLayout_8.addWidget(self.label_total)
 
         self.label_11 = QLabel(self.widget_7)
         self.label_11.setObjectName(u"label_11")
@@ -302,12 +300,6 @@ class Ui_NewBudgetWindow(object):
 
         self.horizontalLayout_8.addWidget(self.comboBox_vat)
 
-        self.label_total = QLabel(self.widget_7)
-        self.label_total.setObjectName(u"label_total")
-        self.label_total.setFont(font1)
-
-        self.horizontalLayout_8.addWidget(self.label_total)
-
 
         self.verticalLayout_5.addWidget(self.widget_7, 0, Qt.AlignBottom)
 
@@ -315,6 +307,13 @@ class Ui_NewBudgetWindow(object):
         self.widget_8.setObjectName(u"widget_8")
         self.horizontalLayout_6 = QHBoxLayout(self.widget_8)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.btn_updatePrice = QPushButton(self.widget_8)
+        self.btn_updatePrice.setObjectName(u"btn_updatePrice")
+        self.btn_updatePrice.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_updatePrice.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_6.addWidget(self.btn_updatePrice)
+
         self.btn_save = QPushButton(self.widget_8)
         self.btn_save.setObjectName(u"btn_save")
         self.btn_save.setCursor(QCursor(Qt.PointingHandCursor))
@@ -371,9 +370,11 @@ class Ui_NewBudgetWindow(object):
         self.combobox_type_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Tipo", None))
         self.line_desc_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Descripci\u00f3n", None))
         self.line_price_1.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Precio", None))
+        self.btn_deleteRow_1.setText(QCoreApplication.translate("NewBudgetWindow", u"Borrar", None))
         self.label_12.setText(QCoreApplication.translate("NewBudgetWindow", u"Precio total", None))
-        self.label_11.setText(QCoreApplication.translate("NewBudgetWindow", u"IIVA", None))
         self.label_total.setText(QCoreApplication.translate("NewBudgetWindow", u"#", None))
+        self.label_11.setText(QCoreApplication.translate("NewBudgetWindow", u"IVA", None))
+        self.btn_updatePrice.setText(QCoreApplication.translate("NewBudgetWindow", u"Actualizar", None))
         self.btn_save.setText(QCoreApplication.translate("NewBudgetWindow", u"Guardar", None))
         self.btn_back.setText(QCoreApplication.translate("NewBudgetWindow", u"Volver", None))
         self.btn_cancel2.setText(QCoreApplication.translate("NewBudgetWindow", u"Cancelar", None))

@@ -101,32 +101,17 @@ class NewInvoiceWindow(QWidget, Ui_NewInvoiceWindow):
                 
                 user_data = select_user_by_name(user)
 
+                json_path = create_json("factura",user_data,address,[],invoice_number, title, 21, 1234.32)
+                create_pdf("factura",json_path,invoices_path)
+                if(json_path):
+                    data = (invoice_number,title,date,user_data[0],invoices_path,address)
 
-                data = (invoice_number,title,date,user_data[0],invoices_path,address)
-
-                if (insert_data(data,"Invoice")):
-                    self.clean_inputs()
-                    self.parent.refresh_invoice_table_from_child_window()
-                    self.close()
-                    create_pdf(
-                        "factura",
-                        {
-                            'doc_number':invoice_number,
-                            'doc_title':title,
-                            'actual_date':datetime.datetime.now().strftime("%d/%m/%Y"),
-                            'client_name':user_data[2],
-                            'nif':user_data[1],
-                            'address':user_data[4],
-                            'desc':[
-                            ], 
-                            'subtotal':'123445',
-                            'iva':21,
-                            'invoice_total':'123000,23456'
-                        },
-                        invoices_path
-                    )
-                else:
-                    message_box("CRITICAL","Algo ha fallado al guardar la factura, revisa los datos y vuelve a intentar")
+                    if (insert_data(data,"Invoice")):
+                        self.clean_inputs()
+                        self.parent.refresh_invoice_table_from_child_window()
+                        self.close()
+                    else:
+                        message_box("CRITICAL","Algo ha fallado al guardar la factura, revisa los datos y vuelve a intentar")
             else:
                 message_box("warning", "Revisa los datos que has introducido, ni el titulo ni la fecha pueden estar vacios!")
 
