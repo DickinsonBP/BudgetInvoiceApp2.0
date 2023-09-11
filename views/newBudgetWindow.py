@@ -24,7 +24,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
         #variables
         self.b_number = ""
-        self.num_rows = 0
+        self.num_rows = 1
         self.num_types = 0
         self.total = 0
         self.data_vals = []
@@ -53,8 +53,11 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
     def add_row(self):
         self.num_rows += 1
+        actual_row = self.num_rows
+        
         #create a new widget and a layout
         new_widget = QWidget(self.description_widget)
+        new_widget.setObjectName("data_widget_"+str(self.num_rows))
         new_horizontalLayout = QHBoxLayout(new_widget)
 
         new_type_combobox = QComboBox()
@@ -77,8 +80,8 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
 
         new_push_button = QPushButton(self.description_widget)
         new_push_button.setObjectName("btn_delteRow_"+str(self.num_rows))
-        new_push_button.setPlaceholderText(QCoreApplication.translate("NewBudgetWindow", u"Borrar", None))
-        new_push_button.clicked.connect(self.delete_row(self.num_rows))
+        new_push_button.setText("Borrar")
+        new_push_button.clicked.connect(lambda: self.delete_row(actual_row))
         new_horizontalLayout.addWidget(new_push_button,0,Qt.AlignRight)
 
         aux = {
@@ -96,14 +99,24 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         self.populate_total()
 
     def delete_row(self,row_id):
-        self.num_rows -= 1
-        
+        # Encontrar el widget de la fila
+        widget_name = "data_widget_" + str(row_id)
+        widget = self.description_widget.findChild(QWidget, widget_name)
 
+        if widget:
+            # Quitar el widget del layout
+            widget.setParent(None)
+            widget.deleteLater()
+            self.data_vals.pop(row_id - 1)
+            self.num_rows -= 1
+        else:
+            print_log(f"No widget found for row {row_id}")
+        
     def populate_type_combobox(self):
         types = ["Titulo","Subtitulo","Texto normal","Nota"]
 
         #continue with all the comobox at the dictionary
-        for i in self.data_vals[self.num_rows:]:
+        for i in self.data_vals[self.num_rows - 1:]:
             for key,comobox in i.items():
                 if(key == 'type'):
                     for item in types:
@@ -166,7 +179,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
             # print(data)
             for key,val in data.items():
                 if(key in 'price'):
-                    number = float(val.text()) if val.text() else 0
+                    number = float(val.text()) if (val.text()) else 0
                     self.total = self.total + number
                     self.label_total.setText(str(self.total)+"€")
 
