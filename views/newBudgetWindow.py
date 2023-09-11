@@ -181,7 +181,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
                 if(key in 'price'):
                     number = float(val.text()) if (val.text()) else 0
                     self.total = self.total + number
-                    self.label_total.setText(str(self.total)+"€")
+                    self.label_total.setText(str(self.total))
 
     def check_inputs(self):
         self.b_number = self.line_budgetNumber.text()
@@ -211,8 +211,7 @@ class NewBudgetWindow(QWidget, Ui_NewBudgetWindow):
         date = self.budget_date.text()
         user = self.user_combobox.currentText()
         vat = int(self.comboBox_vat.currentText()) if(self.comboBox_vat.currentText() in ['21','10']) else 0
-        # total_price = float(self.line_total.text())
-        total_price = float(self.line_total.text()) if(self.line_total.text()) else 0
+        total_price = float(self.label_total.text()) if(self.label_total.text()) else 0
         address = self.line_address.text()
 
 
